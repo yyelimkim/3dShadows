@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.DS_Store
+# img2threejs scratch output (renders, crops, sheets) — specs and reviews stay tracked
+work/*/renders/
+work/*/material-evidence/
+work/*/tmp/

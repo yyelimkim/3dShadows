@@ -1,0 +1,47 @@
+:root {
+  --bg: #ece9e4;
+  --panel: rgba(255, 255, 255, 0.82);
+  --text: #1d1c1a;
+  --muted: #6b6862;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1a1a1c;
+    --panel: rgba(30, 30, 34, 0.85);
+    --text: #f1efe9;
+    --muted: #a19e97;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.4 system-ui, -apple-system, sans-serif;
+  overflow: hidden;
+}
+
+#stage { display: block; width: 100vw; height: 100vh; }
+
+.panel {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  width: min(260px, calc(100vw - 32px));
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--panel);
+  backdrop-filter: blur(8px);
+  display: grid;
+  gap: 10px;
+}
+
+.panel h1 { margin: 0 0 2px; font-size: 16px; }
+.panel label { display: grid; gap: 4px; color: var(--muted); }
+.panel label.row { display: flex; align-items: center; gap: 8px; }
+.panel output { float: right; color: var(--text); }
+.panel select, .panel input[type="range"] { width: 100%; }
