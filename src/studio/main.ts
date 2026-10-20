@@ -4,8 +4,8 @@ import { TransformControls } from 'three/examples/jsm/controls/TransformControls
 import GUI, { type Controller } from 'lil-gui';
 import { flowers } from '../flowers/registry';
 import { FlowerSet, renderThumbnails, type FlowerInstance, type SavedFlower } from './flowers';
-import { DEFAULT_PARAMS, PRESETS, type StudioParams } from './params';
-import { ShadowPipeline, createOutputMaterial } from './pipeline';
+import { DEFAULT_HALFTONE, DEFAULT_PARAMS, HALFTONE_STYLES, PRESETS, randomPalette, type HalftoneParams, type StudioParams } from './params';
+import { ShadowPipeline, createOutputMaterial, type Look, type StudioMode } from './pipeline';
 
 // Colours sampled from references/Ui Reference.
 const STAGE_BG = '#a19a90';
@@ -43,13 +43,16 @@ fill.position.set(-1.5, 3, 4);
 scene.add(fill);
 
 // --- Canvas wall: displays the processed output, unlit -------------------------------------
-const state = {
+const state: { mode: StudioMode; aspect: string; outputWidth: number; sway: boolean; preset: string } = {
+  mode: 'Photogram',
   aspect: '16:10',
   outputWidth: 1600,
   sway: true,
   preset: 'Stage (UI reference)',
 };
 const params: StudioParams = { ...DEFAULT_PARAMS };
+const halftone: HalftoneParams = { ...DEFAULT_HALFTONE };
+const look = (): Look => ({ mode: state.mode, photo: params, halftone });
 
 const pipeline = new ShadowPipeline(renderer);
 const wallMaterial = createOutputMaterial(pipeline.output.texture);
@@ -109,26 +112,66 @@ for (const g of [flowerGizmo, lightGizmo]) {
   g.addEventListener('dragging-changed', (e) => {
     orbit.enabled = !(e as unknown as { value: boolean }).value;
   });
+  g.addEventListener('mouseUp', () => commit());
 }
 
+/** Every selected flower; `selected` is the most recently picked one. */
+let selection: FlowerInstance[] = [];
 let selected: FlowerInstance | null = null;
 let lightSelected = false;
 
-function select(inst: FlowerInstance | null) {
-  selected = inst;
+// Several flowers move together by riding a temporary pivot at their centre (stem-base height).
+const groupPivot = new THREE.Group();
+groupPivot.name = 'selection.pivot';
+flowerRoot.add(groupPivot);
+
+function releaseGroup() {
+  for (const w of [...groupPivot.children]) flowerRoot.attach(w);
+  groupPivot.position.set(0, 0, 0);
+  groupPivot.rotation.set(0, 0, 0);
+  groupPivot.scale.set(1, 1, 1);
+  groupPivot.updateMatrixWorld();
+}
+
+function setSelection(list: FlowerInstance[]) {
+  releaseGroup();
+  selection = [...new Set(list)];
+  selected = selection[selection.length - 1] ?? null;
   lightSelected = false;
   lightGizmo.detach();
-  if (inst) flowerGizmo.attach(inst.wrapper);
-  else flowerGizmo.detach();
+  if (selection.length === 0) flowerGizmo.detach();
+  else if (selection.length === 1) flowerGizmo.attach(selection[0].wrapper);
+  else {
+    const centre = new THREE.Vector3();
+    let minY = Infinity;
+    for (const inst of selection) {
+      const p = inst.wrapper.getWorldPosition(new THREE.Vector3());
+      centre.add(p);
+      minY = Math.min(minY, p.y);
+    }
+    centre.divideScalar(selection.length);
+    centre.y = minY;
+    groupPivot.position.copy(centre);
+    groupPivot.updateMatrixWorld();
+    for (const inst of selection) groupPivot.attach(inst.wrapper);
+    flowerGizmo.attach(groupPivot);
+  }
   syncFlowerPanel();
 }
 
+function select(inst: FlowerInstance | null) {
+  setSelection(inst ? [inst] : []);
+}
+
+function selectAll() {
+  setSelection([...set.instances]);
+}
+
 function selectLight() {
-  selected = null;
+  setSelection([]);
   lightSelected = true;
   flowerGizmo.detach();
   lightGizmo.attach(disc);
-  syncFlowerPanel();
 }
 
 const raycaster = new THREE.Raycaster();
@@ -169,6 +212,7 @@ canvasEl.addEventListener('pointerup', (e) => {
   if (discDrag) {
     discDrag = null;
     orbit.enabled = true;
+    commit();
     return;
   }
   if (!downAt || Math.hypot(e.clientX - downAt.x, e.clientY - downAt.y) > 5) {
@@ -179,7 +223,10 @@ canvasEl.addEventListener('pointerup', (e) => {
   setPointer(e);
   const hit = raycaster.intersectObject(flowerRoot, true)[0];
   const id = hit?.object.userData.flowerId as number | undefined;
-  select(id ? set.find(id) ?? null : null);
+  const inst = id ? set.find(id) ?? null : null;
+  if (e.shiftKey) {
+    if (inst) setSelection(selection.includes(inst) ? selection.filter((x) => x !== inst) : [...selection, inst]);
+  } else select(inst);
 });
 
 // --- Mini preview + fullscreen export view ---------------------------------------------------
@@ -244,6 +291,7 @@ function buildTray() {
         scale: [s, s, s],
       });
       select(inst);
+      commit();
     });
     trayEl.appendChild(b);
   }
@@ -270,6 +318,7 @@ function randomize() {
     });
   }
   select(null);
+  commit();
 }
 
 type SceneFile = {
@@ -278,7 +327,9 @@ type SceneFile = {
   light: [number, number, number];
   sway: boolean;
   preset: string;
+  mode?: StudioMode;
   params: StudioParams;
+  halftone?: HalftoneParams;
   flowers: SavedFlower[];
 };
 
@@ -289,7 +340,9 @@ function serialize(): SceneFile {
     light: disc.position.toArray() as [number, number, number],
     sway: state.sway,
     preset: state.preset,
+    mode: state.mode,
     params: { ...params },
+    halftone: { ...halftone },
     flowers: set.serialize(),
   };
 }
@@ -299,12 +352,58 @@ function load(file: SceneFile) {
   state.outputWidth = file.canvas?.outputWidth ?? state.outputWidth;
   state.sway = file.sway ?? state.sway;
   state.preset = file.preset ?? state.preset;
-  Object.assign(params, DEFAULT_PARAMS, file.params ?? {});
+  // Ignore keys from older saves (e.g. the removed halftone settings).
+  const saved = (file.params ?? {}) as Partial<StudioParams>;
+  const known = Object.fromEntries(Object.entries(saved).filter(([k]) => k in DEFAULT_PARAMS));
+  Object.assign(params, DEFAULT_PARAMS, known);
+  for (const k of Object.keys(params)) if (!(k in DEFAULT_PARAMS)) delete (params as Record<string, unknown>)[k];
+  state.mode = file.mode ?? 'Photogram';
+  const savedHt = (file.halftone ?? {}) as Partial<HalftoneParams>;
+  Object.assign(halftone, DEFAULT_HALFTONE, Object.fromEntries(Object.entries(savedHt).filter(([k]) => k in DEFAULT_HALFTONE)));
   if (file.light) disc.position.set(...file.light);
   set.load(file.flowers ?? []);
   select(null);
   applyCanvasSize();
-  gui.controllersRecursive().forEach((c) => c.updateDisplay());
+  refreshGui();
+  applyMode();
+}
+
+// --- Undo / redo: whole-scene snapshots recorded after each finished edit -------------------
+const HISTORY_LIMIT = 100;
+let history: string[] = [];
+let historyIndex = -1;
+let restoring = false;
+
+function commit() {
+  if (restoring) return;
+  const snapshot = JSON.stringify(serialize());
+  if (history[historyIndex] === snapshot) return;
+  history = history.slice(0, historyIndex + 1);
+  history.push(snapshot);
+  if (history.length > HISTORY_LIMIT) history.shift();
+  historyIndex = history.length - 1;
+}
+
+function restore(snapshot: string) {
+  const indices = selection.map((inst) => set.instances.indexOf(inst));
+  const wasLight = lightSelected;
+  restoring = true;
+  load(JSON.parse(snapshot) as SceneFile);
+  restoring = false;
+  if (wasLight) selectLight();
+  else setSelection(indices.map((i) => set.instances[i]).filter((inst): inst is FlowerInstance => !!inst));
+}
+
+function undo() {
+  if (historyIndex <= 0) return;
+  historyIndex--;
+  restore(history[historyIndex]);
+}
+
+function redo() {
+  if (historyIndex >= history.length - 1) return;
+  historyIndex++;
+  restore(history[historyIndex]);
 }
 
 const STORAGE_KEY = 'shadow-studio.scene';
@@ -321,6 +420,7 @@ fileEl.addEventListener('change', async () => {
   if (!f) return;
   try {
     load(JSON.parse(await f.text()) as SceneFile);
+    commit();
   } catch (err) {
     console.warn('Could not load scene file', err);
   }
@@ -328,12 +428,27 @@ fileEl.addEventListener('change', async () => {
 });
 
 // --- GUI -------------------------------------------------------------------------------------
-const gui = new GUI({ title: 'Shadow Studio' });
+// Two independent, collapsible panels stacked top-right.
+const panelStack = document.createElement('div');
+panelStack.className = 'panel-stack';
+document.body.appendChild(panelStack);
+const gui = new GUI({ title: 'Shadow Studio', container: panelStack });
+const htGui = new GUI({ title: 'Halftone Studio', container: panelStack });
+htGui.close();
+function refreshGui() {
+  for (const g of [gui, htGui]) g.controllersRecursive().forEach((c) => c.updateDisplay());
+}
 const actions = {
   randomize,
+  randomPalette: () => {
+    Object.assign(params, randomPalette());
+    refreshGui();
+    commit();
+  },
   reset: () => {
     Object.assign(params, DEFAULT_PARAMS, PRESETS[state.preset] ?? {});
-    gui.controllersRecursive().forEach((c) => c.updateDisplay());
+    refreshGui();
+    commit();
   },
   export1: () => exportPng(1),
   export2: () => exportPng(2),
@@ -341,26 +456,38 @@ const actions = {
   save: () => { localStorage.setItem(STORAGE_KEY, JSON.stringify(serialize())); },
   loadLocal: () => {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) load(JSON.parse(raw) as SceneFile);
+    if (raw) {
+      load(JSON.parse(raw) as SceneFile);
+      commit();
+    }
   },
   downloadJson: () => download(new Blob([JSON.stringify(serialize(), null, 2)], { type: 'application/json' }), 'shadow-scene.json'),
   openJson: () => fileEl.click(),
 };
 
+gui.onFinishChange(() => commit());
+htGui.onFinishChange(() => commit());
 const sceneFolder = gui.addFolder('Scene');
 sceneFolder.close();
 sceneFolder.add(actions, 'randomize').name('Randomize composition');
+sceneFolder.add({ selectAll }, 'selectAll').name('Select all flowers (⌘/Ctrl+A)');
 sceneFolder.add(state, 'sway').name('Slow sway');
-sceneFolder.add(params, 'lightSize', 0.01, 0.3, 0.005).name('Light size');
-sceneFolder.add(params, 'softness', 0.2, 3, 0.05).name('Shadow softness');
+const photoLight = [
+  sceneFolder.add(params, 'lightSize', 0.01, 0.3, 0.005).name('Light size'),
+  sceneFolder.add(params, 'softness', 0.2, 3, 0.05).name('Shadow softness'),
+];
+sceneFolder.add(params, 'translucency', 0, 1, 0.01).name('Petal translucency');
+sceneFolder.add(params, 'veinDetail', 0, 1, 0.01).name('Vein detail');
 sceneFolder.add(state, 'aspect', Object.keys(ASPECTS)).name('Canvas aspect').onChange(applyCanvasSize);
 sceneFolder.add(state, 'outputWidth', [1200, 1600, 2000, 2400]).name('Canvas width px').onChange(applyCanvasSize);
 
-gui.add(state, 'preset', Object.keys(PRESETS)).name('Preset').onChange((name: string) => {
+const presetCtrl = gui.add(state, 'preset', Object.keys(PRESETS)).name('Preset').onChange((name: string) => {
   Object.assign(params, DEFAULT_PARAMS, PRESETS[name]);
-  gui.controllersRecursive().forEach((c) => c.updateDisplay());
+  refreshGui();
+  commit();
 });
-gui.add(params, 'inverse', 0, 1, 0.01).name('Inverse');
+const paletteCtrl = gui.add(actions, 'randomPalette').name('Randomize palette');
+const inverseCtrl = gui.add(params, 'inverse', 0, 1, 0.01).name('Inverse');
 
 const color = gui.addFolder('Color');
 color.close();
@@ -381,7 +508,8 @@ color.add(params, 'temperature', -1, 1, 0.01).name('Temperature');
 color.add(params, 'tint', -1, 1, 0.01).name('Tint');
 
 const eph = gui.addFolder('Ephemeral');
-eph.add(params, 'extraBlur', 0, 1, 0.01).name('Extra blur');
+eph.add(params, 'extraBlur', 0, 1, 0.01).name('Extra blur (by depth)');
+eph.add(params, 'blurFalloff', 0.3, 3, 0.05).name('Depth falloff');
 eph.add(params, 'bloom', 0, 1, 0.01).name('Bloom / glow');
 eph.add(params, 'ghost', 0, 1, 0.01).name('Ghosting');
 eph.add(params, 'ghostOffset', 0, 80, 1).name('Ghost offset px');
@@ -402,14 +530,49 @@ scan.add(params, 'scanRotation', -3, 3, 0.05).name('Scan rotation °');
 scan.add(params, 'border', 0, 0.1, 0.001).name('Scan border');
 scan.addColor(params, 'castColor').name('Color cast');
 scan.add(params, 'cast', 0, 1, 0.01).name('Cast amount');
-scan.add(params, 'halftone').name('Halftone');
-scan.add(params, 'dotSize', 2, 24, 0.5).name('Dot size px');
 scan.close();
+
+const ht = htGui;
+const outputSwitch = {
+  get on() { return state.mode === 'Halftone'; },
+  set on(v: boolean) { state.mode = v ? 'Halftone' : 'Photogram'; applyMode(); },
+};
+ht.add(outputSwitch, 'on').name('Output halftone');
+ht.add(halftone, 'style', [...HALFTONE_STYLES]).name('Style');
+ht.add(halftone, 'cellSize', 3, 40, 0.5).name('Cell size px');
+ht.add(halftone, 'angle', 0, 90, 1).name('Screen angle °');
+ht.add(halftone, 'threshold', 0.05, 0.95, 0.01).name('Threshold');
+ht.add(halftone, 'contrast', 0.3, 4, 0.05).name('Contrast');
+ht.add(halftone, 'gamma', 0.3, 3, 0.05).name('Gamma');
+ht.addColor(halftone, 'ink').name('Ink');
+ht.addColor(halftone, 'paper').name('Paper');
+ht.add(halftone, 'invert').name('Invert');
+ht.add({ reset: () => {
+  Object.assign(halftone, DEFAULT_HALFTONE);
+  refreshGui();
+  commit();
+} }, 'reset').name('Reset halftone');
+
+/** Show only the controls that drive the active studio. */
+function applyMode() {
+  const isHalftone = state.mode === 'Halftone';
+  htGui.title(isHalftone ? 'Halftone Studio · on' : 'Halftone Studio');
+  for (const f of [color, eph, scan]) f.show(!isHalftone);
+  for (const c of [presetCtrl, paletteCtrl, inverseCtrl, ...photoLight]) c.show(!isHalftone);
+}
+applyMode();
 
 const flowerFolder = gui.addFolder('Selected flower');
 const flowerProxy = { openness: 0.8, stemLean: 0, bend: 1, stemHeight: 1, scale: 1 };
 const flowerActions = {
-  reseed: () => { if (selected) { selected.settings.seed = Math.floor(Math.random() * 99999); set.rebuild(selected); } },
+  reseed: () => {
+    if (!selection.length) return;
+    for (const inst of selection) {
+      inst.settings.seed = Math.floor(Math.random() * 99999);
+      set.rebuild(inst);
+    }
+    commit();
+  },
   duplicate: () => duplicateSelected(),
   remove: () => deleteSelected(),
 };
@@ -421,10 +584,13 @@ const flowerControllers: Controller[] = [
   flowerFolder.add(flowerProxy, 'scale', 0.4, 2, 0.01).name('Scale'),
 ];
 for (const c of flowerControllers) {
-  c.onChange(() => {
-    if (!selected) return;
-    Object.assign(selected.settings, flowerProxy);
-    set.rebuild(selected);
+  // With several flowers selected, a slider sets only its own property on each of them.
+  const key = c.property as keyof typeof flowerProxy;
+  c.onChange((v: number) => {
+    for (const inst of selection) {
+      inst.settings[key] = v;
+      set.rebuild(inst);
+    }
   });
 }
 flowerFolder.add(flowerActions, 'reseed').name('Reseed');
@@ -437,7 +603,7 @@ function syncFlowerPanel() {
     return;
   }
   flowerFolder.show();
-  flowerFolder.title(`Selected: ${set.entry(selected.type).label}`);
+  flowerFolder.title(selection.length > 1 ? `Selected: ${selection.length} flowers` : `Selected: ${set.entry(selected.type).label}`);
   Object.assign(flowerProxy, {
     openness: selected.settings.openness,
     stemLean: selected.settings.stemLean,
@@ -452,6 +618,8 @@ const out = gui.addFolder('Export & file');
 out.add(actions, 'export1').name('Export PNG 1×');
 out.add(actions, 'export2').name('Export PNG 2×');
 out.add(actions, 'export4').name('Export PNG 4×');
+out.add({ undo }, 'undo').name('Undo');
+out.add({ redo }, 'redo').name('Redo');
 out.add(actions, 'reset').name('Reset look');
 out.add(actions, 'save').name('Save scene (browser)');
 out.add(actions, 'loadLocal').name('Load scene (browser)');
@@ -459,12 +627,46 @@ out.add(actions, 'downloadJson').name('Download scene JSON');
 out.add(actions, 'openJson').name('Open scene JSON…');
 out.close();
 
+const isMac = /Mac|iPhone|iPad/.test(navigator.platform);
+const mod = isMac ? '⌘' : 'Ctrl';
+const SHORTCUTS: [string, string][] = [
+  ['Click flower', 'Select it'],
+  ['Shift-click flower', 'Add / remove from selection'],
+  [`${mod} A`, 'Select all flowers (move together)'],
+  ['Click empty space', 'Deselect'],
+  ['V', 'Select / move tool'],
+  ['R', 'Rotate tool'],
+  ['K', 'Scale tool'],
+  [`${mod} D`, 'Duplicate selected flower'],
+  [`${mod} Z`, 'Undo'],
+  [isMac ? '⌘ ⇧ Z' : 'Ctrl Y / Ctrl ⇧ Z', 'Redo'],
+  ['Backspace / Delete', 'Delete selected flower'],
+  ['Esc', 'Deselect / close fullscreen'],
+  ['Drag yellow disc', 'Move the light'],
+  ['Click preview', 'Fullscreen canvas output'],
+  ['Drag', 'Orbit camera'],
+  ['Right-drag', 'Pan camera'],
+  ['Scroll', 'Zoom camera'],
+  ['?', 'Open this list'],
+];
+const info = gui.addFolder('Info: shortcuts');
+const list = document.createElement('dl');
+list.className = 'shortcuts';
+list.innerHTML = SHORTCUTS.map(([k, v]) => `<dt><kbd>${k}</kbd></dt><dd>${v}</dd>`).join('');
+info.$children.appendChild(list);
+info.close();
+function openInfo() {
+  info.open();
+  info.domElement.scrollIntoView({ block: 'nearest' });
+}
+if (location.hash === '#info') openInfo();
+
 let exporting = false;
 async function exportPng(scale: number) {
   if (exporting) return;
   exporting = true;
   try {
-    const blob = await pipeline.exportPNG(scene, disc.position, params, elapsed, scale);
+    const blob = await pipeline.exportPNG(scene, disc.position, look(), elapsed, scale);
     lastExport = blob;
     download(blob, `shadow-${pipeline.basePx.x * scale}x${pipeline.basePx.y * scale}.png`);
   } finally {
@@ -475,28 +677,45 @@ let lastExport: Blob | null = null;
 
 // --- Keyboard --------------------------------------------------------------------------------
 function duplicateSelected() {
-  if (!selected) return;
-  select(set.duplicate(selected));
+  if (!selection.length) return;
+  const sources = [...selection];
+  releaseGroup();
+  setSelection(sources.map((inst) => set.duplicate(inst)));
+  commit();
 }
 function deleteSelected() {
-  if (!selected) return;
-  const s = selected;
-  select(null);
-  set.remove(s);
+  if (!selection.length) return;
+  const doomed = [...selection];
+  setSelection([]);
+  doomed.forEach((inst) => set.remove(inst));
+  commit();
 }
 window.addEventListener('keydown', (e) => {
   const t = e.target as HTMLElement;
   if (t && (t.tagName === 'INPUT' || t.tagName === 'SELECT' || t.tagName === 'TEXTAREA')) return;
   const key = e.key.toLowerCase();
-  if ((e.metaKey || e.ctrlKey) && key === 'd') {
+  if ((e.metaKey || e.ctrlKey) && key === 'z') {
+    e.preventDefault();
+    if (e.shiftKey) redo();
+    else undo();
+  } else if (e.ctrlKey && !e.metaKey && key === 'y') {
+    e.preventDefault();
+    redo();
+  } else if ((e.metaKey || e.ctrlKey) && key === 'a') {
+    e.preventDefault();
+    selectAll();
+  } else if ((e.metaKey || e.ctrlKey) && key === 'd') {
     e.preventDefault();
     duplicateSelected();
   } else if (key === 'backspace' || key === 'delete') {
     e.preventDefault();
     deleteSelected();
-  } else if (key === 'w') flowerGizmo.setMode('translate');
-  else if (key === 'e') flowerGizmo.setMode('rotate');
-  else if (key === 'r') flowerGizmo.setMode('scale');
+  } else if (e.metaKey || e.ctrlKey || e.altKey) {
+    return;
+  } else if (key === 'v') flowerGizmo.setMode('translate');
+  else if (key === 'r') flowerGizmo.setMode('rotate');
+  else if (key === 'k') flowerGizmo.setMode('scale');
+  else if (e.key === '?') openInfo();
   else if (key === 'escape') {
     if (expanded) setExpanded(false);
     else select(null);
@@ -529,7 +748,7 @@ function frame(timestamp: number) {
   spot.position.copy(disc.position);
   orbit.update();
 
-  pipeline.update(scene, disc.position, params, elapsed);
+  pipeline.update(scene, disc.position, look(), elapsed);
 
   renderer.setRenderTarget(null);
   renderer.setClearColor(expanded ? 0x1d1b19 : STAGE_BG, 1);
@@ -554,6 +773,7 @@ applyCanvasSize();
 buildTray();
 set.load(DEFAULT_COMPOSITION);
 select(set.instances[set.instances.length - 1] ?? null);
+commit();
 renderer.setAnimationLoop(frame);
 
 Object.assign(window as unknown as Record<string, unknown>, {
@@ -564,10 +784,22 @@ Object.assign(window as unknown as Record<string, unknown>, {
       return avg > 0 ? 1 / avg : 0;
     },
     get lastExport() { return lastExport; },
-    exportPng: (scale: number) => pipeline.exportPNG(scene, disc.position, params, elapsed, scale),
+    exportPng: (scale: number) => pipeline.exportPNG(scene, disc.position, look(), elapsed, scale),
+    halftone,
+    setMode: (m: StudioMode) => {
+      state.mode = m;
+      refreshGui();
+      applyMode();
+    },
     select: (i: number) => select(set.instances[i] ?? null),
+    selectAll,
+    get selectionSize() { return selection.length; },
     selectLight,
     randomize,
+    randomPalette: actions.randomPalette,
+    undo,
+    redo,
+    get historyDepth() { return { index: historyIndex, length: history.length }; },
     serialize,
     load,
   },

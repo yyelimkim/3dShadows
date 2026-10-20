@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { flowers, type FlowerEntry } from '../flowers/registry';
-import type { FlowerOptions } from '../flowers/flowerKit';
+import { markTissue, type FlowerOptions } from '../flowers/flowerKit';
 import { CASTER_LAYER } from './pipeline';
 
 export type FlowerSettings = Required<Omit<FlowerOptions, 'seed'>> & { seed: number };
@@ -47,6 +47,8 @@ export class FlowerSet {
     const model = this.entry(inst.type).create({ ...inst.settings });
     model.traverse((o) => {
       if ((o as THREE.Mesh).isMesh) {
+        const g = (o as THREE.Mesh).geometry;
+        if (!g.getAttribute('aThin')) markTissue(g, 0, 0);
         o.layers.enable(CASTER_LAYER);
         o.castShadow = false;
         o.userData.flowerId = inst.id;
@@ -113,14 +115,25 @@ export class FlowerSet {
     }
   }
 
+  /** Transforms are saved relative to the flower root, so grouped (pivot-parented) flowers save correctly. */
   serialize(): SavedFlower[] {
-    return this.instances.map((i) => ({
-      type: i.type,
-      settings: { ...i.settings },
-      position: i.wrapper.position.toArray() as [number, number, number],
-      rotation: [i.wrapper.rotation.x, i.wrapper.rotation.y, i.wrapper.rotation.z],
-      scale: i.wrapper.scale.toArray() as [number, number, number],
-    }));
+    this.parent.updateWorldMatrix(true, true);
+    const toRoot = this.parent.matrixWorld.clone().invert();
+    return this.instances.map((i) => {
+      const m = toRoot.clone().multiply(i.wrapper.matrixWorld);
+      const pos = new THREE.Vector3();
+      const quat = new THREE.Quaternion();
+      const scl = new THREE.Vector3();
+      m.decompose(pos, quat, scl);
+      const rot = new THREE.Euler().setFromQuaternion(quat);
+      return {
+        type: i.type,
+        settings: { ...i.settings },
+        position: pos.toArray() as [number, number, number],
+        rotation: [rot.x, rot.y, rot.z],
+        scale: scl.toArray() as [number, number, number],
+      };
+    });
   }
 
   load(saved: SavedFlower[]) {

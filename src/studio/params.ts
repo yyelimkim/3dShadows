@@ -4,6 +4,9 @@ export type StudioParams = {
   // Shadow
   lightSize: number;
   softness: number;
+  /** Shared by both studios: how much light thin petals/leaves pass, and vein visibility. */
+  translucency: number;
+  veinDetail: number;
   // Color
   paper: string;
   rampLight: string;
@@ -22,6 +25,8 @@ export type StudioParams = {
   tint: number;
   // Ephemeral
   extraBlur: number;
+  /** >1 keeps more of the flower sharp and saves the blur for the farthest parts. */
+  blurFalloff: number;
   bloom: number;
   ghost: number;
   ghostOffset: number;
@@ -40,8 +45,6 @@ export type StudioParams = {
   border: number;
   castColor: string;
   cast: number;
-  halftone: boolean;
-  dotSize: number;
   // Inverse
   inverse: number;
 };
@@ -50,6 +53,8 @@ export type StudioParams = {
 export const DEFAULT_PARAMS: StudioParams = {
   lightSize: 0.045,
   softness: 1,
+  translucency: 0.5,
+  veinDetail: 0.4,
   paper: '#b8939f',
   rampLight: '#ad8399',
   rampMid: '#a16a90',
@@ -65,7 +70,8 @@ export const DEFAULT_PARAMS: StudioParams = {
   whitePoint: 1,
   temperature: 0,
   tint: 0,
-  extraBlur: 0.15,
+  extraBlur: 0.4,
+  blurFalloff: 1,
   bloom: 0,
   ghost: 0,
   ghostOffset: 12,
@@ -83,8 +89,6 @@ export const DEFAULT_PARAMS: StudioParams = {
   border: 0,
   castColor: '#f2d9c4',
   cast: 0,
-  halftone: false,
-  dotSize: 6,
   inverse: 0,
 };
 
@@ -124,3 +128,69 @@ export function hexToVec(hex: string): [number, number, number] {
   const n = parseInt(hex.replace('#', ''), 16);
   return [((n >> 16) & 255) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255];
 }
+
+function hsl(h: number, s: number, l: number): string {
+  const hue = (((h % 360) + 360) % 360) / 360;
+  const a = s * Math.min(l, 1 - l);
+  const f = (n: number) => {
+    const k = (n + hue * 12) % 12;
+    return l - a * Math.max(-1, Math.min(k - 3, 9 - k, 1));
+  };
+  const to = (v: number) => Math.round(v * 255).toString(16).padStart(2, '0');
+  return `#${to(f(0))}${to(f(8))}${to(f(4))}`;
+}
+
+/**
+ * One-hue palette: paper, light, mid and deep share a hue (with a small drift, like the pink →
+ * purple of the references) and differ in value and saturation. About a third come out as
+ * negatives — a light subject on darker paper.
+ */
+export function randomPalette(rand: () => number = Math.random): Partial<StudioParams> {
+  const hue = rand() * 360;
+  const drift = (rand() - 0.5) * 24;
+  const r = (lo: number, hi: number) => lo + rand() * (hi - lo);
+  if (rand() < 0.33) {
+    return {
+      paper: hsl(hue, r(0.38, 0.6), r(0.36, 0.5)),
+      rampLight: hsl(hue + drift * 0.3, r(0.35, 0.55), r(0.5, 0.58)),
+      rampMid: hsl(hue + drift * 0.6, r(0.3, 0.5), r(0.66, 0.74)),
+      rampDeep: hsl(hue + drift, r(0.25, 0.45), r(0.85, 0.92)),
+      midPosition: r(0.4, 0.55),
+    };
+  }
+  return {
+    paper: hsl(hue, r(0.3, 0.6), r(0.76, 0.88)),
+    rampLight: hsl(hue + drift * 0.3, r(0.3, 0.5), r(0.66, 0.74)),
+    rampMid: hsl(hue + drift * 0.6, r(0.35, 0.55), r(0.46, 0.56)),
+    rampDeep: hsl(hue + drift, r(0.5, 0.75), r(0.2, 0.32)),
+    midPosition: r(0.38, 0.52),
+  };
+}
+
+/** Halftone studio: strict two-tone screening of an exact hard-edged shadow, no blur of any kind. */
+export const HALFTONE_STYLES = ['Dots', 'Squares', 'Diamonds', 'Lines', 'Threshold', 'Dither'] as const;
+export type HalftoneStyle = (typeof HALFTONE_STYLES)[number];
+
+export type HalftoneParams = {
+  style: HalftoneStyle;
+  cellSize: number;
+  angle: number;
+  threshold: number;
+  contrast: number;
+  gamma: number;
+  ink: string;
+  paper: string;
+  invert: boolean;
+};
+
+export const DEFAULT_HALFTONE: HalftoneParams = {
+  style: 'Dots',
+  cellSize: 9,
+  angle: 45,
+  threshold: 0.5,
+  contrast: 1.2,
+  gamma: 1,
+  ink: '#111111',
+  paper: '#ffffff',
+  invert: false,
+};

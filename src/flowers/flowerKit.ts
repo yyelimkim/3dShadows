@@ -307,6 +307,7 @@ export function buildShell(spec: ShellSpec, variation: ShellVariation): THREE.Bu
   }
 
   const positions: number[] = [];
+  const uvs: number[] = [];
   const cols: number[] = [];
   const indices: number[] = [];
   const c = new THREE.Color();
@@ -351,6 +352,7 @@ export function buildShell(spec: ShellSpec, variation: ShellVariation): THREE.Bu
         p.addScaledVector(inn, k * Math.sin(5.3 * u + 3.1 * v + variation.rufflePhase) * v);
       }
       positions.push(p.x, p.y, p.z);
+      uvs.push((u + 1) / 2, v);
 
       sampleGradient(spec.colors, v, c);
       c.lerp(edge, smoothstep(spec.edgeStart ?? 0.55, 1, au) * 0.8);
@@ -377,8 +379,21 @@ export function buildShell(spec: ShellSpec, variation: ShellVariation): THREE.Bu
   const g = new THREE.BufferGeometry();
   g.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
   g.setAttribute('color', new THREE.Float32BufferAttribute(cols, 3));
+  g.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
   g.setIndex(indices);
   g.computeVertexNormals();
+  return g;
+}
+
+/**
+ * Tissue data read by shadow renderers: `aThin` is how much light the shell lets through
+ * (0 = opaque), `aVein` its vein layout (0 = radiating petal veins, 1 = leaf midrib + laterals).
+ * Geometry without these attributes (stems, buds) casts fully opaque shadows.
+ */
+export function markTissue(g: THREE.BufferGeometry, thin: number, vein: 0 | 1) {
+  const n = g.getAttribute('position').count;
+  g.setAttribute('aThin', new THREE.Float32BufferAttribute(new Float32Array(n).fill(thin), 1));
+  g.setAttribute('aVein', new THREE.Float32BufferAttribute(new Float32Array(n).fill(vein), 1));
   return g;
 }
 
@@ -401,6 +416,8 @@ export type WhorlSpec = {
   readonly lean?: { readonly azimuth: number; readonly extraDeg: number };
   /** How strongly openness affects this whorl (outer whorls open most). */
   readonly opennessWeight?: number;
+  /** How much light these petals let through in shadow renders (default 0.6). */
+  readonly translucency?: number;
   /** Optional explicit per-petal azimuths (degrees), overrides even spacing. */
   readonly azimuths?: readonly number[];
   /** Roll each petal about its spine by rollByAzimuth × sin(azimuth): side petals tip their front edge. */
@@ -710,6 +727,7 @@ function assemble(spec: FlowerSpec, o: ResolvedFlowerOptions) {
       const holder = new THREE.Group();
       holder.name = `${w.id}.${i}`;
       holder.rotation.y = az;
+      markTissue(geo, w.translucency ?? 0.6, 0);
       const petal = mesh(geo, mats.petal, `${w.id}.petal.${i}`);
       petal.position.set(0, w.baseHeight, w.baseRadius);
       holder.add(petal);
@@ -732,9 +750,13 @@ function assemble(spec: FlowerSpec, o: ResolvedFlowerOptions) {
   const leafSpread = spec.head ? 1 : THREE.MathUtils.lerp(0.4, 1, Math.min(open01, 1)) + Math.max(open01 - 1, 0) * 0.6;
   const makeBlade = (shell: ShellSpec, name: string) =>
     mesh(
-      buildShell(
-        { ...shell, bendFrom: shell.bendFrom * Math.min(1, 0.5 + o.bend * 0.5), bendTo: shell.bendTo * Math.min(1.3, 0.5 + o.bend * 0.5) },
-        { bendScale: leafSpread, extraBend: rng.signed() * (spec.head ? 0 : 10), sizeScale: 1 + rng.signed() * (spec.head ? 0 : 0.08), rufflePhase: 0, crumple: 0 },
+      markTissue(
+        buildShell(
+          { ...shell, bendFrom: shell.bendFrom * Math.min(1, 0.5 + o.bend * 0.5), bendTo: shell.bendTo * Math.min(1.3, 0.5 + o.bend * 0.5) },
+          { bendScale: leafSpread, extraBend: rng.signed() * (spec.head ? 0 : 10), sizeScale: 1 + rng.signed() * (spec.head ? 0 : 0.08), rufflePhase: 0, crumple: 0 },
+        ),
+        0.3,
+        1,
       ),
       mats.leaf,
       name,

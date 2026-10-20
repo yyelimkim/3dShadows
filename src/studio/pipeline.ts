@@ -1,5 +1,8 @@
 import * as THREE from 'three';
-import { hexToVec, type StudioParams } from './params';
+import { HALFTONE_STYLES, hexToVec, type HalftoneParams, type StudioParams } from './params';
+
+export type StudioMode = 'Photogram' | 'Halftone';
+export type Look = { mode: StudioMode; photo: StudioParams; halftone: HalftoneParams };
 
 /** Layer that flower meshes enable so the light-depth camera sees only casters. */
 export const CASTER_LAYER = 1;
@@ -15,20 +18,64 @@ void main() {
   gl_Position = vec4(position.xy, 0.0, 1.0);
 }`;
 
+/**
+ * Light-distance pass. R = distance to the light; G = how opaque the nearest caster is there.
+ * Petals and leaves are thin: they pass light, thinner toward their edges, with fine veins of
+ * denser tissue, so their shadows carry subtle vein detail. Stems have no tissue data: opaque.
+ */
 const depthMaterial = new THREE.ShaderMaterial({
   side: THREE.DoubleSide,
-  uniforms: { lightPos: { value: new THREE.Vector3() } },
+  uniforms: {
+    lightPos: { value: new THREE.Vector3() },
+    translucency: { value: 0.5 },
+    veinDetail: { value: 0.6 },
+  },
   vertexShader: /* glsl */ `
+    attribute float aThin;
+    attribute float aVein;
     varying vec3 vWorld;
+    varying vec2 vUv;
+    varying float vThin;
+    varying float vVein;
     void main() {
       vec4 w = modelMatrix * vec4(position, 1.0);
       vWorld = w.xyz;
+      vUv = uv;
+      vThin = aThin;
+      vVein = aVein;
       gl_Position = projectionMatrix * viewMatrix * w;
     }`,
   fragmentShader: /* glsl */ `
     uniform vec3 lightPos;
+    uniform float translucency, veinDetail;
     varying vec3 vWorld;
-    void main() { gl_FragColor = vec4(distance(vWorld, lightPos) / ${DEPTH_FAR.toFixed(1)}, 0.0, 0.0, 1.0); }`,
+    varying vec2 vUv;
+    varying float vThin;
+    varying float vVein;
+    float line(float x, float sharp) { return pow(0.5 + 0.5 * cos(x * 6.2831853), sharp); }
+    void main() {
+      float opacity = 1.0;
+      if (vThin > 0.001) {
+        float across = vUv.x - 0.5;
+        float edge = abs(across) * 2.0;
+        float vein;
+        if (vVein < 0.5) {
+          // Petal: veins fan out from the claw, a few forking near the tip.
+          float fan = across / (0.18 + vUv.y);
+          vein = line(fan * 7.0, 60.0) * smoothstep(0.02, 0.15, vUv.y);
+          vein = max(vein, 0.5 * line(fan * 14.0 + 0.5, 70.0) * smoothstep(0.45, 0.8, vUv.y));
+        } else {
+          // Leaf: midrib plus paired laterals sweeping toward the tip.
+          float mid = exp(-pow(across / 0.022, 2.0));
+          float lat = line(vUv.y * 9.0 - abs(across) * 5.0, 60.0) * (1.0 - smoothstep(0.75, 1.0, edge));
+          vein = max(mid, lat * 0.8);
+        }
+        // Thinner toward the margin and tip, thicker at the base.
+        float thin = vThin * translucency * mix(0.75, 1.25, max(edge, vUv.y * 0.8));
+        opacity = clamp(1.0 - thin * (1.0 - vein * veinDetail), 0.05, 1.0);
+      }
+      gl_FragColor = vec4(distance(vWorld, lightPos) / ${DEPTH_FAR.toFixed(1)}, opacity, 0.0, 1.0);
+    }`,
 });
 
 /**
@@ -45,6 +92,7 @@ const maskMaterial = new THREE.ShaderMaterial({
     softness: { value: 1 },
     tanHalf: { value: 0.5 },
     seed: { value: 0 },
+    hard: { value: 0 },
   },
   vertexShader: /* glsl */ `
     varying vec3 vWorld;
@@ -57,7 +105,7 @@ const maskMaterial = new THREE.ShaderMaterial({
     uniform sampler2D tDepth;
     uniform mat4 lightVP;
     uniform vec3 lightPos;
-    uniform float lightRadius, softness, tanHalf, seed;
+    uniform float lightRadius, softness, tanHalf, seed, hard;
     varying vec3 vWorld;
     const float FAR = ${DEPTH_FAR.toFixed(1)};
     const int BLOCKER_SAMPLES = 20;
@@ -77,6 +125,12 @@ const maskMaterial = new THREE.ShaderMaterial({
       float dR = distance(vWorld, lightPos);
       float dRn = dR / FAR;
       float bias = 0.012 / FAR;
+      if (hard > 0.5) {
+        // Exact silhouette: one depth test at this texel, no search, no filtering.
+        vec2 s = texture2D(tDepth, uv).rg;
+        gl_FragColor = vec4(s.r < dRn - bias ? s.g : 0.0, 0.0, 0.0, 1.0);
+        return;
+      }
       float rot = hash(gl_FragCoord.xy) * 6.2831853;
       // Blocker search: the cone from this point to the light disc, evaluated at ~0.6 m from the light.
       float searchUV = clamp(lightRadius * softness * (dR - 0.6) / dR / (2.0 * 0.6 * tanHalf), 0.002, 0.12);
@@ -91,12 +145,15 @@ const maskMaterial = new THREE.ShaderMaterial({
       float filterUV = clamp(penumbra / (2.0 * dR * tanHalf), 0.0004, 0.09);
       float shadow = 0.0;
       for (int i = 0; i < PCF_SAMPLES; i++) {
-        float d = texture2D(tDepth, uv + spiral(i, PCF_SAMPLES, rot + 1.7) * filterUV).r;
-        shadow += d < dRn - bias ? 1.0 : 0.0;
+        vec2 s = texture2D(tDepth, uv + spiral(i, PCF_SAMPLES, rot + 1.7) * filterUV).rg;
+        shadow += s.r < dRn - bias ? s.g : 0.0;
       }
       shadow /= float(PCF_SAMPLES);
-      // Store penumbra size in G so later passes can weight their blur by distance from the caster.
-      gl_FragColor = vec4(shadow, clamp(filterUV / 0.09, 0.0, 1.0), 0.0, 1.0);
+      // G: how far the occluding part sits from the canvas relative to its distance from the light
+      // (0 = touching the paper). B marks where a blocker was found, so blurred G / blurred B gives
+      // a smooth local caster distance for the depth-weighted blur downstream.
+      float far = clamp((dR - dB) / dB / 1.5, 0.0, 1.0);
+      gl_FragColor = vec4(shadow, far, 1.0, 1.0);
     }`,
 });
 
@@ -122,6 +179,8 @@ const processMaterial = new THREE.ShaderMaterial({
   uniforms: {
     tMask: { value: null as THREE.Texture | null },
     tBlur: { value: null as THREE.Texture | null },
+    tBlurWide: { value: null as THREE.Texture | null },
+    blurFalloff: { value: 1 },
     basePx: { value: new THREE.Vector2(1600, 1000) },
     time: { value: 0 },
     paper: { value: new THREE.Vector3() },
@@ -156,17 +215,15 @@ const processMaterial = new THREE.ShaderMaterial({
     border: { value: 0 },
     castColor: { value: new THREE.Vector3(1, 1, 1) },
     castAmount: { value: 0 },
-    halftone: { value: 0 },
-    dotSize: { value: 6 },
     inverse: { value: 0 },
   },
   vertexShader: fullscreenVert,
   fragmentShader: /* glsl */ `
-    uniform sampler2D tMask, tBlur;
+    uniform sampler2D tMask, tBlur, tBlurWide;
     uniform vec2 basePx, ghostVec;
     uniform float time, midPosition, density, hue, saturation, brightness, contrast, gammaV, blackPoint,
-      whitePoint, temperature, tintV, extraBlur, bloom, ghost, misregister, grain, grainSize, fiber, dust,
-      scratches, banding, unevenLight, vignette, scanRotation, border, castAmount, halftone, dotSize, inverse;
+      whitePoint, temperature, tintV, extraBlur, blurFalloff, bloom, ghost, misregister, grain, grainSize, fiber, dust,
+      scratches, banding, unevenLight, vignette, scanRotation, border, castAmount, inverse;
     uniform vec3 paper, rampLight, rampMid, rampDeep, castColor;
     varying vec2 vUv;
 
@@ -177,13 +234,21 @@ const processMaterial = new THREE.ShaderMaterial({
     }
     float fbm(vec2 p) { float a = 0.5, s = 0.0; for (int i = 0; i < 5; i++) { s += a * vnoise(p); p *= 2.03; a *= 0.5; } return s; }
 
-    // Shadow density at uv: sharp mask, distance-weighted extra blur, ghost echo.
+    // Shadow density at uv. Extra blur is depth-weighted: parts of a flower close to the canvas stay
+    // crisp, parts far from it pick up the medium and then the wide blur.
     float densityAt(vec2 uv) {
-      vec2 sharp = texture2D(tMask, uv).rg;
-      float soft = texture2D(tBlur, uv).r;
-      // Far-from-caster regions (large penumbra, G) take more of the extra blur.
-      float k = clamp(extraBlur * (0.4 + 0.6 * sharp.g * 3.0), 0.0, 1.0);
-      float m = mix(sharp.r, soft, k);
+      vec4 sm = texture2D(tMask, uv);
+      vec4 md = texture2D(tBlur, uv);
+      vec4 wide = texture2D(tBlurWide, uv);
+      float sharp = sm.r;
+      float med = md.r;
+      // Caster distance from the canvas, kept local so one flower can be crisp where a petal
+      // nearly touches the paper and soft where it curls away.
+      float far = mix(wide.g / max(wide.b, 0.02), md.g / max(md.b, 0.02), 0.8);
+      far = mix(far, sm.g, sm.b * 0.5);
+      float k = clamp(pow(far, blurFalloff) * extraBlur * 2.5, 0.0, 1.0);
+      float m = mix(sharp, med, smoothstep(0.0, 0.45, k));
+      m = mix(m, wide.r, smoothstep(0.4, 1.0, k));
       float echo = mix(texture2D(tMask, uv + ghostVec).r, texture2D(tBlur, uv + ghostVec).r, 0.5);
       m = max(m, echo * ghost) + echo * ghost * 0.25;
       m = clamp(m * density, 0.0, 1.0);
@@ -232,16 +297,6 @@ const processMaterial = new THREE.ShaderMaterial({
       col = clamp((col - blackPoint) / max(whitePoint - blackPoint, 0.001), 0.0, 1.0);
       col = pow(col, vec3(1.0 / max(gammaV, 0.01)));
 
-      // Halftone dots on a 45° grid, dot area tracks darkness.
-      if (halftone > 0.5) {
-        vec2 q = mat2(0.7071, -0.7071, 0.7071, 0.7071) * px / dotSize;
-        vec2 cell = fract(q) - 0.5;
-        float dark = clamp(1.0 - dot(col, vec3(0.299, 0.587, 0.114)) / max(dot(paper, vec3(0.299, 0.587, 0.114)), 0.05), 0.0, 1.0);
-        float r = sqrt(dark) * 0.72;
-        float dotMask = 1.0 - smoothstep(r - 0.06, r + 0.06, length(cell));
-        col = mix(paper, col * 0.85, dotMask);
-      }
-
       // Scan: uneven illumination, vignette, paper fibre, banding, colour cast.
       col *= 1.0 - unevenLight * 0.35 * (fbm(px / 420.0 + 3.1) - 0.3);
       float v = length((vUv - 0.5) * vec2(aspect, 1.0)) / length(vec2(aspect, 1.0) * 0.5);
@@ -275,6 +330,81 @@ const processMaterial = new THREE.ShaderMaterial({
       col = mix(bed, col, onPrint);
 
       gl_FragColor = vec4(clamp(col, 0.0, 1.0), 1.0);
+    }`,
+});
+
+/**
+ * Halftone studio: screens an exact hard-edged shadow into exactly two colours. Each pixel tests
+ * its own tone against the screen, so silhouettes follow the true flower/leaf outline and the
+ * pattern only shows inside translucent tissue. No blur, no anti-aliasing.
+ */
+const halftoneMaterial = new THREE.ShaderMaterial({
+  uniforms: {
+    tMask: { value: null as THREE.Texture | null },
+    basePx: { value: new THREE.Vector2(1600, 1000) },
+    styleId: { value: 0 },
+    cellSize: { value: 9 },
+    angle: { value: 45 },
+    threshold: { value: 0.5 },
+    contrast: { value: 1 },
+    gammaV: { value: 1 },
+    ink: { value: new THREE.Vector3() },
+    paper: { value: new THREE.Vector3(1, 1, 1) },
+    invert: { value: 0 },
+  },
+  vertexShader: fullscreenVert,
+  fragmentShader: /* glsl */ `
+    uniform sampler2D tMask;
+    uniform vec2 basePx;
+    uniform float styleId, cellSize, angle, threshold, contrast, gammaV, invert;
+    uniform vec3 ink, paper;
+    varying vec2 vUv;
+    const float PI = 3.14159265;
+
+    float toneAt(vec2 uv) {
+      float t = texture2D(tMask, clamp(uv, 0.0, 1.0)).r;
+      t = mix(t, 1.0 - t, invert);
+      t = clamp((t - 0.5) * contrast + 0.5 + (0.5 - threshold), 0.0, 1.0);
+      // Dead zone at both ends so soft-shadow sampling noise never prints stray marks.
+      t = clamp((t - 0.03) / 0.94, 0.0, 1.0);
+      return pow(t, 1.0 / max(gammaV, 0.01));
+    }
+    float bayer2(vec2 a) { a = floor(a); return fract(dot(a, vec2(0.5, a.y * 0.75))); }
+    float bayer4(vec2 a) { return bayer2(0.5 * a) * 0.25 + bayer2(a); }
+    float bayer8(vec2 a) { return bayer4(0.5 * a) * 0.25 + bayer2(a); }
+
+    void main() {
+      vec2 px = vUv * basePx;
+      float isInk;
+      if (styleId > 3.5) {
+        // Threshold (4) or ordered dither (5): per pixel, still strictly two-tone.
+        float raw = texture2D(tMask, vUv).r;
+        raw = mix(raw, 1.0 - raw, invert);
+        if (styleId < 4.5) {
+          isInk = step(threshold, raw);
+        } else {
+          float t = toneAt(vUv);
+          isInk = step(bayer8(px / max(cellSize / 4.0, 1.0)) + 1.0 / 128.0, t);
+        }
+      } else {
+        float a = radians(angle);
+        mat2 rot = mat2(cos(a), sin(a), -sin(a), cos(a));
+        vec2 q = rot * px / cellSize;
+        vec2 f = fract(q) - 0.5;
+        float t = toneAt(vUv);
+        if (styleId < 0.5) {
+          // Round dots; past 50% coverage, paper dots on ink so area keeps tracking tone.
+          isInk = t <= 0.5 ? step(length(f), sqrt(t / PI)) : 1.0 - step(length(f), sqrt((1.0 - t) / PI));
+        } else if (styleId < 1.5) {
+          isInk = step(max(abs(f.x), abs(f.y)), sqrt(t) * 0.5);
+        } else if (styleId < 2.5) {
+          float d = abs(f.x) + abs(f.y);
+          isInk = t <= 0.5 ? step(d, sqrt(t * 0.5)) : 1.0 - step(d, sqrt((1.0 - t) * 0.5));
+        } else {
+          isInk = step(abs(f.y), t * 0.5);
+        }
+      }
+      gl_FragColor = vec4(mix(paper, ink, isInk), 1.0);
     }`,
 });
 
@@ -316,6 +446,8 @@ export class ShadowPipeline {
   private mask: THREE.WebGLRenderTarget;
   private blurA: THREE.WebGLRenderTarget;
   private blurB: THREE.WebGLRenderTarget;
+  private blurC: THREE.WebGLRenderTarget;
+  private blurD: THREE.WebGLRenderTarget;
   private receiverScene = new THREE.Scene();
   private receiver: THREE.Mesh;
   private receiverCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.01, 10);
@@ -330,6 +462,8 @@ export class ShadowPipeline {
     this.mask = this.makeTarget(1600, 1000, THREE.HalfFloatType);
     this.blurA = this.makeTarget(400, 250, THREE.HalfFloatType);
     this.blurB = this.makeTarget(400, 250, THREE.HalfFloatType);
+    this.blurC = this.makeTarget(200, 125, THREE.HalfFloatType);
+    this.blurD = this.makeTarget(200, 125, THREE.HalfFloatType);
     this.receiver = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), maskMaterial);
     this.receiver.name = 'receiver (hidden, mask pass only)';
     this.receiverScene.add(this.receiver);
@@ -350,6 +484,8 @@ export class ShadowPipeline {
     this.mask.setSize(basePx.x, basePx.y);
     this.blurA.setSize(Math.ceil(basePx.x / 4), Math.ceil(basePx.y / 4));
     this.blurB.setSize(Math.ceil(basePx.x / 4), Math.ceil(basePx.y / 4));
+    this.blurC.setSize(Math.ceil(basePx.x / 8), Math.ceil(basePx.y / 8));
+    this.blurD.setSize(Math.ceil(basePx.x / 8), Math.ceil(basePx.y / 8));
     this.receiver.position.copy(rect.center);
     this.receiver.scale.set(rect.width, rect.height, 1);
     this.receiver.updateMatrixWorld();
@@ -385,7 +521,9 @@ export class ShadowPipeline {
     this.renderer.render(scene, camera);
   }
 
-  update(scene: THREE.Scene, lightPos: THREE.Vector3, p: StudioParams, time: number, target = this.output, maskTarget = this.mask) {
+  update(scene: THREE.Scene, lightPos: THREE.Vector3, look: Look, time: number, target = this.output, maskTarget = this.mask) {
+    const p = look.photo;
+    const halftone = look.mode === 'Halftone';
     const r = this.renderer;
     const prevTarget = r.getRenderTarget();
     const prevClear = r.getClearColor(new THREE.Color());
@@ -396,6 +534,8 @@ export class ShadowPipeline {
     // 1. Light-distance map of the casters only.
     const tanHalf = this.aimLight(lightPos);
     depthMaterial.uniforms.lightPos.value.copy(lightPos);
+    depthMaterial.uniforms.translucency.value = p.translucency;
+    depthMaterial.uniforms.veinDetail.value = p.veinDetail;
     const prevOverride = scene.overrideMaterial;
     const prevBg = scene.background;
     scene.overrideMaterial = depthMaterial;
@@ -412,24 +552,53 @@ export class ShadowPipeline {
     mu.lightPos.value.copy(lightPos);
     mu.lightRadius.value = p.lightSize;
     mu.softness.value = p.softness;
+    mu.hard.value = halftone ? 1 : 0;
     mu.tanHalf.value = tanHalf;
     r.setClearColor(0x000000, 1);
     this.renderTo(maskTarget, this.receiverScene, this.receiverCam);
 
-    // 3. Wide separable blur for extra blur, bloom and ghosting.
-    const radius = 1.2 + p.extraBlur * 2.5;
+    if (halftone) {
+      // Halftone studio: screen the raw mask, skipping every blur and scan stage.
+      const h = look.halftone;
+      const hu = halftoneMaterial.uniforms;
+      hu.tMask.value = maskTarget.texture;
+      hu.basePx.value.copy(this.basePx);
+      hu.styleId.value = Math.max(0, HALFTONE_STYLES.indexOf(h.style));
+      hu.cellSize.value = h.cellSize;
+      hu.angle.value = h.angle;
+      hu.threshold.value = h.threshold;
+      hu.contrast.value = h.contrast;
+      hu.gammaV.value = h.gamma;
+      hu.ink.value.set(...hexToVec(h.ink));
+      hu.paper.value.set(...hexToVec(h.paper));
+      hu.invert.value = h.invert ? 1 : 0;
+      this.quad.material = halftoneMaterial;
+      this.renderTo(target, this.quadScene, this.quadCam);
+      r.setRenderTarget(prevTarget);
+      r.setClearColor(prevClear, prevAlpha);
+      r.autoClear = prevAuto;
+      return;
+    }
+
+    // 3. Two separable blur levels (medium at 1/4 res, wide at 1/8 res) for the depth-weighted
+    //    extra blur, bloom and ghosting.
     this.quad.material = blurMaterial;
-    blurMaterial.uniforms.tInput.value = maskTarget.texture;
-    blurMaterial.uniforms.dir.value.set(radius / this.blurA.width, 0);
-    this.renderTo(this.blurA, this.quadScene, this.quadCam);
-    blurMaterial.uniforms.tInput.value = this.blurA.texture;
-    blurMaterial.uniforms.dir.value.set(0, radius / this.blurA.height);
-    this.renderTo(this.blurB, this.quadScene, this.quadCam);
+    const pass = (src: THREE.WebGLRenderTarget, dst: THREE.WebGLRenderTarget, dx: number, dy: number) => {
+      blurMaterial.uniforms.tInput.value = src.texture;
+      blurMaterial.uniforms.dir.value.set(dx / dst.width, dy / dst.height);
+      this.renderTo(dst, this.quadScene, this.quadCam);
+    };
+    pass(maskTarget, this.blurA, 1.6, 0);
+    pass(this.blurA, this.blurB, 0, 1.6);
+    pass(this.blurB, this.blurC, 2.2, 0);
+    pass(this.blurC, this.blurD, 0, 2.2);
 
     // 4. Colour + scan processing into the output.
     const u = processMaterial.uniforms;
     u.tMask.value = maskTarget.texture;
     u.tBlur.value = this.blurB.texture;
+    u.tBlurWide.value = this.blurD.texture;
+    u.blurFalloff.value = p.blurFalloff;
     u.basePx.value.copy(this.basePx);
     u.time.value = time;
     u.paper.value.set(...hexToVec(p.paper));
@@ -465,8 +634,6 @@ export class ShadowPipeline {
     u.scanRotation.value = p.scanRotation;
     u.border.value = p.border;
     u.castAmount.value = p.cast;
-    u.halftone.value = p.halftone ? 1 : 0;
-    u.dotSize.value = p.dotSize;
     u.inverse.value = p.inverse;
     this.quad.material = processMaterial;
     this.renderTo(target, this.quadScene, this.quadCam);
@@ -477,12 +644,12 @@ export class ShadowPipeline {
   }
 
   /** Render the canvas at scale × base resolution and return a PNG blob. */
-  async exportPNG(scene: THREE.Scene, lightPos: THREE.Vector3, p: StudioParams, time: number, scale: number): Promise<Blob> {
+  async exportPNG(scene: THREE.Scene, lightPos: THREE.Vector3, look: Look, time: number, scale: number): Promise<Blob> {
     const w = Math.round(this.basePx.x * scale);
     const h = Math.round(this.basePx.y * scale);
     const out = this.makeTarget(w, h, THREE.UnsignedByteType);
     const mask = this.makeTarget(w, h, THREE.HalfFloatType);
-    this.update(scene, lightPos, p, time, out, mask);
+    this.update(scene, lightPos, look, time, out, mask);
     const pixels = new Uint8Array(w * h * 4);
     this.renderer.readRenderTargetPixels(out, 0, 0, w, h, pixels);
     out.dispose();
