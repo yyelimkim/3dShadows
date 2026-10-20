@@ -3,28 +3,15 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>3D Shadows</title>
-    <link rel="stylesheet" href="/src/style.css" />
+    <title>Shadow Studio</title>
+    <link rel="stylesheet" href="/src/studio/studio.css" />
   </head>
   <body>
     <canvas id="stage"></canvas>
-    <aside class="panel">
-      <h1>3D Shadows</h1>
-      <label>Model
-        <select id="model"></select>
-      </label>
-      <label>Light azimuth <output id="azimuthOut"></output>
-        <input id="azimuth" type="range" min="0" max="360" step="1" value="300" />
-      </label>
-      <label>Light elevation <output id="elevationOut"></output>
-        <input id="elevation" type="range" min="5" max="89" step="1" value="40" />
-      </label>
-      <label>Shadow softness <output id="softnessOut"></output>
-        <input id="softness" type="range" min="0" max="12" step="0.5" value="3" />
-      </label>
-      <label class="row"><input id="orbitLight" type="checkbox" /> Orbit the light</label>
-      <label class="row"><input id="animate" type="checkbox" checked /> Play model animation</label>
-    </aside>
-    <script type="module" src="/src/main.ts"></script>
+    <button id="preview" class="preview" aria-label="Expand canvas output"></button>
+    <div id="expanded-hint" class="expanded-hint" hidden>Click or press Esc to close</div>
+    <nav id="tray" class="tray" aria-label="Flower tray"></nav>
+    <input id="file" type="file" accept="application/json" hidden />
+    <script type="module" src="/src/studio/main.ts"></script>
   </body>
 </html>

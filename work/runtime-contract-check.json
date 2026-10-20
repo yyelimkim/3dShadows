@@ -1,0 +1,92 @@
+{
+ "carnation": {
+  "sameSeedSame": true,
+  "differentSeedDiffers": true,
+  "defaultHeight": 1,
+  "minY": -0.0002,
+  "registryDefaultHeight": 1,
+  "meshes": 28,
+  "castShadowAll": true,
+  "doubleSideAll": true,
+  "tris": 21972,
+  "pivots": [
+   true,
+   true,
+   true
+  ],
+  "heights": {
+   "stemHeight0_7": 0.766,
+   "stemHeight1_3": 1.2356,
+   "scale2": 2
+  },
+  "openness": {
+   "o0_width": 0.2079,
+   "o08_width": 0.2819,
+   "o1_width": 0.3148
+  },
+  "stemLeanHeadX": 0.1587,
+  "bend0Differs": true,
+  "swayMoves": true,
+  "swayHeadTravel": 0.0323
+ },
+ "iris": {
+  "sameSeedSame": true,
+  "differentSeedDiffers": true,
+  "defaultHeight": 1,
+  "minY": -0.0001,
+  "registryDefaultHeight": 1,
+  "meshes": 15,
+  "castShadowAll": true,
+  "doubleSideAll": true,
+  "tris": 9140,
+  "pivots": [
+   true,
+   true,
+   true
+  ],
+  "heights": {
+   "stemHeight0_7": 0.7712,
+   "stemHeight1_3": 1.2293,
+   "scale2": 2
+  },
+  "openness": {
+   "o0_width": 0.2051,
+   "o08_width": 0.3645,
+   "o1_width": 0.3763
+  },
+  "stemLeanHeadX": 0.1796,
+  "bend0Differs": true,
+  "swayMoves": true,
+  "swayHeadTravel": 0.0078
+ },
+ "leaves": {
+  "sameSeedSame": true,
+  "differentSeedDiffers": true,
+  "defaultHeight": 1,
+  "minY": -0.0001,
+  "registryDefaultHeight": 1,
+  "meshes": 58,
+  "castShadowAll": true,
+  "doubleSideAll": true,
+  "tris": 15792,
+  "pivots": [
+   true,
+   true,
+   true
+  ],
+  "heights": {
+   "stemHeight0_7": 0.7143,
+   "stemHeight1_3": 1.2857,
+   "scale2": 2
+  },
+  "openness": {
+   "o0_width": 0.5208,
+   "o08_width": 0.5164,
+   "o1_width": 0.5145
+  },
+  "stemLeanHeadX": 0.2258,
+  "bend0Differs": true,
+  "swayMoves": true,
+  "swayHeadTravel": 0.0363
+ }
+}

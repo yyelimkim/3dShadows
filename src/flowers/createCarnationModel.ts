@@ -1,0 +1,129 @@
+import type * as THREE from 'three';
+import { buildFlower, type FlowerOptions, type FlowerSpec } from './flowerKit';
+
+/**
+ * Carnation (references/carnation.png) — double bloom with smooth, thin cupped petals with an opposite lance-leaf pair.
+ * Reconstruction data: work/carnation/object-sculpt-spec.json (measured in reference units,
+ * subject height 1.0). The back half of the corolla, the leaf azimuth in depth and the depth
+ * component of the stem S-curve are inferred; see work/carnation/review-notes.md.
+ */
+
+const PETAL = ['#dc8e9a', '#eca6b0', '#f1b8c0', '#f5c8ce', '#f9d8dc'];
+const STEM = ['#5f7030', '#6e8238', '#768c55', '#7a9269', '#7f9668'];
+const LEAF = ['#6c8460', '#738a66', '#7f966e'];
+
+export const CARNATION_SPEC: FlowerSpec = {
+  id: 'carnation',
+  label: 'Carnation',
+  stem: {
+    points: [
+      [0.0, 0.0, 0.0],
+      [-0.006, 0.21, 0.003],
+      [-0.001, 0.46, -0.002],
+      [0.01, 0.65, -0.004],
+      [0.006, 0.75, -0.002],
+      [0.001, 0.79, 0.0],
+    ],
+    radii: [0.0064, 0.0058, 0.0052, 0.0047, 0.0044, 0.0035],
+    colors: STEM,
+    nodes: [
+      { height: 0.38, extra: 0.0016 },
+      { height: 0.481, extra: 0.0016 },
+    ],
+    midHeight: 0.58,
+  },
+  calyx: {
+    profile: [
+      [0.0035, -0.004],
+      [0.007, 0.012],
+      [0.012, 0.028],
+      [0.016, 0.04],
+      [0.012, 0.045],
+    ],
+    colors: ['#7a9269', '#86a070', '#a7b98a'],
+  },
+  sepals: { count: 5, phase: 20, height: 0.026, radius: 0.012, length: 0.026, rootRadius: 0.0018, curlFrom: 50, curlTo: 145, colors: STEM.slice(2) },
+  head: {
+    socketHeight: 0.035,
+    offset: [0.01, 0, 0],
+    tiltDeg: [0, 0, 0],
+    whorls: [
+      {
+        id: 'petal-outer',
+        count: 5,
+        phase: 10,
+        baseHeight: 0,
+        baseRadius: 0.014,
+        opennessWeight: 1,
+        jitter: { azimuthDeg: 9, size: 0.1, bendDeg: 5 },
+        lean: { azimuth: -100, extraDeg: 8 },
+        shell: {
+          length: 0.165, width: 0.115, widthPeak: 0.66, baseWidth: 0.25, tipSharpness: 0.5,
+          bendFrom: 64, bendTo: 22, bendTip: 16, bendCurve: 0.9, cup: 0.3, segmentsU: 22, segmentsV: 26,
+          ruffleWaves: 4, ruffleAmp: 0.004, ruffleStart: 0.7,
+          colors: PETAL, edgeColor: '#fbe6e8', edgeStart: 0.6, rimColor: '#eab0bc', rimWidth: 0.025,
+        },
+      },
+      {
+        id: 'petal-middle',
+        count: 6,
+        phase: 40,
+        baseHeight: 0.006,
+        baseRadius: 0.009,
+        opennessWeight: 0.7,
+        jitter: { azimuthDeg: 10, size: 0.1, bendDeg: 5 },
+        lean: { azimuth: -90, extraDeg: 3 },
+        shell: {
+          length: 0.165, width: 0.1, widthPeak: 0.68, baseWidth: 0.25, tipSharpness: 0.5,
+          bendFrom: 44, bendTo: 8, bendTip: 20, bendCurve: 0.9, cup: 0.42, segmentsU: 22, segmentsV: 26,
+          ruffleWaves: 4, ruffleAmp: 0.0035, ruffleStart: 0.7,
+          colors: PETAL, edgeColor: '#fbe6e8', edgeStart: 0.6, rimColor: '#eab0bc', rimWidth: 0.025,
+        },
+      },
+      {
+        id: 'petal-inner',
+        count: 7,
+        phase: 0,
+        baseHeight: 0.012,
+        baseRadius: 0.005,
+        opennessWeight: 0.4,
+        azimuths: [0, 137.5, 275, 52.5, 190, 327.5, 105],
+        jitter: { azimuthDeg: 12, size: 0.15, bendDeg: 6, crumple: 0.35 },
+        shell: {
+          length: 0.13, width: 0.08, widthPeak: 0.76, baseWidth: 0.3, tipSharpness: 0.35,
+          bendFrom: 24, bendTo: -4, bendTip: 14, bendCurve: 0.9, cup: 0.5, segmentsU: 18, segmentsV: 22,
+          ruffleWaves: 4, ruffleAmp: 0.003, ruffleStart: 0.7,
+          colors: PETAL, edgeColor: '#fbe6e8', edgeStart: 0.6, rimColor: '#eab0bc', rimWidth: 0.025,
+        },
+      },
+    ],
+  },
+  leaves: [
+    {
+      id: 'left',
+      attachHeight: 0.481,
+      azimuth: -75,
+      shell: {
+        length: 0.225, width: 0.052, widthPeak: 0.36, baseWidth: 0.35, tipSharpness: 1.3, roll: -70,
+        bendFrom: 20, bendTo: 36, cup: 0.1, keel: 0.25, baseWrap: 0.6,
+        colors: LEAF, edgeColor: '#667c58', edgeStart: 0.4, segmentsU: 10, segmentsV: 24,
+      },
+    },
+    {
+      id: 'right',
+      attachHeight: 0.38,
+      azimuth: 105,
+      shell: {
+        length: 0.225, width: 0.054, widthPeak: 0.36, baseWidth: 0.35, tipSharpness: 1.3, roll: 70,
+        bendFrom: 20, bendTo: 36, cup: 0.1, keel: 0.25, baseWrap: 0.6,
+        colors: LEAF, edgeColor: '#667c58', edgeStart: 0.4, segmentsU: 10, segmentsV: 24,
+      },
+    },
+  ],
+  materials: { petal: { roughness: 0.687, glow: '#f2b3bd', glowIntensity: 0.26 }, stem: { roughness: 0.685 }, leaf: { roughness: 0.717 } },
+  sway: { amplitude: 0.02, speed: 0.55 },
+};
+
+export function createCarnationModel(spec: FlowerSpec = CARNATION_SPEC, options: FlowerOptions = {}): THREE.Group {
+  return buildFlower(spec, options);
+}

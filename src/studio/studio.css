@@ -1,0 +1,115 @@
+:root {
+  --stage: #a19a90;
+  --chip: rgba(250, 247, 242, 0.86);
+  --chip-border: rgba(60, 52, 44, 0.12);
+  --ink: #2a2622;
+  --muted: #6e665d;
+  --radius: 14px;
+  --shadow: 0 6px 24px rgba(40, 32, 24, 0.18);
+}
+
+/* lil-gui scopes its theme variables to .lil-gui, so override them there. */
+.lil-gui {
+  --background-color: rgba(250, 247, 242, 0.92);
+  --text-color: #2a2622;
+  --title-background-color: rgba(236, 231, 224, 0.95);
+  --title-text-color: #2a2622;
+  --widget-color: rgba(161, 154, 144, 0.28);
+  --hover-color: rgba(161, 154, 144, 0.4);
+  --focus-color: rgba(161, 154, 144, 0.55);
+  --number-color: #7a3f78;
+  --string-color: #7a3f78;
+  --font-size: 11px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--stage);
+  color: var(--ink);
+  font: 13px/1.35 ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+#stage { display: block; width: 100vw; height: 100vh; touch-action: none; }
+
+.lil-gui.root {
+  top: 16px;
+  right: 16px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  width: 264px;
+  max-height: calc(100vh - 290px);
+  overflow-y: auto;
+}
+
+/* The preview is drawn by WebGL; this button only frames it and takes the click. */
+.preview {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: var(--radius);
+  background: transparent;
+  box-shadow: var(--shadow);
+  cursor: zoom-in;
+}
+.preview:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
+.tray {
+  position: fixed;
+  left: 16px;
+  bottom: 20px;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 18px;
+  background: var(--chip);
+  border: 1px solid var(--chip-border);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(8px);
+}
+
+.tray-item {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  width: 76px;
+  padding: 6px 4px 6px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 11px;
+  cursor: copy;
+}
+.tray-item:hover { background: rgba(161, 154, 144, 0.22); color: var(--ink); }
+.tray-item img { width: 60px; height: 60px; object-fit: contain; }
+.tray-item span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+
+.expanded-hint {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #e9e3db;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+body.expanded .tray,
+body.expanded .preview { display: none; }
+
+@media (max-width: 720px) {
+  .tray { left: 8px; right: 8px; bottom: 8px; overflow-x: auto; }
+  .lil-gui.root { right: 8px; top: 8px; max-height: 45vh; }
+  .preview { bottom: 120px; }
+}

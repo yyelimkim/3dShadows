@@ -1,0 +1,402 @@
+{
+  "targetName": "Carnation",
+  "sourceImage": "/Users/yelimkim/Projects/3dShadows/references/carnation.png",
+  "preSpecAssessment": {
+    "objectClass": {
+      "primaryType": "cut flower stem \u2014 double ruffled bloom (user id: carnation; reads as Eustoma/lisianthus)",
+      "primaryDomain": "object",
+      "formLanguage": [
+        "organic",
+        "botanical-like"
+      ],
+      "structureKind": [
+        "branching hierarchy",
+        "layered shell",
+        "repeated modules"
+      ],
+      "motionPotential": [
+        "whole-object transform",
+        "bendable"
+      ],
+      "materialFamilies": [
+        "leaf",
+        "petal (thin translucent dielectric)"
+      ],
+      "notes": "Organic thin-shelled object, NOT a character. Hero shadow-caster: silhouette from every azimuth dominates; surface detail secondary."
+    },
+    "complexity": {
+      "tier": "moderate",
+      "scores": {
+        "silhouetteComplexity": 2,
+        "componentCount": 2,
+        "hierarchyDepth": 2,
+        "repetitionDensity": 2,
+        "materialLayerCount": 1,
+        "localDetailDensity": 1,
+        "occlusionRisk": 2,
+        "actionReadinessNeed": 1
+      },
+      "estimatedCounts": {
+        "macroComponents": 3,
+        "mesoComponents": 6,
+        "microFeatureGroups": 3,
+        "materialLayers": 3,
+        "repetitionSystems": 4
+      },
+      "reasoning": [
+        "Three macro masses: stem (h 0\u21920.79), corolla head (h 0.80\u21921.0, 0.21 wide), leaf pair.",
+        "Corolla is ~18 overlapping curved petal shells in 3 whorls (5 outer flared, 6 middle, 7 inner crumpled) plus 5 sepals: repetition systems drive the silhouette.",
+        "Single front view hides the back half of the head and the leaf azimuth: occlusion risk 2.",
+        "Veins/pollen skipped per brief; ruffled margins kept because they change the outline."
+      ]
+    },
+    "specDepthDecision": {
+      "requiredDepth": "moderate",
+      "minimumComponentLevels": [
+        "macro",
+        "meso",
+        "micro"
+      ],
+      "needsRepetitionSystems": true,
+      "needsMaterialLocalOverrides": true,
+      "needsMultipleReviewViews": true,
+      "needsActionReadyHierarchy": true,
+      "rationale": "Silhouette depends on petal whorl repetition and leaf placement; pivots base/midStem/head required for sway."
+    },
+    "unknownsToResolveBeforeImplementation": [
+      {
+        "id": "back-of-corolla",
+        "status": "inferred",
+        "resolution": "continue radial whorls with seeded jitter; flare asymmetry mirrored at reduced amplitude"
+      },
+      {
+        "id": "leaf-azimuth",
+        "status": "inferred",
+        "resolution": "leaf pair treated as opposite, decussate-ish: both near the image plane, rotated \u00b115\u00b0 in depth"
+      },
+      {
+        "id": "stem-depth-curve",
+        "status": "inferred",
+        "resolution": "S-curve given a depth component of ~50% of the lateral amplitude"
+      },
+      {
+        "id": "inner-petal-count",
+        "status": "uncertain",
+        "resolution": "modelled as 7 crumpled inner petals"
+      }
+    ],
+    "detailInventory": {
+      "scanMethod": "grid-3x3",
+      "targetMinDetails": 6,
+      "note": "Enumerate every identity-defining small detail before authoring the spec. Each detail must map to a component.localFeatures entry or material.localOverrides entry, never prose only. Use forge/stage1_intake/build_detail_inventory.py to scan zones.",
+      "details": [
+        {
+          "id": "d-ruffled-margin",
+          "zone": "top-center",
+          "kind": "contour",
+          "description": "undulating ruffled outer petal margins, ~5\u20137 waves per petal, amplitude ~6% of petal width",
+          "mapsTo": "component:petal-outer.localFeatures.ruffle-margin",
+          "confidence": 0.8
+        },
+        {
+          "id": "d-picotee",
+          "zone": "top-center",
+          "kind": "color-change",
+          "description": "thin deeper-pink fringe (~#d99aa8) along petal edges",
+          "mapsTo": "material:petal.localOverrides.picotee-edge",
+          "confidence": 0.7
+        },
+        {
+          "id": "d-flare-asymmetry",
+          "zone": "top-left",
+          "kind": "contour",
+          "description": "head flares wider to \u2212x at the top-left (outer petal lean)",
+          "mapsTo": "component:corolla.localFeatures.flare-asymmetry",
+          "confidence": 0.7
+        },
+        {
+          "id": "d-sepal-curl",
+          "zone": "middle-center",
+          "kind": "contour",
+          "description": "5 awl-shaped sepal tips curling outward/down beneath the head",
+          "mapsTo": "component:sepals.localFeatures.sepal-curl",
+          "confidence": 0.75
+        },
+        {
+          "id": "d-leaf-keel",
+          "zone": "bottom-center",
+          "kind": "bevel",
+          "description": "shallow keel fold along leaf midrib, lighter midrib line",
+          "mapsTo": "component:leaf-left.localFeatures.midrib-keel",
+          "confidence": 0.7
+        },
+        {
+          "id": "d-node-swelling",
+          "zone": "bottom-center",
+          "kind": "contour",
+          "description": "stem thickens slightly where leaves clasp (node)",
+          "mapsTo": "component:stem.localFeatures.node-swelling",
+          "confidence": 0.7
+        },
+        {
+          "id": "d-petal-translucency",
+          "zone": "top-center",
+          "kind": "gloss",
+          "description": "outer petal edges read lighter: thin-shell translucency",
+          "mapsTo": "material:petal.localOverrides.edge-translucency",
+          "confidence": 0.6
+        },
+        {
+          "id": "d-glaucous-leaf",
+          "zone": "bottom-left",
+          "kind": "roughness",
+          "description": "matte glaucous gray-green leaf bloom",
+          "mapsTo": "material:leaf.localOverrides.glaucous-bloom",
+          "confidence": 0.7
+        },
+        {
+          "id": "d-stem-cut",
+          "zone": "bottom-center",
+          "kind": "stain",
+          "description": "stem darkens to olive at the cut base",
+          "mapsTo": "material:stem.localOverrides.cut-base-darkening",
+          "confidence": 0.6
+        }
+      ]
+    },
+    "anatomy": {
+      "applies": false,
+      "styleHeads": 0.0,
+      "proportions": {
+        "headUnit": 0.0,
+        "torso": 0.0,
+        "legs": 0.0,
+        "shoulderWidth": 0.0,
+        "hipWidth": 0.0
+      },
+      "pose": {
+        "type": "unassessed",
+        "jointAngles": {}
+      },
+      "faceLandmarks": {
+        "eyeLine": 0.0,
+        "eyeSpacing": 0.0,
+        "noseBase": 0.0,
+        "mouthLine": 0.0,
+        "hairline": 0.0
+      },
+      "features": [],
+      "confidence": 0.0,
+      "note": "Only meaningful when objectClass.primaryDomain is character or hybrid. Set applies=true and fill from forge/stage1_intake/extract_landmarks.py. See grimoire/character/reconstruction.md and grimoire/character/likeness_maximization.md."
+    },
+    "sourceImage": "/Users/yelimkim/Projects/3dShadows/references/carnation.png"
+  },
+  "qualityContract": {
+    "qualityBar": "moderate",
+    "definitionOfDone": [
+      "Front silhouette matches the reference: head 0.21 wide \u00d7 0.20 tall atop a 0.79-high stem; leaf tips at (\u22120.09, 0.56) and (+0.10, 0.49).",
+      "From side, 3/4 and top, the head reads as a round cup of curved petal shells (never flat cards); outer whorl flares 35\u201350\u00b0 from vertical.",
+      "Stem is a tapered tube with a gentle S-curve; leaves are curved lance blades clasping the stem.",
+      "Every mesh casts shadows; petals render double-sided; origin at stem base, default height 1.0."
+    ],
+    "minimumSpecDepth": {
+      "macroComponents": 3,
+      "mesoComponents": 5,
+      "microFeatureGroups": 3,
+      "materialLayers": 3,
+      "repetitionSystems": 3,
+      "reviewViewpoints": 4
+    },
+    "featureGroups": [
+      {
+        "id": "head-silhouette",
+        "name": "Cup-shaped double corolla silhouette",
+        "required": true,
+        "qualityCriteria": [
+          "head bbox 0.21w \u00d7 0.20h, wider than tall, flares wider to \u2212x",
+          "outer whorl 5 petals flaring 35\u201350\u00b0, middle 6 upright, inner 7 crumpled",
+          "ruffled margins break the outline"
+        ],
+        "evidenceRefs": [
+          "zone:top-center",
+          "zone:top-left"
+        ],
+        "failureModes": [
+          "head reads as a sphere/ball",
+          "petals are flat cutouts from the side",
+          "cup too tall or too narrow"
+        ]
+      },
+      {
+        "id": "stem-curve",
+        "name": "Long tapered stem with gentle S-curve",
+        "required": true,
+        "qualityCriteria": [
+          "stem diameter ~0.010\u20130.012, slight taper",
+          "lateral S wobble \u00b10.008",
+          "long upper internode 0.38\u21920.79 uninterrupted"
+        ],
+        "evidenceRefs": [
+          "zone:middle-center",
+          "zone:bottom-center"
+        ],
+        "failureModes": [
+          "stem dead straight",
+          "stem too thick or uniform cylinder"
+        ]
+      },
+      {
+        "id": "leaf-pair",
+        "name": "Opposite lanceolate leaf pair",
+        "required": true,
+        "qualityCriteria": [
+          "bases at h 0.38 (\u2212x) and 0.30 (+x)",
+          "length ~0.21, max width ~0.05 at 35% length, acuminate tips arcing up-out",
+          "midrib keel fold gives depth"
+        ],
+        "evidenceRefs": [
+          "zone:bottom-left",
+          "zone:bottom-right"
+        ],
+        "failureModes": [
+          "leaves flat planks",
+          "leaf roots float off the stem"
+        ]
+      },
+      {
+        "id": "calyx-sepals",
+        "name": "Calyx cup with curled sepals",
+        "required": true,
+        "qualityCriteria": [
+          "green receptacle h 0.78\u20130.83",
+          "5 thin sepals curling outward"
+        ],
+        "evidenceRefs": [
+          "zone:middle-center"
+        ],
+        "failureModes": [
+          "head floats above stem",
+          "no transition between stem and head"
+        ]
+      },
+      {
+        "id": "petal-color",
+        "name": "Petal gradient",
+        "required": true,
+        "qualityCriteria": [
+          "base #e7b8b9 \u2192 edge #f2d8d7, picotee fringe #d99aa8, edge translucency"
+        ],
+        "evidenceRefs": [
+          "zone:top-center"
+        ],
+        "failureModes": [
+          "single flat pink"
+        ]
+      }
+    ],
+    "visualDeltaChecks": [
+      "front silhouette IoU vs reference",
+      "head width/height ratio and flare asymmetry",
+      "side/top views: cup depth and petal curvature (no flat cards)",
+      "leaf tip positions and arc",
+      "stem S-curve visible but gentle"
+    ],
+    "antiShallowSpecRules": [
+      "Do not proceed to code if qualityContract.qualityBar is unassessed.",
+      "Do not proceed to code if the spec only contains a root component for a moderate or complex object.",
+      "Do not proceed to code if required featureGroups are not represented by componentTree, materials, or repetitionSystems.",
+      "Do not proceed to code if visible local features are described only in prose and not attached to components/materials/evidenceRefs.",
+      "Do not proceed past structural-pass if attached child parts lack attachment.parentSocket, localStart, localEnd, embedDepth/overlap, and gapTolerance.",
+      "Do not pass material look-dev when albedo is reused as roughness, height, normal, or AO.",
+      "Do not pass material look-dev without macro, meso, and micro surface frequency bands for close-up materials.",
+      "Do not pass reference-fidelity material look-dev from a source image without usable referencePbr maps or an explicit documented limitation.",
+      "Do not patch a spec with extracted PBR maps when extraction confidence is below the target threshold unless the user explicitly accepts lower fidelity.",
+      "Do not place adjacent separate-geometry parts below 0.02 world-unit seam overlap (source: grimoire/build/geometry_patterns.md).",
+      "Do not satisfy raised or recessed relief, fasteners, or grip structure with a map alone when the feature affects form; use geometry or displacement (source: grimoire/build/geometry_patterns.md)."
+    ]
+  },
+  "authoringInstruction": "Fill observed object class, complexity reasoning, featureGroups, visualDeltaChecks, and unknowns before generating or implementing ObjectSculptSpec.",
+  "localSpecSearch": {
+    "collection": "core_3d",
+    "query": "Carnation flower petal thin shell double sided botanical stem tapered tube curve leaf lanceolate blade subsurface translucency petal",
+    "index": {
+      "status": "rebuilt",
+      "reason": "missing",
+      "fingerprint": "62f2831e1d52eeb6dbb94a87c44fa25b1f4926626a7b1f8c2bcadc63e04e9471"
+    },
+    "matches": [
+      {
+        "record_id": "core.shader-mapping-conegeometry-tapered-tips",
+        "file_path": "docs/raw/img2threejs-skill-dataset.json",
+        "heading": null,
+        "key_path": "categories.rendering_shader_mapping[11]",
+        "score": 6.299817361323,
+        "snippets": [
+          "Maps to tapered projectile-like or pointed components. \u00c1nh x\u1ea1 t\u1edbi c\u00e1c b\u1ed9 ph\u1eadn thon nh\u1ecdn gi\u1ed1ng \u0111\u1ea7u \u0111\u1ea1n ho\u1eb7c c\u00f3 m\u0169i nh\u1ecdn. Recognition cues: Tapered pointed shape narrowing to a point \u2014 projectile tips, some conical muzzle device shapes D\u1ea5u hi\u1ec7u ..."
+        ],
+        "source_refs": [
+          {
+            "path": "docs/raw/img2threejs-skill-dataset.json",
+            "heading": null,
+            "key_path": "categories.rendering_shader_mapping[11]"
+          }
+        ],
+        "evidence_refs": [
+          {
+            "kind": "source",
+            "ref": "docs/raw/img2threejs-skill-dataset.json",
+            "note": "img2threejs NotebookLM research distillation"
+          }
+        ]
+      },
+      {
+        "record_id": "core.pbr-subsurface-scattering-sss",
+        "file_path": "docs/raw/img2threejs-skill-dataset.json",
+        "heading": null,
+        "key_path": "categories.material_pbr[5]",
+        "score": 5.777507968452,
+        "snippets": [
+          "... xuy\u00ean v\u00e0o v\u00e0 t\u00e1n x\u1ea1 b\u00ean trong tr\u01b0\u1edbc khi tho\u00e1t ra (da, s\u00e1p, \u0111\u00e1 c\u1ea9m th\u1ea1ch, m\u1ed9t s\u1ed1 nh\u1ef1a polymer). Recognition cues: Edges/thin sections of the material glow softly when backlit rather than showing a hard black silhouette; Relevant mainly to ..."
+        ],
+        "source_refs": [
+          {
+            "path": "docs/raw/img2threejs-skill-dataset.json",
+            "heading": null,
+            "key_path": "categories.material_pbr[5]"
+          }
+        ],
+        "evidence_refs": [
+          {
+            "kind": "source",
+            "ref": "docs/raw/img2threejs-skill-dataset.json",
+            "note": "img2threejs NotebookLM research distillation"
+          }
+        ]
+      },
+      {
+        "record_id": "core.shader-mapping-tubegeometry-straps-cables-belts",
+        "file_path": "docs/raw/img2threejs-skill-dataset.json",
+        "heading": null,
+        "key_path": "categories.rendering_shader_mapping[10]",
+        "score": 4.445426974684,
+        "snippets": [
+          "Maps to flexible components following a 3D curve. \u00c1nh x\u1ea1 t\u1edbi c\u00e1c b\u1ed9 ph\u1eadn m\u1ec1m d\u1ebbo ch\u1ea1y theo m\u1ed9t \u0111\u01b0\u1eddng cong 3D. Recognition cues: Flexible, curve-following linear component \u2014 sling strap, pressure-switch cable, ammo belt draping into a receiver ..."
+        ],
+        "source_refs": [
+          {
+            "path": "docs/raw/img2threejs-skill-dataset.json",
+            "heading": null,
+            "key_path": "categories.rendering_shader_mapping[10]"
+          }
+        ],
+        "evidence_refs": [
+          {
+            "kind": "source",
+            "ref": "docs/raw/img2threejs-skill-dataset.json",
+            "note": "img2threejs NotebookLM research distillation"
+          }
+        ]
+      }
+    ]
+  }
+}

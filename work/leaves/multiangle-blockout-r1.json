@@ -1,0 +1,26 @@
+{
+  "referenceAreaFraction": 0.1722562577893899,
+  "angles": [
+    {
+      "path": "/Users/yelimkim/Projects/3dShadows/work/leaves/renders/blockout-r1-az90.png",
+      "areaFraction": 0.05312082376083007,
+      "ratio": 0.30838254843419705,
+      "degenerate": false
+    },
+    {
+      "path": "/Users/yelimkim/Projects/3dShadows/work/leaves/renders/blockout-r1-az180.png",
+      "areaFraction": 0.172207456792348,
+      "ratio": 0.9997166953603417,
+      "degenerate": false
+    },
+    {
+      "path": "/Users/yelimkim/Projects/3dShadows/work/leaves/renders/blockout-r1-az270.png",
+      "areaFraction": 0.05308516149376098,
+      "ratio": 0.3081755181206006,
+      "degenerate": false
+    }
+  ],
+  "degenerate": false,
+  "collapseRatio": 0.15,
+  "note": "deterministic; zero token; a flat-plane-faking-a-volume collapses in silhouette area when orbited"
+}

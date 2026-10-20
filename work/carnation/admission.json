@@ -1,0 +1,14 @@
+{
+  "admitted": true,
+  "reasons": [],
+  "provenance": {
+    "viewpoint": "front",
+    "sourcePath": "/Users/yelimkim/Projects/3dShadows/references/carnation.png",
+    "width": 1024,
+    "height": 1536,
+    "foregroundCoverage": 0.0565,
+    "largestComponentFraction": 1.0,
+    "pHash": 12295014630088949052,
+    "duplicateOfHash": null
+  }
+}

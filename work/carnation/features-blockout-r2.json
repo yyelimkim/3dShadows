@@ -1,0 +1,5 @@
+[
+ {"id": "head-silhouette", "score": 0.78, "notes": "cup widens from calyx to a frilled rim, ruffles now on the outline; row widths within ~0.01 of reference; right outer petal flares slightly further than the reference's"},
+ {"id": "stem-curve", "score": 0.8, "notes": "tapered S-curve stem; residual 1-cell lateral slop on the 224 grid"},
+ {"id": "leaf-pair", "score": 0.8, "notes": "face-on lance pair at the right heights and arc; renders lighter than the glaucous reference under the review key light"}
+]

@@ -1,0 +1,951 @@
+{
+  "components": [
+    {
+      "id": "stem",
+      "name": "Main stem",
+      "level": "macro",
+      "importance": 1.0,
+      "confidence": 0.85,
+      "primitive": "tapered-sweep",
+      "topologyClass": "fiber-strand",
+      "topologyRationale": "Thin woody strand tapering to the tip: tapered sweep.",
+      "material": "stem",
+      "animationRole": "root",
+      "bend": true,
+      "collider": "capsule",
+      "dimensions": {
+        "width": 0.01,
+        "height": 0.98,
+        "depth": 0.01
+      },
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "geometry": {
+        "taperedSweep": {
+          "stations": [
+            {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rx": 0.005,
+              "rz": 0.005,
+              "twist": 0
+            },
+            {
+              "position": [
+                -0.002,
+                0.148,
+                0.002
+              ],
+              "rx": 0.0045,
+              "rz": 0.0045,
+              "twist": 0
+            },
+            {
+              "position": [
+                -0.004,
+                0.304,
+                0
+              ],
+              "rx": 0.004,
+              "rz": 0.004,
+              "twist": 0
+            },
+            {
+              "position": [
+                -0.013,
+                0.452,
+                -0.002
+              ],
+              "rx": 0.0036,
+              "rz": 0.0036,
+              "twist": 0
+            },
+            {
+              "position": [
+                -0.017,
+                0.574,
+                0
+              ],
+              "rx": 0.0032,
+              "rz": 0.0032,
+              "twist": 0
+            },
+            {
+              "position": [
+                -0.009,
+                0.687,
+                0.002
+              ],
+              "rx": 0.0028,
+              "rz": 0.0028,
+              "twist": 0
+            },
+            {
+              "position": [
+                0.004,
+                0.8,
+                0
+              ],
+              "rx": 0.0024,
+              "rz": 0.0024,
+              "twist": 0
+            },
+            {
+              "position": [
+                0.002,
+                0.887,
+                -0.001
+              ],
+              "rx": 0.002,
+              "rz": 0.002,
+              "twist": 0
+            },
+            {
+              "position": [
+                -0.004,
+                0.957,
+                0
+              ],
+              "rx": 0.0017,
+              "rz": 0.0017,
+              "twist": 0
+            },
+            {
+              "position": [
+                -0.003,
+                0.978,
+                0
+              ],
+              "rx": 0.0015,
+              "rz": 0.0015,
+              "twist": 0
+            }
+          ],
+          "radialSegments": 8,
+          "capEnds": true
+        }
+      },
+      "localFeatures": [
+        {
+          "id": "cut-end-brown",
+          "kind": "stain",
+          "description": "brown cut base",
+          "evidenceRefs": [
+            "zone:bottom-center"
+          ],
+          "detailRef": "d-cut-end"
+        },
+        {
+          "id": "node-swelling",
+          "kind": "contour",
+          "description": "slight node thickening",
+          "evidenceRefs": [
+            "zone:middle-center"
+          ],
+          "detailRef": "d-node"
+        }
+      ],
+      "sockets": [
+        {
+          "id": "node-0",
+          "localPosition": [
+            0,
+            0.109,
+            0
+          ]
+        },
+        {
+          "id": "node-1",
+          "localPosition": [
+            0,
+            0.191,
+            0
+          ]
+        },
+        {
+          "id": "node-2",
+          "localPosition": [
+            0,
+            0.265,
+            0
+          ]
+        },
+        {
+          "id": "node-3",
+          "localPosition": [
+            0,
+            0.37,
+            0
+          ]
+        },
+        {
+          "id": "node-4",
+          "localPosition": [
+            0,
+            0.44,
+            0
+          ]
+        },
+        {
+          "id": "node-5",
+          "localPosition": [
+            0,
+            0.54,
+            0
+          ]
+        },
+        {
+          "id": "node-6",
+          "localPosition": [
+            0,
+            0.626,
+            0
+          ]
+        },
+        {
+          "id": "node-7",
+          "localPosition": [
+            0,
+            0.72,
+            0
+          ]
+        },
+        {
+          "id": "node-8",
+          "localPosition": [
+            0,
+            0.787,
+            0
+          ]
+        },
+        {
+          "id": "node-9",
+          "localPosition": [
+            0,
+            0.843,
+            0
+          ]
+        },
+        {
+          "id": "node-10",
+          "localPosition": [
+            0,
+            0.9,
+            0
+          ]
+        },
+        {
+          "id": "node-11",
+          "localPosition": [
+            0,
+            0.96,
+            0
+          ]
+        }
+      ],
+      "evidenceRefs": [
+        "zone:bottom-center"
+      ]
+    },
+    {
+      "id": "leaf-pairs-main",
+      "name": "Main leaf pairs (x12)",
+      "level": "macro",
+      "parent": "stem",
+      "confidence": 0.75,
+      "primitive": "plane-card",
+      "topologyClass": "conforming-shell",
+      "topologyRationale": "Thin round leaf blades, cupped and bent: deformed card, DoubleSide.",
+      "material": "leaf",
+      "collider": "box",
+      "dimensions": {
+        "width": 0.075,
+        "height": 0.09,
+        "depth": 0.02
+      },
+      "position": [
+        0,
+        0.109,
+        0
+      ],
+      "deformationStack": [
+        {
+          "type": "cup",
+          "amount": 0.12
+        },
+        {
+          "type": "bend",
+          "fromDeg": 55,
+          "toDeg": 72
+        }
+      ],
+      "attachment": {
+        "socket": "node-0",
+        "contactType": "overlap",
+        "localStart": [
+          0,
+          0,
+          0
+        ],
+        "localEnd": [
+          0.09,
+          0.03,
+          0
+        ],
+        "embedDepth": 0.003,
+        "overlap": 0.02,
+        "baseRadius": 0.002,
+        "endRadius": 0.0
+      },
+      "localFeatures": [
+        {
+          "id": "coin-outline",
+          "kind": "contour",
+          "description": "ovate-round, slight point",
+          "evidenceRefs": [
+            "zone:middle-center"
+          ],
+          "detailRef": "d-coin-leaf"
+        },
+        {
+          "id": "petiole-neck",
+          "kind": "contour",
+          "description": "narrow base",
+          "evidenceRefs": [
+            "zone:middle-center"
+          ],
+          "detailRef": "d-petiole"
+        },
+        {
+          "id": "tip-pair",
+          "kind": "contour",
+          "description": "upright tip pair",
+          "evidenceRefs": [
+            "zone:top-center"
+          ],
+          "detailRef": "d-tip-pair"
+        }
+      ],
+      "evidenceRefs": [
+        "zone:middle-center"
+      ]
+    },
+    {
+      "id": "side-branches",
+      "name": "Side branches (x4)",
+      "level": "macro",
+      "parent": "stem",
+      "confidence": 0.75,
+      "primitive": "tapered-sweep",
+      "topologyClass": "fiber-strand",
+      "topologyRationale": "Thin twigs following a curve, tapering: tapered sweep.",
+      "material": "stem",
+      "collider": "capsule",
+      "dimensions": {
+        "width": 0.22,
+        "height": 0.2,
+        "depth": 0.02
+      },
+      "position": [
+        0,
+        0.652,
+        0
+      ],
+      "geometry": {
+        "taperedSweep": {
+          "stations": [
+            {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rx": 0.0024,
+              "rz": 0.0024,
+              "twist": 0
+            },
+            {
+              "position": [
+                -0.06,
+                0.035,
+                0.01
+              ],
+              "rx": 0.0018,
+              "rz": 0.0018,
+              "twist": 0
+            },
+            {
+              "position": [
+                -0.11,
+                0.06,
+                0.01
+              ],
+              "rx": 0.0012,
+              "rz": 0.0012,
+              "twist": 0
+            },
+            {
+              "position": [
+                -0.148,
+                0.074,
+                0.005
+              ],
+              "rx": 0.0008,
+              "rz": 0.0008,
+              "twist": 0
+            }
+          ],
+          "radialSegments": 6,
+          "capEnds": true
+        }
+      },
+      "attachment": {
+        "socket": "node-6",
+        "contactType": "overlap",
+        "localStart": [
+          0,
+          0,
+          0
+        ],
+        "localEnd": [
+          -0.148,
+          0.074,
+          0
+        ],
+        "embedDepth": 0.003,
+        "overlap": 0.02,
+        "baseRadius": 0.0024,
+        "endRadius": 0.0008
+      },
+      "localFeatures": [
+        {
+          "id": "side-branches-list",
+          "kind": "contour",
+          "description": "A h.65 L, B h.44 L, C h.20 L, D h.14 R",
+          "evidenceRefs": [
+            "zone:middle-left"
+          ],
+          "detailRef": "d-branches"
+        }
+      ],
+      "evidenceRefs": [
+        "zone:middle-left"
+      ]
+    },
+    {
+      "id": "leaf-pairs-branch",
+      "name": "Branch leaf pairs",
+      "level": "meso",
+      "parent": "side-branches",
+      "confidence": 0.65,
+      "primitive": "plane-card",
+      "topologyClass": "conforming-shell",
+      "topologyRationale": "Smaller round blades on the twigs: deformed card.",
+      "material": "leaf",
+      "collider": "box",
+      "dimensions": {
+        "width": 0.05,
+        "height": 0.06,
+        "depth": 0.015
+      },
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "deformationStack": [
+        {
+          "type": "cup",
+          "amount": 0.12
+        }
+      ],
+      "attachment": {
+        "socket": "branch-node",
+        "contactType": "overlap",
+        "localStart": [
+          0,
+          0,
+          0
+        ],
+        "localEnd": [
+          0.05,
+          0.02,
+          0
+        ],
+        "embedDepth": 0.003,
+        "overlap": 0.02,
+        "baseRadius": 0.0015,
+        "endRadius": 0.0
+      },
+      "evidenceRefs": [
+        "zone:middle-left"
+      ]
+    },
+    {
+      "id": "petioles",
+      "name": "Petiole necks",
+      "level": "meso",
+      "parent": "leaf-pairs-main",
+      "confidence": 0.5,
+      "primitive": "plane-card",
+      "topologyClass": "conforming-shell",
+      "topologyRationale": "Narrowed blade base standing in for the short petiole.",
+      "material": "leaf",
+      "collider": "box",
+      "dimensions": {
+        "width": 0.008,
+        "height": 0.01,
+        "depth": 0.004
+      },
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "attachment": {
+        "socket": "leaf-base",
+        "contactType": "overlap",
+        "localStart": [
+          0,
+          0,
+          0
+        ],
+        "localEnd": [
+          0,
+          0.01,
+          0
+        ],
+        "embedDepth": 0.003,
+        "overlap": 0.02,
+        "baseRadius": 0.002,
+        "endRadius": 0.001
+      },
+      "evidenceRefs": [
+        "zone:middle-center"
+      ]
+    },
+    {
+      "id": "nodes",
+      "name": "Node collars",
+      "level": "meso",
+      "parent": "stem",
+      "confidence": 0.5,
+      "primitive": "ellipsoid",
+      "topologyClass": "continuous-sculpt",
+      "topologyRationale": "Smooth node swellings.",
+      "material": "stem",
+      "collider": "sphere",
+      "dimensions": {
+        "width": 0.008,
+        "height": 0.01,
+        "depth": 0.008
+      },
+      "position": [
+        0,
+        0.109,
+        0
+      ],
+      "attachment": {
+        "socket": "node-0",
+        "contactType": "embed",
+        "localStart": [
+          0,
+          -0.005,
+          0
+        ],
+        "localEnd": [
+          0,
+          0.005,
+          0
+        ],
+        "embedDepth": 0.003,
+        "overlap": 0.02,
+        "baseRadius": 0.004,
+        "endRadius": 0.004
+      },
+      "evidenceRefs": [
+        "zone:middle-center"
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "id": "leaf",
+      "name": "Glaucous eucalyptus leaf",
+      "stops": [
+        "#4f602d",
+        "#5f733c",
+        "#6b8047",
+        "#7f9461"
+      ],
+      "roughness": 0.75,
+      "samplingNotes": "Leaf-mask luminance quantiles (references/leaves.jpeg).",
+      "localOverrides": [
+        {
+          "id": "glaucous-edge",
+          "region": "outer 35%",
+          "color": "#8da077",
+          "detailRef": "d-glaucous",
+          "evidenceRefs": [
+            "zone:middle-center"
+          ]
+        },
+        {
+          "id": "midrib-tint",
+          "region": "centre 6%",
+          "color": "#7f9461",
+          "detailRef": "d-midrib",
+          "evidenceRefs": [
+            "zone:middle-center"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "stem",
+      "name": "Woody stem",
+      "stops": [
+        "#5c4830",
+        "#4e4630",
+        "#4f5a36",
+        "#6b7a52"
+      ],
+      "roughness": 0.7,
+      "samplingNotes": "Non-leaf mask medians, base\u2192tip.",
+      "localOverrides": [
+        {
+          "id": "cut-end-brown",
+          "region": "bottom 4%",
+          "color": "#5c4830",
+          "detailRef": "d-cut-end",
+          "evidenceRefs": [
+            "zone:bottom-center"
+          ]
+        }
+      ]
+    }
+  ],
+  "repetitionSystems": [
+    {
+      "id": "main-pairs",
+      "componentRef": "leaf-pairs-main",
+      "count": 24,
+      "distribution": "12 opposite pairs, alternate pairs rotated (decussate), seeded \u00b14\u00b0 jitter",
+      "seeded": true,
+      "evidenceRefs": [
+        "zone:middle-center"
+      ]
+    },
+    {
+      "id": "branch-pairs",
+      "componentRef": "leaf-pairs-branch",
+      "count": 28,
+      "distribution": "3-4 pairs per branch incl. tip pair",
+      "seeded": true,
+      "evidenceRefs": [
+        "zone:middle-left"
+      ]
+    }
+  ],
+  "passes": [
+    {
+      "id": "blockout",
+      "goal": "Stem, 12 pair positions, 4 branches.",
+      "componentRefs": [
+        "stem",
+        "leaf-pairs-main",
+        "side-branches"
+      ],
+      "acceptance": [
+        "Front silhouette proportions match reference",
+        "AI vision comparison score >= 0.7"
+      ]
+    },
+    {
+      "id": "structural-pass",
+      "goal": "Branch leaf pairs, petioles, nodes, pivots.",
+      "componentRefs": [
+        "leaf-pairs-branch",
+        "petioles",
+        "nodes"
+      ],
+      "acceptance": [
+        "No floating parts"
+      ]
+    },
+    {
+      "id": "form-refinement",
+      "goal": "Leaf cup and bend; side/top silhouettes.",
+      "componentRefs": [
+        "leaf-pairs-main"
+      ],
+      "acceptance": [
+        "Leaves read as cupped coins"
+      ]
+    },
+    {
+      "id": "material-pass",
+      "goal": "Glaucous leaf gradient, brown cut.",
+      "componentRefs": [
+        "leaf-pairs-main",
+        "stem"
+      ],
+      "acceptance": [
+        "Palette matches"
+      ]
+    },
+    {
+      "id": "interaction-pass",
+      "goal": "Options + sway.",
+      "componentRefs": [
+        "stem"
+      ],
+      "acceptance": [
+        "Same seed -> same sprig"
+      ]
+    },
+    {
+      "id": "optimization-pass",
+      "goal": "Triangle budget.",
+      "componentRefs": [
+        "stem"
+      ],
+      "acceptance": [
+        "build passes"
+      ]
+    }
+  ],
+  "featureReviewTargets": [
+    {
+      "id": "leaf-pairs",
+      "name": "Coin-leaf pairs",
+      "tier": "critical",
+      "passIds": [
+        "blockout",
+        "form-refinement"
+      ],
+      "minimumScore": 0.75,
+      "mustPass": true,
+      "componentRefs": [
+        "leaf-pairs-main"
+      ],
+      "evidenceRefs": [
+        "zone:middle-center"
+      ]
+    },
+    {
+      "id": "branches",
+      "name": "Side branches",
+      "tier": "critical",
+      "passIds": [
+        "blockout",
+        "structural-pass"
+      ],
+      "minimumScore": 0.7,
+      "mustPass": true,
+      "componentRefs": [
+        "side-branches"
+      ],
+      "evidenceRefs": [
+        "zone:middle-left"
+      ]
+    },
+    {
+      "id": "stem",
+      "name": "Woody stem",
+      "tier": "important",
+      "passIds": [
+        "blockout"
+      ],
+      "minimumScore": 0.6,
+      "mustPass": false,
+      "componentRefs": [
+        "stem"
+      ],
+      "evidenceRefs": [
+        "zone:bottom-center"
+      ]
+    }
+  ],
+  "silhouette": {
+    "boundingShape": "0.48 wide x 1.0 high spray",
+    "aspectRatios": [
+      {
+        "name": "width/height",
+        "value": 0.48
+      }
+    ],
+    "symmetry": "asymmetric, heavier left",
+    "dominantCurves": [
+      "main stem near-straight",
+      "branches angle up-out"
+    ],
+    "negativeSpaces": [
+      "gaps between branch clusters"
+    ],
+    "landmarks": [
+      {
+        "id": "branch-B-tip",
+        "position": [
+          -0.217,
+          0.592,
+          0
+        ]
+      },
+      {
+        "id": "branch-D-tip",
+        "position": [
+          0.222,
+          0.331,
+          0
+        ]
+      }
+    ]
+  },
+  "viewEvidence": [
+    {
+      "id": "full-object",
+      "view": "front",
+      "imageRegion": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1,
+        "units": "normalized"
+      },
+      "observations": [
+        "single front view"
+      ],
+      "confidence": 0.85
+    },
+    {
+      "id": "zone:middle-center",
+      "view": "front",
+      "imageRegion": {
+        "x": 0.33,
+        "y": 0.33,
+        "width": 0.34,
+        "height": 0.33,
+        "units": "normalized"
+      },
+      "observations": [
+        "main pairs"
+      ],
+      "confidence": 0.8
+    },
+    {
+      "id": "zone:middle-left",
+      "view": "front",
+      "imageRegion": {
+        "x": 0,
+        "y": 0.33,
+        "width": 0.33,
+        "height": 0.33,
+        "units": "normalized"
+      },
+      "observations": [
+        "branches A,B"
+      ],
+      "confidence": 0.8
+    },
+    {
+      "id": "zone:top-center",
+      "view": "front",
+      "imageRegion": {
+        "x": 0.33,
+        "y": 0,
+        "width": 0.34,
+        "height": 0.33,
+        "units": "normalized"
+      },
+      "observations": [
+        "tip pairs"
+      ],
+      "confidence": 0.8
+    },
+    {
+      "id": "zone:bottom-center",
+      "view": "front",
+      "imageRegion": {
+        "x": 0.33,
+        "y": 0.66,
+        "width": 0.34,
+        "height": 0.34,
+        "units": "normalized"
+      },
+      "observations": [
+        "cut end, branch D"
+      ],
+      "confidence": 0.8
+    }
+  ],
+  "assumptions": [
+    "Pairs decussate; all leaves rolled toward the camera as photographed.",
+    "Branches near the image plane."
+  ],
+  "risks": [
+    {
+      "id": "flat-discs",
+      "description": "leaves read as flat discs",
+      "mitigation": "cup + bend; review side/top"
+    }
+  ],
+  "proceduralStrategy": [
+    "Shared kit src/flowers/flowerKit.ts with a new branches system (sub-stem tubes carrying leaf pairs)."
+  ],
+  "animationAnchors": [
+    {
+      "id": "base",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "use": "sway"
+    },
+    {
+      "id": "midStem",
+      "position": [
+        -0.013,
+        0.49,
+        0
+      ],
+      "use": "bend"
+    },
+    {
+      "id": "head",
+      "position": [
+        -0.003,
+        0.978,
+        0
+      ],
+      "use": "tip nod"
+    }
+  ],
+  "runtimeOptions": {
+    "seed": "int",
+    "openness": "leaf spread 0..1",
+    "stemLean": "radians",
+    "stemHeight": "multiplier",
+    "bend": "multiplier",
+    "scale": "uniform"
+  },
+  "detailKinds": {},
+  "detailLinks": {
+    "d-coin-leaf": "coin-outline",
+    "d-leaf-pairs": "leaf-pairs-main",
+    "d-branches": "side-branches",
+    "d-cut-end": "cut-end-brown",
+    "d-glaucous": "glaucous-edge",
+    "d-midrib": "midrib-tint",
+    "d-tip-pair": "tip-pair",
+    "d-petiole": "petiole-neck",
+    "d-node": "node-swelling"
+  }
+}

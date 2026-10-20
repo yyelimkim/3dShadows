@@ -1,0 +1,11 @@
+{
+  "path": "/Users/yelimkim/Projects/3dShadows/references/leaves.jpeg",
+  "type": "jpeg",
+  "bytes": 391893,
+  "width": 843,
+  "height": 1264,
+  "aspectRatio": 0.6669303797468354,
+  "technicalSuitability": "pass",
+  "warnings": [],
+  "note": "This is only technical image probing. Semantic object suitability still requires visual inspection."
+}

@@ -1,0 +1,363 @@
+{
+  "targetName": "Leaves",
+  "sourceImage": "/Users/yelimkim/Projects/3dShadows/references/leaves.jpeg",
+  "preSpecAssessment": {
+    "objectClass": {
+      "primaryType": "cut eucalyptus sprig (round-leaved)",
+      "primaryDomain": "object",
+      "formLanguage": [
+        "organic",
+        "botanical-like"
+      ],
+      "structureKind": [
+        "branching hierarchy",
+        "repeated modules"
+      ],
+      "motionPotential": [
+        "whole-object transform",
+        "bendable"
+      ],
+      "materialFamilies": [
+        "leaf",
+        "bark"
+      ],
+      "notes": "Organic thin-shelled object, not a character. Shadow piece: the coin-leaf silhouette matters most."
+    },
+    "complexity": {
+      "tier": "moderate",
+      "scores": {
+        "silhouetteComplexity": 3,
+        "componentCount": 3,
+        "hierarchyDepth": 2,
+        "repetitionDensity": 2,
+        "materialLayerCount": 1,
+        "localDetailDensity": 1,
+        "occlusionRisk": 2,
+        "actionReadinessNeed": 1
+      },
+      "estimatedCounts": {
+        "macroComponents": 3,
+        "mesoComponents": 4,
+        "microFeatureGroups": 2,
+        "materialLayers": 2,
+        "repetitionSystems": 2
+      },
+      "reasoning": [
+        "~40 coin leaves in opposite pairs on a main stem and four side branches; repetition drives the silhouette."
+      ]
+    },
+    "specDepthDecision": {
+      "requiredDepth": "moderate",
+      "minimumComponentLevels": [
+        "macro",
+        "meso",
+        "micro"
+      ],
+      "needsRepetitionSystems": true,
+      "needsMaterialLocalOverrides": true,
+      "needsMultipleReviewViews": true,
+      "needsActionReadyHierarchy": true,
+      "rationale": "Leaf-pair repetition and branch placement define the outline."
+    },
+    "unknownsToResolveBeforeImplementation": [],
+    "detailInventory": {
+      "scanMethod": "grid-3x3",
+      "targetMinDetails": 6,
+      "note": "Enumerate every identity-defining small detail before authoring the spec. Each detail must map to a component.localFeatures entry or material.localOverrides entry, never prose only. Use forge/stage1_intake/build_detail_inventory.py to scan zones.",
+      "details": [
+        {
+          "id": "d-coin-leaf",
+          "zone": "middle-center",
+          "kind": "contour",
+          "description": "ovate-round leaf, width ~0.85 length, slight point",
+          "mapsTo": {
+            "ref": "coin-outline"
+          },
+          "confidence": 0.8
+        },
+        {
+          "id": "d-leaf-pairs",
+          "zone": "middle-center",
+          "kind": "contour",
+          "description": "opposite pairs at nodes",
+          "mapsTo": {
+            "ref": "leaf-pairs-main"
+          },
+          "confidence": 0.8
+        },
+        {
+          "id": "d-branches",
+          "zone": "middle-left",
+          "kind": "contour",
+          "description": "four thin side branches with their own pairs",
+          "mapsTo": {
+            "ref": "side-branches"
+          },
+          "confidence": 0.75
+        },
+        {
+          "id": "d-cut-end",
+          "zone": "bottom-center",
+          "kind": "stain",
+          "description": "brown woody cut end",
+          "mapsTo": {
+            "ref": "cut-end-brown"
+          },
+          "confidence": 0.75
+        },
+        {
+          "id": "d-glaucous",
+          "zone": "middle-center",
+          "kind": "stain",
+          "description": "matte blue-grey bloom, lighter edges",
+          "mapsTo": {
+            "ref": "glaucous-edge"
+          },
+          "confidence": 0.6
+        },
+        {
+          "id": "d-midrib",
+          "zone": "middle-center",
+          "kind": "linework",
+          "description": "faint midrib (colour only)",
+          "mapsTo": {
+            "ref": "midrib-tint"
+          },
+          "confidence": 0.5
+        },
+        {
+          "id": "d-tip-pair",
+          "zone": "top-center",
+          "kind": "contour",
+          "description": "small upright tip pair",
+          "mapsTo": {
+            "ref": "tip-pair"
+          },
+          "confidence": 0.7
+        },
+        {
+          "id": "d-petiole",
+          "zone": "middle-center",
+          "kind": "contour",
+          "description": "short petioles, leaf base narrows",
+          "mapsTo": {
+            "ref": "petiole-neck"
+          },
+          "confidence": 0.6
+        },
+        {
+          "id": "d-node",
+          "zone": "middle-center",
+          "kind": "contour",
+          "description": "slight node thickening",
+          "mapsTo": {
+            "ref": "node-swelling"
+          },
+          "confidence": 0.5
+        }
+      ]
+    },
+    "anatomy": {
+      "applies": false,
+      "styleHeads": 0.0,
+      "proportions": {
+        "headUnit": 0.0,
+        "torso": 0.0,
+        "legs": 0.0,
+        "shoulderWidth": 0.0,
+        "hipWidth": 0.0
+      },
+      "pose": {
+        "type": "unassessed",
+        "jointAngles": {}
+      },
+      "faceLandmarks": {
+        "eyeLine": 0.0,
+        "eyeSpacing": 0.0,
+        "noseBase": 0.0,
+        "mouthLine": 0.0,
+        "hairline": 0.0
+      },
+      "features": [],
+      "confidence": 0.0,
+      "note": "Only meaningful when objectClass.primaryDomain is character or hybrid. Set applies=true and fill from forge/stage1_intake/extract_landmarks.py. See grimoire/character/reconstruction.md and grimoire/character/likeness_maximization.md."
+    },
+    "sourceImage": "/Users/yelimkim/Projects/3dShadows/references/leaves.jpeg",
+    "resolvedInferences": [
+      {
+        "id": "decussate",
+        "status": "inferred",
+        "resolution": "alternate pairs rotated: (-90,90) and (-50,130), all rolled to face the camera"
+      },
+      {
+        "id": "branch-depth",
+        "status": "inferred",
+        "resolution": "branches kept near the image plane, \u00b10.01 depth"
+      }
+    ]
+  },
+  "qualityContract": {
+    "qualityBar": "moderate",
+    "definitionOfDone": [
+      "Front silhouette: 12 main pairs + 4 branches match the measured positions; spray 0.48 wide.",
+      "Leaves read as cupped coins from side/3/4/top, not flat discs; every mesh casts shadows; origin at stem base, height 1.0."
+    ],
+    "minimumSpecDepth": {
+      "macroComponents": 3,
+      "mesoComponents": 3,
+      "microFeatureGroups": 2,
+      "materialLayers": 2,
+      "repetitionSystems": 2,
+      "reviewViewpoints": 4
+    },
+    "featureGroups": [
+      {
+        "id": "leaf-pairs",
+        "name": "Coin-leaf pairs",
+        "required": true,
+        "qualityCriteria": [
+          "12 opposite pairs, 0.05-0.095 long"
+        ],
+        "evidenceRefs": [
+          "zone:middle-center"
+        ],
+        "failureModes": [
+          "flat discs",
+          "missing pairs"
+        ]
+      },
+      {
+        "id": "branches",
+        "name": "Side branches",
+        "required": true,
+        "qualityCriteria": [
+          "A h.65 left, B h.44 left, C h.20 left, D h.14 right"
+        ],
+        "evidenceRefs": [
+          "zone:middle-left"
+        ],
+        "failureModes": [
+          "branch floats"
+        ]
+      },
+      {
+        "id": "stem",
+        "name": "Tapered woody stem",
+        "required": true,
+        "qualityCriteria": [
+          "brown cut base, thin tip"
+        ],
+        "evidenceRefs": [
+          "zone:bottom-center"
+        ],
+        "failureModes": [
+          "uniform cylinder"
+        ]
+      }
+    ],
+    "visualDeltaChecks": [
+      "silhouette and negative-space delta",
+      "component hierarchy depth delta",
+      "repetition density and distribution delta",
+      "material albedo/roughness/normal response delta",
+      "local feature placement and scale delta"
+    ],
+    "antiShallowSpecRules": [
+      "Do not proceed to code if qualityContract.qualityBar is unassessed.",
+      "Do not proceed to code if the spec only contains a root component for a moderate or complex object.",
+      "Do not proceed to code if required featureGroups are not represented by componentTree, materials, or repetitionSystems.",
+      "Do not proceed to code if visible local features are described only in prose and not attached to components/materials/evidenceRefs.",
+      "Do not proceed past structural-pass if attached child parts lack attachment.parentSocket, localStart, localEnd, embedDepth/overlap, and gapTolerance.",
+      "Do not pass material look-dev when albedo is reused as roughness, height, normal, or AO.",
+      "Do not pass material look-dev without macro, meso, and micro surface frequency bands for close-up materials.",
+      "Do not pass reference-fidelity material look-dev from a source image without usable referencePbr maps or an explicit documented limitation.",
+      "Do not patch a spec with extracted PBR maps when extraction confidence is below the target threshold unless the user explicitly accepts lower fidelity.",
+      "Do not place adjacent separate-geometry parts below 0.02 world-unit seam overlap (source: grimoire/build/geometry_patterns.md).",
+      "Do not satisfy raised or recessed relief, fasteners, or grip structure with a map alone when the feature affects form; use geometry or displacement (source: grimoire/build/geometry_patterns.md)."
+    ]
+  },
+  "authoringInstruction": "Fill observed object class, complexity reasoning, featureGroups, visualDeltaChecks, and unknowns before generating or implementing ObjectSculptSpec.",
+  "localSpecSearch": {
+    "collection": "core_3d",
+    "query": "Leaves leaf blade thin shell double sided botanical stem branch tapered tube repeated leaf pairs instancing",
+    "index": {
+      "status": "hit",
+      "reason": "current",
+      "fingerprint": "62f2831e1d52eeb6dbb94a87c44fa25b1f4926626a7b1f8c2bcadc63e04e9471"
+    },
+    "matches": [
+      {
+        "record_id": "core.shader-mapping-conegeometry-tapered-tips",
+        "file_path": "docs/raw/img2threejs-skill-dataset.json",
+        "heading": null,
+        "key_path": "categories.rendering_shader_mapping[11]",
+        "score": 6.299817361323,
+        "snippets": [
+          "Maps to tapered projectile-like or pointed components. \u00c1nh x\u1ea1 t\u1edbi c\u00e1c b\u1ed9 ph\u1eadn thon nh\u1ecdn gi\u1ed1ng \u0111\u1ea7u \u0111\u1ea1n ho\u1eb7c c\u00f3 m\u0169i nh\u1ecdn. Recognition cues: Tapered pointed shape narrowing to a point \u2014 projectile tips, some conical muzzle device shapes D\u1ea5u hi\u1ec7u ..."
+        ],
+        "source_refs": [
+          {
+            "path": "docs/raw/img2threejs-skill-dataset.json",
+            "heading": null,
+            "key_path": "categories.rendering_shader_mapping[11]"
+          }
+        ],
+        "evidence_refs": [
+          {
+            "kind": "source",
+            "ref": "docs/raw/img2threejs-skill-dataset.json",
+            "note": "img2threejs NotebookLM research distillation"
+          }
+        ]
+      },
+      {
+        "record_id": "core.shader-mapping-torusgeometry-rings-loops",
+        "file_path": "docs/raw/img2threejs-skill-dataset.json",
+        "heading": null,
+        "key_path": "categories.rendering_shader_mapping[8]",
+        "score": 3.401965238705,
+        "snippets": [
+          "... Talon knife, trigger guard loop, carrying handle D\u1ea5u hi\u1ec7u nh\u1eadn di\u1ec7n: Chi ti\u1ebft v\u00f2ng tr\u00f2n \u2014 v\u00f2ng c\u00e1n l\u01b0\u1ee1i l\u00ea, v\u00f2ng ng\u00f3n tay tr\u00ean dao Talon, v\u00f2ng v\u00e0nh b\u1ea3o v\u1ec7 c\u00f2, tay x\u00e1ch Three.js target: TorusGeometry(radius, tube, radialSegments, tubularSegments)"
+        ],
+        "source_refs": [
+          {
+            "path": "docs/raw/img2threejs-skill-dataset.json",
+            "heading": null,
+            "key_path": "categories.rendering_shader_mapping[8]"
+          }
+        ],
+        "evidence_refs": [
+          {
+            "kind": "source",
+            "ref": "docs/raw/img2threejs-skill-dataset.json",
+            "note": "img2threejs NotebookLM research distillation"
+          }
+        ]
+      },
+      {
+        "record_id": "core.shader-mapping-extrudegeometry-custom-bladesilhouette-profiles",
+        "file_path": "docs/raw/img2threejs-skill-dataset.json",
+        "heading": null,
+        "key_path": "categories.rendering_shader_mapping[7]",
+        "score": 3.297052693896,
+        "snippets": [
+          "... b\u1ea5t k\u1ef3 b\u1ed9 ph\u1eadn n\u00e0o \u0111\u01b0\u1ee3c \u0111\u1ecbnh ngh\u0129a b\u1eb1ng \u0111\u01b0\u1eddng vi\u1ec1n 2D \u0111\u1ed9c nh\u1ea5t, \u0111\u1ea9y v\u00e0o chi\u1ec1u s\u00e2u 3D v\u1edbi c\u1ea1nh v\u00e1t. Recognition cues: Blade shape that doesn't match a simple primitive \u2014 distinctive curved hook (Karambit), curved clip point (Bowie), or ..."
+        ],
+        "source_refs": [
+          {
+            "path": "docs/raw/img2threejs-skill-dataset.json",
+            "heading": null,
+            "key_path": "categories.rendering_shader_mapping[7]"
+          }
+        ],
+        "evidence_refs": [
+          {
+            "kind": "source",
+            "ref": "docs/raw/img2threejs-skill-dataset.json",
+            "note": "img2threejs NotebookLM research distillation"
+          }
+        ]
+      }
+    ]
+  }
+}

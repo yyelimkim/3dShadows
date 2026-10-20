@@ -1,0 +1,4640 @@
+{
+  "targetName": "Iris",
+  "targetId": "iris",
+  "schemaVersion": "2.1",
+  "terminologyProfile": {
+    "domain": "real-time procedural Three.js asset",
+    "geometryTerms": [
+      "silhouette",
+      "topology",
+      "primitive",
+      "bevel",
+      "chamfer",
+      "taper",
+      "bend",
+      "boolean cut",
+      "edge loop",
+      "surface normal",
+      "displacement"
+    ],
+    "materialTerms": [
+      "albedo",
+      "baseColor",
+      "roughness",
+      "metalness",
+      "normal map",
+      "bump map",
+      "ambient occlusion",
+      "cavity dirt",
+      "edge wear",
+      "clearcoat"
+    ],
+    "lightingTerms": [
+      "key light",
+      "fill light",
+      "rim light",
+      "HDRI/environment reflection",
+      "contact shadow"
+    ],
+    "descriptionRule": "Use measurable 3D graphics terms. Avoid vague words unless they are paired with concrete geometry/material/shader parameters."
+  },
+  "sourceImage": "/Users/yelimkim/Projects/3dShadows/references/iris.png",
+  "referenceCamera": {
+    "solved": false,
+    "fovDegrees": 40.0,
+    "aspect": 1.0,
+    "orientation": {
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0
+    },
+    "positionHint": [
+      0.0,
+      0.0,
+      3.0
+    ],
+    "note": "For likeness work, solve the reference camera (forge/stage1_intake/solve_camera_pose.py) so the review render aligns with the photo and the reference can be projected. Confirm by overlay review."
+  },
+  "suitability": "conditional",
+  "scores": {
+    "object_isolation": 0,
+    "silhouette_readability": 0,
+    "depth_inference": 0,
+    "primitive_decomposition": 0,
+    "material_procedurality": 0,
+    "occlusion_risk": 0,
+    "interaction_fit": 0
+  },
+  "preSpecAssessment": {
+    "objectClass": {
+      "primaryType": "cut flower stem — beardless (Louisiana-type) iris",
+      "primaryDomain": "object",
+      "formLanguage": [
+        "organic",
+        "botanical-like"
+      ],
+      "structureKind": [
+        "branching hierarchy",
+        "layered shell",
+        "repeated modules"
+      ],
+      "motionPotential": [
+        "whole-object transform",
+        "bendable"
+      ],
+      "materialFamilies": [
+        "leaf",
+        "petal (thin translucent dielectric)"
+      ],
+      "notes": "Organic thin-shelled object, not a character. Shadow hero piece: silhouette from every azimuth first."
+    },
+    "complexity": {
+      "tier": "moderate",
+      "scores": {
+        "silhouetteComplexity": 3,
+        "componentCount": 2,
+        "hierarchyDepth": 2,
+        "repetitionDensity": 1,
+        "materialLayerCount": 2,
+        "localDetailDensity": 1,
+        "occlusionRisk": 2,
+        "actionReadinessNeed": 1
+      },
+      "estimatedCounts": {
+        "macroComponents": 4,
+        "mesoComponents": 5,
+        "microFeatureGroups": 3,
+        "materialLayers": 3,
+        "repetitionSystems": 3
+      },
+      "reasoning": [
+        "Wide trimerous head: 3 spreading falls dominate the silhouette, 3 upright standards form the crown.",
+        "Two very different leaves (long sword leaf, narrow spathe leaf) both sheathe the stem.",
+        "Back fall/standard hidden: occlusion 2."
+      ]
+    },
+    "specDepthDecision": {
+      "requiredDepth": "moderate",
+      "minimumComponentLevels": [
+        "macro",
+        "meso",
+        "micro"
+      ],
+      "needsRepetitionSystems": true,
+      "needsMaterialLocalOverrides": true,
+      "needsMultipleReviewViews": true,
+      "needsActionReadyHierarchy": true,
+      "rationale": "Silhouette depends on the fall spread and both leaves; pivots base/midStem/head needed for sway."
+    },
+    "unknownsToResolveBeforeImplementation": [],
+    "detailInventory": {
+      "scanMethod": "grid-3x3",
+      "targetMinDetails": 6,
+      "note": "Enumerate every identity-defining small detail before authoring the spec. Each detail must map to a component.localFeatures entry or material.localOverrides entry, never prose only. Use forge/stage1_intake/build_detail_inventory.py to scan zones.",
+      "details": [
+        {
+          "id": "d-fall-arch",
+          "zone": "top-left",
+          "kind": "contour",
+          "description": "falls arch up then droop; right fall tip curls upward",
+          "mapsTo": {
+            "ref": "fall-arch",
+            "note": ""
+          },
+          "confidence": 0.8,
+          "realization": "unreported"
+        },
+        {
+          "id": "d-signal",
+          "zone": "top-center",
+          "kind": "stain",
+          "description": "yellow signal patch at each fall base",
+          "mapsTo": {
+            "ref": "signal-patch",
+            "note": ""
+          },
+          "confidence": 0.8,
+          "realization": "unreported"
+        },
+        {
+          "id": "d-standard-spoon",
+          "zone": "top-center",
+          "kind": "contour",
+          "description": "standards spoon-shaped: narrow claw, broad blunt blade, slight incurve",
+          "mapsTo": {
+            "ref": "standard-spoon",
+            "note": ""
+          },
+          "confidence": 0.75,
+          "realization": "unreported"
+        },
+        {
+          "id": "d-style-arms",
+          "zone": "top-center",
+          "kind": "contour",
+          "description": "three small yellow-orange style arms over the falls",
+          "mapsTo": {
+            "ref": "style-arm-crest",
+            "note": ""
+          },
+          "confidence": 0.6,
+          "realization": "unreported"
+        },
+        {
+          "id": "d-sheath",
+          "zone": "bottom-center",
+          "kind": "seam",
+          "description": "sword and spathe leaves wrap the stem at their bases (sheath)",
+          "mapsTo": {
+            "ref": "leaf-sheath",
+            "note": ""
+          },
+          "confidence": 0.75,
+          "realization": "unreported"
+        },
+        {
+          "id": "d-bud-tip",
+          "zone": "middle-center",
+          "kind": "contour",
+          "description": "closed green bud with acuminate tip beside the stem",
+          "mapsTo": {
+            "ref": "bud-tip",
+            "note": ""
+          },
+          "confidence": 0.7,
+          "realization": "unreported"
+        },
+        {
+          "id": "d-fall-edge",
+          "zone": "top-right",
+          "kind": "linework",
+          "description": "falls lighten toward the margin, near-white at the right fall tip",
+          "mapsTo": {
+            "ref": "fall-edge-lighten",
+            "note": ""
+          },
+          "confidence": 0.65,
+          "realization": "unreported"
+        },
+        {
+          "id": "d-leaf-veins",
+          "zone": "bottom-right",
+          "kind": "linework",
+          "description": "parallel venation on sword leaf (colour only)",
+          "mapsTo": {
+            "ref": "parallel-vein-tint",
+            "note": ""
+          },
+          "confidence": 0.5,
+          "realization": "unreported"
+        },
+        {
+          "id": "d-stem-node",
+          "zone": "middle-center",
+          "kind": "contour",
+          "description": "stem thickens at the two leaf nodes",
+          "mapsTo": {
+            "ref": "node-swelling",
+            "note": ""
+          },
+          "confidence": 0.7,
+          "realization": "unreported"
+        }
+      ]
+    },
+    "anatomy": {
+      "applies": false,
+      "styleHeads": 0.0,
+      "proportions": {
+        "headUnit": 0.0,
+        "torso": 0.0,
+        "legs": 0.0,
+        "shoulderWidth": 0.0,
+        "hipWidth": 0.0
+      },
+      "pose": {
+        "type": "unassessed",
+        "jointAngles": {}
+      },
+      "faceLandmarks": {
+        "eyeLine": 0.0,
+        "eyeSpacing": 0.0,
+        "noseBase": 0.0,
+        "mouthLine": 0.0,
+        "hairline": 0.0
+      },
+      "features": [],
+      "confidence": 0.0,
+      "note": "Only meaningful when objectClass.primaryDomain is character or hybrid. Set applies=true and fill from forge/stage1_intake/extract_landmarks.py. See grimoire/character/reconstruction.md and grimoire/character/likeness_maximization.md."
+    },
+    "sourceImage": "/Users/yelimkim/Projects/3dShadows/references/iris.png",
+    "resolvedInferences": [
+      {
+        "id": "back-petals",
+        "status": "inferred",
+        "resolution": "trimerous symmetry: falls at 0/±120°, standards at 180/±60°"
+      },
+      {
+        "id": "sword-leaf-depth",
+        "status": "inferred",
+        "resolution": "blade rolled to face the camera, grows toward +x"
+      },
+      {
+        "id": "bud-depth",
+        "status": "inferred",
+        "resolution": "bud sits slightly behind/right of the stem"
+      }
+    ]
+  },
+  "qualityContract": {
+    "qualityBar": "moderate",
+    "definitionOfDone": [
+      "Front silhouette: head 0.34 wide at h 0.84-1.0 on a 0.83 stem; sword leaf tip at (+0.14,0.68); spathe leaf up to h 0.89.",
+      "From side/3/4/top the falls read as arched curved shells spreading on three azimuths; standards upright cupped spoons.",
+      "Every mesh casts shadows; petals DoubleSide; origin at stem base, default height 1.0."
+    ],
+    "minimumSpecDepth": {
+      "macroComponents": 3,
+      "mesoComponents": 5,
+      "microFeatureGroups": 3,
+      "materialLayers": 3,
+      "repetitionSystems": 3,
+      "reviewViewpoints": 4
+    },
+    "featureGroups": [
+      {
+        "id": "fall-spread",
+        "name": "Three spreading falls",
+        "required": true,
+        "qualityCriteria": [
+          "falls ≈0.16 long, 0.07 wide; left/right nearly horizontal, front droops"
+        ],
+        "evidenceRefs": [
+          "zone:top-left",
+          "zone:top-right"
+        ],
+        "failureModes": [
+          "falls upright like tulip petals",
+          "flat cards from the side"
+        ]
+      },
+      {
+        "id": "standards",
+        "name": "Upright standards",
+        "required": true,
+        "qualityCriteria": [
+          "3 spoon standards ≈0.14 tall to h 1.0"
+        ],
+        "evidenceRefs": [
+          "zone:top-center"
+        ],
+        "failureModes": [
+          "standards flare out"
+        ]
+      },
+      {
+        "id": "leaves",
+        "name": "Sword and spathe leaves",
+        "required": true,
+        "qualityCriteria": [
+          "sword leaf 0.45 long up-right from h 0.25; spathe leaf straight up from h 0.60"
+        ],
+        "evidenceRefs": [
+          "zone:bottom-right",
+          "zone:middle-center"
+        ],
+        "failureModes": [
+          "leaf floats off stem",
+          "leaf edge-on"
+        ]
+      },
+      {
+        "id": "stem",
+        "name": "Tapered stem",
+        "required": true,
+        "qualityCriteria": [
+          "diameter ≈0.012, slight lean left mid-height then right toward the head"
+        ],
+        "evidenceRefs": [
+          "zone:bottom-center"
+        ],
+        "failureModes": [
+          "dead straight cylinder"
+        ]
+      },
+      {
+        "id": "petal-color",
+        "name": "Coral falls, salmon standards, yellow signal",
+        "required": true,
+        "qualityCriteria": [
+          "stops sampled from pixels"
+        ],
+        "evidenceRefs": [
+          "zone:top-center"
+        ],
+        "failureModes": [
+          "one flat red"
+        ]
+      }
+    ],
+    "visualDeltaChecks": [
+      "front silhouette IoU",
+      "fall spread width",
+      "side/top: falls arched shells",
+      "leaf tip positions",
+      "stem lean"
+    ],
+    "antiShallowSpecRules": [
+      "Do not proceed to code if qualityContract.qualityBar is unassessed.",
+      "Do not proceed to code if the spec only contains a root component for a moderate or complex object.",
+      "Do not proceed to code if required featureGroups are not represented by componentTree, materials, or repetitionSystems.",
+      "Do not proceed to code if visible local features are described only in prose and not attached to components/materials/evidenceRefs.",
+      "Do not proceed past structural-pass if attached child parts lack attachment.parentSocket, localStart, localEnd, embedDepth/overlap, and gapTolerance.",
+      "Do not pass material look-dev when albedo is reused as roughness, height, normal, or AO.",
+      "Do not pass material look-dev without macro, meso, and micro surface frequency bands for close-up materials.",
+      "Do not pass reference-fidelity material look-dev from a source image without usable referencePbr maps or an explicit documented limitation.",
+      "Do not patch a spec with extracted PBR maps when extraction confidence is below the target threshold unless the user explicitly accepts lower fidelity.",
+      "Do not place adjacent separate-geometry parts below 0.02 world-unit seam overlap (source: grimoire/build/geometry_patterns.md).",
+      "Do not satisfy raised or recessed relief, fasteners, or grip structure with a map alone when the feature affects form; use geometry or displacement (source: grimoire/build/geometry_patterns.md).",
+      "Adjacent components must overlap by at least 0.02 world units at shared seams (source: grimoire/build/geometry_patterns.md).",
+      "Raised or recessed relief and fasteners must be geometry, instanced micro-parts, or displacement; a map alone is an approximation (source: grimoire/build/geometry_patterns.md)."
+    ],
+    "mustNotDo": [
+      "Do not proceed to code if qualityContract.qualityBar is unassessed.",
+      "Do not proceed to code if the spec only contains a root component for a moderate or complex object.",
+      "Do not proceed to code if required featureGroups are not represented by componentTree, materials, or repetitionSystems.",
+      "Do not proceed to code if visible local features are described only in prose and not attached to components/materials/evidenceRefs.",
+      "Do not proceed past structural-pass if attached child parts lack attachment.parentSocket, localStart, localEnd, embedDepth/overlap, and gapTolerance.",
+      "Do not pass material look-dev when albedo is reused as roughness, height, normal, or AO.",
+      "Do not pass material look-dev without macro, meso, and micro surface frequency bands for close-up materials.",
+      "Do not pass reference-fidelity material look-dev from a source image without usable referencePbr maps or an explicit documented limitation.",
+      "Do not patch a spec with extracted PBR maps when extraction confidence is below the target threshold unless the user explicitly accepts lower fidelity.",
+      "Do not place adjacent separate-geometry parts below 0.02 world-unit seam overlap (source: grimoire/build/geometry_patterns.md).",
+      "Do not satisfy raised or recessed relief, fasteners, or grip structure with a map alone when the feature affects form; use geometry or displacement (source: grimoire/build/geometry_patterns.md).",
+      "Adjacent components must overlap by at least 0.02 world units at shared seams (source: grimoire/build/geometry_patterns.md).",
+      "Raised or recessed relief and fasteners must be geometry, instanced micro-parts, or displacement; a map alone is an approximation (source: grimoire/build/geometry_patterns.md)."
+    ]
+  },
+  "qualityTargets": {
+    "targetFidelity": 0.7,
+    "mustMatch": [
+      "macro silhouette and proportions",
+      "primary material albedo/roughness response",
+      "reference-derived PBR material response at or above 0.7 confidence when source pixels are usable",
+      "most recognizable local features"
+    ],
+    "niceToHave": [
+      "micro scratches, stains, chips, and dirt masks",
+      "secondary lighting match"
+    ],
+    "fpsTarget": 60,
+    "reviewViewpoints": [
+      "front",
+      "three-quarter",
+      "side",
+      "thickness-axis",
+      "long-axis"
+    ]
+  },
+  "selfCorrectLoop": {
+    "enabled": true,
+    "visualAcceptance": {
+      "reviewer": "ai-vision",
+      "threshold": 0.7,
+      "comparisonArtifactRequired": true,
+      "layerScoresRequired": true,
+      "codePixelDiffIsAcceptanceAuthority": false,
+      "scoringRule": "AI vision must inspect a side-by-side reference/render sheet and score the current pass from 0 to 1. Pixel-diff code may assist diagnostics but cannot approve a pass.",
+      "requiredLayerScores": [
+        "silhouetteProportion",
+        "componentStructure",
+        "formDetail",
+        "materialSurface",
+        "lightingCamera"
+      ],
+      "featureReviewPolicy": {
+        "enabled": true,
+        "reviewUnit": "semantic-subsystem",
+        "maxCriticalFeaturesPerPass": 5,
+        "maxImportantFeaturesPerPass": 3,
+        "criticalDefaultThreshold": 0.8,
+        "importantAverageThreshold": 0.65,
+        "adaptiveEscalation": true,
+        "singleImagePairOnly": true,
+        "selectionRule": "Choose only the most visually salient, identity-defining, user-prioritized, or high-risk semantic systems. Group repeated parts instead of reviewing every mesh. AI vision scores every selected feature from the same full reference/render pair."
+      }
+    },
+    "reviewAfterPasses": [
+      "blockout",
+      "structural-pass",
+      "form-refinement",
+      "material-pass",
+      "interaction-pass"
+    ],
+    "allowedActions": [
+      "continue",
+      "refine-spec",
+      "refine-code",
+      "request-input",
+      "stop"
+    ],
+    "specRefineTriggers": [
+      "missing component",
+      "wrong primitive family",
+      "wrong proportions",
+      "material layer under-specified",
+      "local feature not traceable to viewEvidence",
+      "reference ambiguity discovered during implementation"
+    ],
+    "codeRefineTriggers": [
+      "spec is adequate but generated geometry/material does not match",
+      "browser render differs from reference",
+      "performance budget exceeded",
+      "lighting hides geometry or material response"
+    ],
+    "stopCriteria": [
+      "target fidelity reached or user accepts current approximation",
+      "remaining gaps require new reference images or manual art"
+    ],
+    "screenshotPolicy": {
+      "requiredForPasses": [
+        "blockout",
+        "structural-pass",
+        "form-refinement",
+        "material-pass",
+        "surface-pass",
+        "lighting-pass",
+        "interaction-pass"
+      ],
+      "preferredCapture": "in-app-browser-screenshot",
+      "fallbackCapture": "user-supplied-screenshot-path",
+      "minimumEvidence": "Each visual pass needs a reference image, rendered screenshot, side-by-side comparison sheet, AI vision score, layer scores, and critique before choosing continue.",
+      "reviewPairRule": "Compare the same camera/viewpoint whenever possible; do not judge a front reference against a random render angle.",
+      "acceptanceAuthority": "AI vision review of the comparison sheet. Code-generated pixel similarity is not sufficient evidence."
+    }
+  },
+  "featureReviewTargets": [
+    {
+      "id": "fall-spread",
+      "name": "Three spreading falls",
+      "tier": "critical",
+      "passIds": [
+        "blockout",
+        "form-refinement"
+      ],
+      "minimumScore": 0.75,
+      "mustPass": true,
+      "componentRefs": [
+        "falls"
+      ],
+      "evidenceRefs": [
+        "zone:top-left",
+        "zone:top-right"
+      ]
+    },
+    {
+      "id": "standards",
+      "name": "Upright standards",
+      "tier": "critical",
+      "passIds": [
+        "blockout",
+        "form-refinement"
+      ],
+      "minimumScore": 0.7,
+      "mustPass": true,
+      "componentRefs": [
+        "standards"
+      ],
+      "evidenceRefs": [
+        "zone:top-center"
+      ]
+    },
+    {
+      "id": "leaves",
+      "name": "Sword + spathe leaves",
+      "tier": "critical",
+      "passIds": [
+        "blockout",
+        "structural-pass"
+      ],
+      "minimumScore": 0.75,
+      "mustPass": true,
+      "componentRefs": [
+        "leaf-sword",
+        "leaf-spathe"
+      ],
+      "evidenceRefs": [
+        "zone:bottom-right"
+      ]
+    },
+    {
+      "id": "stem",
+      "name": "Tapered stem",
+      "tier": "critical",
+      "passIds": [
+        "blockout"
+      ],
+      "minimumScore": 0.75,
+      "mustPass": true,
+      "componentRefs": [
+        "stem"
+      ],
+      "evidenceRefs": [
+        "zone:bottom-center"
+      ]
+    },
+    {
+      "id": "petal-color",
+      "name": "Coral/salmon/yellow palette",
+      "tier": "critical",
+      "passIds": [
+        "material-pass"
+      ],
+      "minimumScore": 0.7,
+      "mustPass": true,
+      "componentRefs": [
+        "falls",
+        "standards"
+      ],
+      "evidenceRefs": [
+        "zone:top-center"
+      ]
+    }
+  ],
+  "sculptPipeline": {
+    "passGateMode": "locked-sequential",
+    "passOrder": [
+      "blockout",
+      "structural-pass",
+      "form-refinement",
+      "material-pass",
+      "interaction-pass",
+      "optimization-pass"
+    ],
+    "currentPass": "blockout",
+    "completedPasses": [],
+    "lastCompletedPass": "",
+    "blockedReason": "",
+    "nextRequiredEvidence": [
+      "Front silhouette proportions match reference",
+      "AI vision comparison score >= 0.7",
+      "browser render screenshot from your agent's browser/screenshot tool",
+      "side-by-side reference/render comparison sheet for AI vision review",
+      "banded interior difference vs the reference baseline (forge/stage4_review/interior_difference.py --from/--to per region)",
+      "AI vision score at or above the visual acceptance threshold",
+      "all critical semantic feature scores from the shared image pair at or above their thresholds",
+      "self-correction review appended with action=continue before the next pass"
+    ]
+  },
+  "lookDevTargets": {
+    "qualityPriority": "reference-fidelity",
+    "materialPass": {
+      "albedoPaletteRequired": true,
+      "roughnessVariationRequired": true,
+      "normalOrBumpRequired": true,
+      "localOverridesRequired": true,
+      "minimumTextureResolution": 1024,
+      "preferredTextureResolution": 2048,
+      "independentMapChannels": [
+        "albedo",
+        "roughness",
+        "height",
+        "normal",
+        "ambient-occlusion"
+      ],
+      "requiredSurfaceFrequencyBands": [
+        "macro",
+        "meso",
+        "micro"
+      ],
+      "geometryReliefRequiredWhenSilhouetteAffected": true,
+      "referencePbrExtraction": {
+        "requiredWhenSourceImagePresent": true,
+        "targetThreshold": 0.7,
+        "stopOnLowConfidence": true,
+        "script": "forge/stage1_intake/extract_pbr_evidence.py",
+        "acceptedLimitation": "single-image extraction is reference-derived inference, not exact photogrammetry"
+      },
+      "mustAvoid": [
+        "single flat albedo per material",
+        "uniform roughness",
+        "albedo texture reused as roughness/height/normal/AO",
+        "single-frequency random noise",
+        "plastic-looking smooth bark, stone, cloth, foliage, or aged material",
+        "local color/detail described only in prose without material masks",
+        "claiming exact PBR recovery when confidence is below the target threshold"
+      ]
+    },
+    "lightingPass": {
+      "requiredTerms": [
+        "key light",
+        "fill light",
+        "rim or environment light",
+        "exposure",
+        "tone mapping",
+        "background",
+        "contact shadow"
+      ],
+      "mustAvoid": [
+        "ambient-only lighting",
+        "flat value range",
+        "missing contact shadow",
+        "reference lighting copied without separating material readability"
+      ]
+    },
+    "screenshotReview": [
+      "Compare albedo palette and local color zones.",
+      "Compare roughness/normal/bump response under light.",
+      "Compare cavity dirt, edge wear, stains, moss, scratches, or other local masks.",
+      "Compare key/fill/rim structure, exposure, tone mapping, background, and contact shadows.",
+      "Capture a neutral-light render to verify material readability without reference lighting.",
+      "Capture a grazing-light close-up to expose flat normals, uniform roughness, tiling, and plastic highlights.",
+      "Capture a reference-matched render from the same camera framing as the source."
+    ],
+    "presentation": "viewer-owned lights and environment; presentation composer skipped per brief"
+  },
+  "actionReadiness": {
+    "contract": "Every macro/meso component should be generated as a stable named Object3D pivot node with a mesh child, action metadata, optional sockets, collider proxy, and destruction metadata.",
+    "defaultRigType": "action-ready-static-rig",
+    "rootMotionNode": "root",
+    "requiredComponentFields": [
+      "id",
+      "parent",
+      "transform",
+      "attachment for child appendages, connectors, limbs, tubes, handles, legs, horns, wings, branches, or cables",
+      "actionProfile.animationRole",
+      "actionProfile.pivot",
+      "actionProfile.collider",
+      "actionProfile.destruction"
+    ],
+    "transformChannels": [
+      "translate",
+      "rotate",
+      "scale",
+      "bend",
+      "twist",
+      "detach",
+      "visibility",
+      "material-state"
+    ],
+    "authoringRules": [
+      "Do not collapse independently movable parts into one mesh.",
+      "Put transforms on component pivot groups, not only on raw meshes.",
+      "For attached child parts, put the pivot at the semantic root/socket and build visible geometry from localStart to localEnd.",
+      "Represent hinge, socket, detachable, and breakable intent even when no animation is implemented yet.",
+      "Use simplified collider proxies for runtime physics instead of visual mesh colliders by default."
+    ],
+    "destructionPolicy": {
+      "defaultBreakable": false,
+      "fractureGroupNaming": "Use stable semantic names such as body-shell, left-hinge, glass-panel, branch-segment.",
+      "debrisStrategy": "Prefer detachable component groups and a small number of procedural fragments over random mesh explosion."
+    },
+    "pivots": [
+      {
+        "id": "base",
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "use": "sway"
+      },
+      {
+        "id": "midStem",
+        "position": [
+          -0.015,
+          0.55,
+          0
+        ],
+        "use": "bend"
+      },
+      {
+        "id": "head",
+        "position": [
+          0.025,
+          0.83,
+          0
+        ],
+        "use": "nod"
+      }
+    ]
+  },
+  "assumptions": [
+    "Back standard and fall inferred from trimerous symmetry.",
+    "Sword leaf blade rolled to face the camera as photographed.",
+    "Bud placed slightly behind-right of the stem."
+  ],
+  "coordinateFrame": {
+    "front": "+Z faces the camera of the reference view",
+    "up": "+Y",
+    "origin": "stem base",
+    "scaleReference": "total height 1.0 world unit (default)"
+  },
+  "silhouette": {
+    "boundingShape": "tall: 0.34 wide head on a 0.83 stem",
+    "aspectRatios": [
+      {
+        "name": "head width / total height",
+        "value": 0.34
+      }
+    ],
+    "symmetry": "trimerous head, asymmetric leaves",
+    "dominantCurves": [
+      "falls arch out then droop",
+      "sword leaf diagonal up-right"
+    ],
+    "negativeSpaces": [
+      "gap between sword leaf and stem h 0.3-0.68"
+    ],
+    "landmarks": [
+      {
+        "id": "left-fall-tip",
+        "position": [
+          -0.145,
+          0.91,
+          0
+        ]
+      },
+      {
+        "id": "right-fall-tip",
+        "position": [
+          0.19,
+          0.91,
+          0
+        ]
+      },
+      {
+        "id": "sword-tip",
+        "position": [
+          0.14,
+          0.68,
+          0
+        ]
+      },
+      {
+        "id": "head-top",
+        "position": [
+          0.03,
+          1.0,
+          0
+        ]
+      }
+    ]
+  },
+  "viewEvidence": [
+    {
+      "id": "full-object",
+      "view": "front",
+      "imageRegion": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1,
+        "units": "normalized"
+      },
+      "observations": [
+        "single front view on white"
+      ],
+      "confidence": 0.85
+    },
+    {
+      "id": "zone:top-center",
+      "view": "front",
+      "imageRegion": {
+        "x": 0.33,
+        "y": 0,
+        "width": 0.34,
+        "height": 0.33,
+        "units": "normalized"
+      },
+      "observations": [
+        "standards, signal, style arms"
+      ],
+      "confidence": 0.8
+    },
+    {
+      "id": "zone:top-left",
+      "view": "front",
+      "imageRegion": {
+        "x": 0,
+        "y": 0,
+        "width": 0.33,
+        "height": 0.33,
+        "units": "normalized"
+      },
+      "observations": [
+        "left fall"
+      ],
+      "confidence": 0.8
+    },
+    {
+      "id": "zone:top-right",
+      "view": "front",
+      "imageRegion": {
+        "x": 0.67,
+        "y": 0,
+        "width": 0.33,
+        "height": 0.33,
+        "units": "normalized"
+      },
+      "observations": [
+        "right fall tip curl"
+      ],
+      "confidence": 0.8
+    },
+    {
+      "id": "zone:middle-center",
+      "view": "front",
+      "imageRegion": {
+        "x": 0.33,
+        "y": 0.33,
+        "width": 0.34,
+        "height": 0.33,
+        "units": "normalized"
+      },
+      "observations": [
+        "spathe leaf, bud, node"
+      ],
+      "confidence": 0.8
+    },
+    {
+      "id": "zone:bottom-center",
+      "view": "front",
+      "imageRegion": {
+        "x": 0.33,
+        "y": 0.66,
+        "width": 0.34,
+        "height": 0.34,
+        "units": "normalized"
+      },
+      "observations": [
+        "lower stem, sword sheath"
+      ],
+      "confidence": 0.8
+    },
+    {
+      "id": "zone:bottom-right",
+      "view": "front",
+      "imageRegion": {
+        "x": 0.5,
+        "y": 0.33,
+        "width": 0.5,
+        "height": 0.67,
+        "units": "normalized"
+      },
+      "observations": [
+        "sword leaf"
+      ],
+      "confidence": 0.8
+    }
+  ],
+  "componentTree": [
+    {
+      "id": "stem",
+      "name": "Stem (tapered tube, gentle S)",
+      "level": "macro",
+      "role": "body",
+      "importance": 1.0,
+      "confidence": 0.85,
+      "primitive": "tapered-sweep",
+      "topologyClass": "fiber-strand",
+      "topologyRationale": "Long thin path-following strand with a slowly tapering round section: tapered sweep.",
+      "geometryDescriptor": {
+        "topologyIntent": "smooth organic surface",
+        "edgeTreatment": {
+          "type": "none",
+          "bevelRadius": 0.0,
+          "segments": 1
+        },
+        "deformationStack": [],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "vertex normals from generated geometry",
+        "taperedSweep": {
+          "stations": [
+            {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rx": 0.0068,
+              "rz": 0.0068,
+              "twist": 0
+            },
+            {
+              "position": [
+                -0.004,
+                0.25,
+                0.003
+              ],
+              "rx": 0.0066,
+              "rz": 0.0066,
+              "twist": 0
+            },
+            {
+              "position": [
+                -0.012,
+                0.4,
+                0.002
+              ],
+              "rx": 0.0062,
+              "rz": 0.0062,
+              "twist": 0
+            },
+            {
+              "position": [
+                -0.015,
+                0.55,
+                0
+              ],
+              "rx": 0.006,
+              "rz": 0.006,
+              "twist": 0
+            },
+            {
+              "position": [
+                -0.008,
+                0.65,
+                -0.002
+              ],
+              "rx": 0.0057,
+              "rz": 0.0057,
+              "twist": 0
+            },
+            {
+              "position": [
+                0.01,
+                0.74,
+                -0.003
+              ],
+              "rx": 0.0052,
+              "rz": 0.0052,
+              "twist": 0
+            },
+            {
+              "position": [
+                0.022,
+                0.8,
+                -0.002
+              ],
+              "rx": 0.0045,
+              "rz": 0.0045,
+              "twist": 0
+            },
+            {
+              "position": [
+                0.025,
+                0.83,
+                0
+              ],
+              "rx": 0.0037,
+              "rz": 0.0037,
+              "twist": 0
+            }
+          ],
+          "radialSegments": 12,
+          "capEnds": true
+        }
+      },
+      "parent": null,
+      "attachment": null,
+      "dimensions": {
+        "width": 0.014,
+        "height": 0.83,
+        "depth": 0.014,
+        "units": "world",
+        "confidence": 0.85
+      },
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "root",
+        "pivot": {
+          "mode": "custom",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            0,
+            1
+          ],
+          "confidence": 0.7
+        },
+        "transformChannels": {
+          "translate": true,
+          "rotate": true,
+          "scale": false,
+          "bend": true,
+          "twist": false,
+          "detach": false,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [
+          {
+            "id": "node-0.25",
+            "localPosition": [
+              -0.004,
+              0.25,
+              0.003
+            ]
+          },
+          {
+            "id": "node-0.60",
+            "localPosition": [
+              -0.013,
+              0.6,
+              0
+            ]
+          },
+          {
+            "id": "head",
+            "localPosition": [
+              0.025,
+              0.83,
+              0
+            ]
+          }
+        ],
+        "collider": {
+          "type": "capsule",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "proxy for click/explode only"
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": false,
+          "fractureGroup": "stem",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0.0,
+          "debrisMaterial": "stem"
+        }
+      },
+      "material": "stem",
+      "materialLayers": [
+        "stem"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [],
+      "surfaceDetail": {
+        "macroRoughness": 0.0,
+        "microRoughness": 0.0,
+        "bumpAmplitude": 0.0,
+        "normalPattern": "",
+        "displacementPattern": "",
+        "occlusionPattern": "",
+        "edgeWearPattern": "",
+        "notes": ""
+      },
+      "evidenceRefs": [
+        "zone:bottom-center",
+        "zone:middle-center"
+      ],
+      "details": [],
+      "fidelityTier": "form",
+      "colorMaterialRecipe": {
+        "dominantAlbedo": "rgba(122, 144, 80, 1.0)",
+        "secondaryAlbedo": "rgba(127, 148, 88, 1.0)",
+        "materialClass": "unknown",
+        "materialClassConfidence": 0.8,
+        "materialClassNote": "botanical tissue (petal/leaf/stem): thin dielectric, no listed class fits",
+        "colorGradient": {
+          "type": "linear",
+          "axis": "base-to-tip",
+          "stops": [
+            {
+              "position": 0.0,
+              "color": "rgba(108, 128, 68, 1.0)"
+            },
+            {
+              "position": 0.333,
+              "color": "rgba(121, 135, 70, 1.0)"
+            },
+            {
+              "position": 0.667,
+              "color": "rgba(122, 144, 80, 1.0)"
+            },
+            {
+              "position": 1.0,
+              "color": "rgba(127, 148, 88, 1.0)"
+            }
+          ]
+        },
+        "evidenceRefs": [
+          "zone:bottom-center",
+          "zone:middle-center"
+        ]
+      }
+    },
+    {
+      "id": "leaf-nodes",
+      "name": "Leaf node swellings (x2)",
+      "level": "meso",
+      "role": "body",
+      "importance": 0.8,
+      "confidence": 0.7,
+      "primitive": "ellipsoid",
+      "topologyClass": "continuous-sculpt",
+      "topologyRationale": "Local smooth swelling where each leaf sheath wraps the stem.",
+      "geometryDescriptor": {
+        "topologyIntent": "smooth organic surface",
+        "edgeTreatment": {
+          "type": "none",
+          "bevelRadius": 0.0,
+          "segments": 1
+        },
+        "deformationStack": [],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "vertex normals from generated geometry"
+      },
+      "parent": "stem",
+      "attachment": {
+        "parentId": "stem",
+        "parentSocket": "node-0.25",
+        "contactType": "embed",
+        "localStart": [
+          0,
+          -0.01,
+          0
+        ],
+        "localEnd": [
+          0,
+          0.01,
+          0
+        ],
+        "embedDepth": 0.004,
+        "overlap": 0.02,
+        "gapTolerance": 0.002,
+        "contactNormal": [
+          0,
+          1,
+          0
+        ],
+        "baseRadius": 0.0085,
+        "endRadius": 0.0085,
+        "evidenceRefs": [
+          "zone:middle-center"
+        ]
+      },
+      "dimensions": {
+        "width": 0.017,
+        "height": 0.02,
+        "depth": 0.017,
+        "units": "world",
+        "confidence": 0.7
+      },
+      "transform": {
+        "position": [
+          -0.004,
+          0.25,
+          0.003
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "static-child",
+        "pivot": {
+          "mode": "custom",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            0,
+            1
+          ],
+          "confidence": 0.7
+        },
+        "transformChannels": {
+          "translate": true,
+          "rotate": true,
+          "scale": false,
+          "bend": false,
+          "twist": false,
+          "detach": false,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [],
+        "collider": {
+          "type": "sphere",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "proxy for click/explode only"
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": false,
+          "fractureGroup": "leaf-nodes",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0.0,
+          "debrisMaterial": "stem"
+        }
+      },
+      "material": "stem",
+      "materialLayers": [
+        "stem"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [
+        {
+          "id": "node-swelling",
+          "kind": "contour",
+          "description": "radius +0.0018 over 0.02 at h 0.25 and 0.60",
+          "evidenceRefs": [
+            "zone:middle-center"
+          ],
+          "detailRef": "d-stem-node"
+        }
+      ],
+      "surfaceDetail": {
+        "macroRoughness": 0.0,
+        "microRoughness": 0.0,
+        "bumpAmplitude": 0.0,
+        "normalPattern": "",
+        "displacementPattern": "",
+        "occlusionPattern": "",
+        "edgeWearPattern": "",
+        "notes": ""
+      },
+      "evidenceRefs": [
+        "zone:middle-center"
+      ],
+      "details": [],
+      "fidelityTier": "form",
+      "colorMaterialRecipe": {
+        "dominantAlbedo": "rgba(122, 144, 80, 1.0)",
+        "secondaryAlbedo": "rgba(127, 148, 88, 1.0)",
+        "materialClass": "unknown",
+        "materialClassConfidence": 0.8,
+        "materialClassNote": "botanical tissue (petal/leaf/stem): thin dielectric, no listed class fits",
+        "colorGradient": {
+          "type": "linear",
+          "axis": "base-to-tip",
+          "stops": [
+            {
+              "position": 0.0,
+              "color": "rgba(108, 128, 68, 1.0)"
+            },
+            {
+              "position": 0.333,
+              "color": "rgba(121, 135, 70, 1.0)"
+            },
+            {
+              "position": 0.667,
+              "color": "rgba(122, 144, 80, 1.0)"
+            },
+            {
+              "position": 1.0,
+              "color": "rgba(127, 148, 88, 1.0)"
+            }
+          ]
+        },
+        "evidenceRefs": [
+          "zone:middle-center"
+        ]
+      }
+    },
+    {
+      "id": "ovary",
+      "name": "Ovary / perianth tube",
+      "level": "meso",
+      "role": "body",
+      "importance": 0.8,
+      "confidence": 0.7,
+      "primitive": "lathe",
+      "topologyClass": "continuous-sculpt",
+      "topologyRationale": "Rotationally symmetric green swelling under the perianth: lathe.",
+      "geometryDescriptor": {
+        "topologyIntent": "smooth organic surface",
+        "edgeTreatment": {
+          "type": "none",
+          "bevelRadius": 0.0,
+          "segments": 1
+        },
+        "deformationStack": [],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "vertex normals from generated geometry",
+        "latheProfile": {
+          "points": [
+            [
+              0.0037,
+              0
+            ],
+            [
+              0.0075,
+              0.012
+            ],
+            [
+              0.008,
+              0.026
+            ],
+            [
+              0.006,
+              0.038
+            ],
+            [
+              0.003,
+              0.042
+            ]
+          ],
+          "segments": 18
+        }
+      },
+      "parent": "stem",
+      "attachment": {
+        "parentId": "stem",
+        "parentSocket": "head",
+        "contactType": "embed",
+        "localStart": [
+          0,
+          0,
+          0
+        ],
+        "localEnd": [
+          0,
+          0.042,
+          0
+        ],
+        "embedDepth": 0.004,
+        "overlap": 0.02,
+        "gapTolerance": 0.002,
+        "contactNormal": [
+          0,
+          1,
+          0
+        ],
+        "baseRadius": 0.0037,
+        "endRadius": 0.006,
+        "evidenceRefs": [
+          "zone:top-center"
+        ]
+      },
+      "dimensions": {
+        "width": 0.016,
+        "height": 0.04,
+        "depth": 0.016,
+        "units": "world",
+        "confidence": 0.7
+      },
+      "transform": {
+        "position": [
+          0.025,
+          0.83,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "static-child",
+        "pivot": {
+          "mode": "custom",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            0,
+            1
+          ],
+          "confidence": 0.7
+        },
+        "transformChannels": {
+          "translate": true,
+          "rotate": true,
+          "scale": false,
+          "bend": false,
+          "twist": false,
+          "detach": false,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [],
+        "collider": {
+          "type": "capsule",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "proxy for click/explode only"
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": false,
+          "fractureGroup": "ovary",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0.0,
+          "debrisMaterial": "stem"
+        }
+      },
+      "material": "stem",
+      "materialLayers": [
+        "stem"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [],
+      "surfaceDetail": {
+        "macroRoughness": 0.0,
+        "microRoughness": 0.0,
+        "bumpAmplitude": 0.0,
+        "normalPattern": "",
+        "displacementPattern": "",
+        "occlusionPattern": "",
+        "edgeWearPattern": "",
+        "notes": ""
+      },
+      "evidenceRefs": [
+        "zone:top-center"
+      ],
+      "details": [],
+      "fidelityTier": "form",
+      "colorMaterialRecipe": {
+        "dominantAlbedo": "rgba(122, 144, 80, 1.0)",
+        "secondaryAlbedo": "rgba(127, 148, 88, 1.0)",
+        "materialClass": "unknown",
+        "materialClassConfidence": 0.8,
+        "materialClassNote": "botanical tissue (petal/leaf/stem): thin dielectric, no listed class fits",
+        "colorGradient": {
+          "type": "linear",
+          "axis": "base-to-tip",
+          "stops": [
+            {
+              "position": 0.0,
+              "color": "rgba(108, 128, 68, 1.0)"
+            },
+            {
+              "position": 0.333,
+              "color": "rgba(121, 135, 70, 1.0)"
+            },
+            {
+              "position": 0.667,
+              "color": "rgba(122, 144, 80, 1.0)"
+            },
+            {
+              "position": 1.0,
+              "color": "rgba(127, 148, 88, 1.0)"
+            }
+          ]
+        },
+        "evidenceRefs": [
+          "zone:top-center"
+        ]
+      }
+    },
+    {
+      "id": "perianth",
+      "name": "Perianth (falls + standards + style arms)",
+      "level": "macro",
+      "role": "body",
+      "importance": 1.0,
+      "confidence": 0.7,
+      "primitive": "instanced-cluster",
+      "topologyClass": "conforming-shell",
+      "topologyRationale": "Head is an assembly of curved thin tepal shells on a trimerous plan.",
+      "geometryDescriptor": {
+        "topologyIntent": "smooth organic surface",
+        "edgeTreatment": {
+          "type": "none",
+          "bevelRadius": 0.0,
+          "segments": 1
+        },
+        "deformationStack": [],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "vertex normals from generated geometry",
+        "instancedBase": "plane-card"
+      },
+      "parent": "ovary",
+      "attachment": {
+        "parentId": "ovary",
+        "parentSocket": "ovary-top",
+        "contactType": "socket",
+        "localStart": [
+          0,
+          0,
+          0
+        ],
+        "localEnd": [
+          0,
+          0.14,
+          0
+        ],
+        "embedDepth": 0.004,
+        "overlap": 0.02,
+        "gapTolerance": 0.002,
+        "contactNormal": [
+          0,
+          1,
+          0
+        ],
+        "baseRadius": 0.006,
+        "endRadius": 0.17,
+        "evidenceRefs": [
+          "zone:top-center"
+        ]
+      },
+      "dimensions": {
+        "width": 0.34,
+        "height": 0.16,
+        "depth": 0.3,
+        "units": "world",
+        "confidence": 0.7
+      },
+      "transform": {
+        "position": [
+          0,
+          0.04,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "head",
+        "pivot": {
+          "mode": "custom",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            0,
+            1
+          ],
+          "confidence": 0.7
+        },
+        "transformChannels": {
+          "translate": true,
+          "rotate": true,
+          "scale": false,
+          "bend": false,
+          "twist": false,
+          "detach": false,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [],
+        "collider": {
+          "type": "sphere",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "proxy for click/explode only"
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": false,
+          "fractureGroup": "perianth",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0.0,
+          "debrisMaterial": "petal"
+        }
+      },
+      "material": "petal",
+      "materialLayers": [
+        "petal"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [],
+      "surfaceDetail": {
+        "macroRoughness": 0.0,
+        "microRoughness": 0.0,
+        "bumpAmplitude": 0.0,
+        "normalPattern": "",
+        "displacementPattern": "",
+        "occlusionPattern": "",
+        "edgeWearPattern": "",
+        "notes": ""
+      },
+      "evidenceRefs": [
+        "zone:top-center"
+      ],
+      "details": [],
+      "fidelityTier": "form",
+      "colorMaterialRecipe": {
+        "dominantAlbedo": "rgba(212, 84, 90, 1.0)",
+        "secondaryAlbedo": "rgba(226, 123, 123, 1.0)",
+        "materialClass": "unknown",
+        "materialClassConfidence": 0.8,
+        "materialClassNote": "botanical tissue (petal/leaf/stem): thin dielectric, no listed class fits",
+        "colorGradient": {
+          "type": "linear",
+          "axis": "petal base -> edge -> tip",
+          "stops": [
+            {
+              "position": 0.0,
+              "color": "rgba(201, 162, 74, 1.0)"
+            },
+            {
+              "position": 0.25,
+              "color": "rgba(216, 96, 90, 1.0)"
+            },
+            {
+              "position": 0.5,
+              "color": "rgba(212, 84, 90, 1.0)"
+            },
+            {
+              "position": 0.75,
+              "color": "rgba(216, 93, 97, 1.0)"
+            },
+            {
+              "position": 1.0,
+              "color": "rgba(226, 123, 123, 1.0)"
+            }
+          ]
+        },
+        "evidenceRefs": [
+          "zone:top-center"
+        ]
+      }
+    },
+    {
+      "id": "falls",
+      "name": "Falls (x3)",
+      "level": "meso",
+      "role": "body",
+      "importance": 0.8,
+      "confidence": 0.75,
+      "primitive": "plane-card",
+      "topologyClass": "conforming-shell",
+      "topologyRationale": "Broad thin tepal arched outward then drooping, cupped across its width: bent card, DoubleSide.",
+      "geometryDescriptor": {
+        "topologyIntent": "smooth organic surface",
+        "edgeTreatment": {
+          "type": "none",
+          "bevelRadius": 0.0,
+          "segments": 1
+        },
+        "deformationStack": [
+          {
+            "type": "bend",
+            "axis": "length",
+            "fromDeg": 62,
+            "toDeg": 112
+          },
+          {
+            "type": "cup",
+            "axis": "width",
+            "amount": 0.18
+          }
+        ],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "vertex normals from generated geometry"
+      },
+      "parent": "perianth",
+      "attachment": {
+        "parentId": "perianth",
+        "parentSocket": "perianth-base-r0.006",
+        "contactType": "overlap",
+        "localStart": [
+          0,
+          0,
+          0
+        ],
+        "localEnd": [
+          0.16,
+          0,
+          0
+        ],
+        "embedDepth": 0.004,
+        "overlap": 0.02,
+        "gapTolerance": 0.002,
+        "contactNormal": [
+          0,
+          1,
+          0
+        ],
+        "baseRadius": 0.004,
+        "endRadius": 0.035,
+        "evidenceRefs": [
+          "zone:top-left",
+          "zone:top-right"
+        ]
+      },
+      "dimensions": {
+        "width": 0.075,
+        "height": 0.165,
+        "depth": 0.06,
+        "units": "world",
+        "confidence": 0.75
+      },
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "static-child",
+        "pivot": {
+          "mode": "custom",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            0,
+            1
+          ],
+          "confidence": 0.7
+        },
+        "transformChannels": {
+          "translate": true,
+          "rotate": true,
+          "scale": false,
+          "bend": false,
+          "twist": false,
+          "detach": false,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [],
+        "collider": {
+          "type": "box",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "proxy for click/explode only"
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": false,
+          "fractureGroup": "falls",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0.0,
+          "debrisMaterial": "petal"
+        }
+      },
+      "material": "petal",
+      "materialLayers": [
+        "petal"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [
+        {
+          "id": "fall-arch",
+          "kind": "contour",
+          "description": "arch then droop; right fall tip curls up",
+          "evidenceRefs": [
+            "zone:top-left"
+          ],
+          "detailRef": "d-fall-arch"
+        }
+      ],
+      "surfaceDetail": {
+        "macroRoughness": 0.0,
+        "microRoughness": 0.0,
+        "bumpAmplitude": 0.0,
+        "normalPattern": "",
+        "displacementPattern": "",
+        "occlusionPattern": "",
+        "edgeWearPattern": "",
+        "notes": ""
+      },
+      "evidenceRefs": [
+        "zone:top-left",
+        "zone:top-right"
+      ],
+      "details": [],
+      "fidelityTier": "form",
+      "colorMaterialRecipe": {
+        "dominantAlbedo": "rgba(212, 84, 90, 1.0)",
+        "secondaryAlbedo": "rgba(226, 123, 123, 1.0)",
+        "materialClass": "unknown",
+        "materialClassConfidence": 0.8,
+        "materialClassNote": "botanical tissue (petal/leaf/stem): thin dielectric, no listed class fits",
+        "colorGradient": {
+          "type": "linear",
+          "axis": "petal base -> edge -> tip",
+          "stops": [
+            {
+              "position": 0.0,
+              "color": "rgba(201, 162, 74, 1.0)"
+            },
+            {
+              "position": 0.25,
+              "color": "rgba(216, 96, 90, 1.0)"
+            },
+            {
+              "position": 0.5,
+              "color": "rgba(212, 84, 90, 1.0)"
+            },
+            {
+              "position": 0.75,
+              "color": "rgba(216, 93, 97, 1.0)"
+            },
+            {
+              "position": 1.0,
+              "color": "rgba(226, 123, 123, 1.0)"
+            }
+          ]
+        },
+        "evidenceRefs": [
+          "zone:top-left",
+          "zone:top-right"
+        ]
+      }
+    },
+    {
+      "id": "standards",
+      "name": "Standards (x3)",
+      "level": "meso",
+      "role": "body",
+      "importance": 0.8,
+      "confidence": 0.7,
+      "primitive": "plane-card",
+      "topologyClass": "conforming-shell",
+      "topologyRationale": "Upright spoon-shaped tepal, strongly cupped: bent card, DoubleSide.",
+      "geometryDescriptor": {
+        "topologyIntent": "smooth organic surface",
+        "edgeTreatment": {
+          "type": "none",
+          "bevelRadius": 0.0,
+          "segments": 1
+        },
+        "deformationStack": [
+          {
+            "type": "bend",
+            "axis": "length",
+            "fromDeg": 16,
+            "toDeg": -4
+          },
+          {
+            "type": "cup",
+            "axis": "width",
+            "amount": 0.45
+          }
+        ],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "vertex normals from generated geometry"
+      },
+      "parent": "perianth",
+      "attachment": {
+        "parentId": "perianth",
+        "parentSocket": "perianth-base-r0.005",
+        "contactType": "overlap",
+        "localStart": [
+          0,
+          0,
+          0
+        ],
+        "localEnd": [
+          0,
+          0.14,
+          0
+        ],
+        "embedDepth": 0.004,
+        "overlap": 0.02,
+        "gapTolerance": 0.002,
+        "contactNormal": [
+          0,
+          1,
+          0
+        ],
+        "baseRadius": 0.003,
+        "endRadius": 0.028,
+        "evidenceRefs": [
+          "zone:top-center"
+        ]
+      },
+      "dimensions": {
+        "width": 0.058,
+        "height": 0.145,
+        "depth": 0.04,
+        "units": "world",
+        "confidence": 0.7
+      },
+      "transform": {
+        "position": [
+          0,
+          0.008,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "static-child",
+        "pivot": {
+          "mode": "custom",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            0,
+            1
+          ],
+          "confidence": 0.7
+        },
+        "transformChannels": {
+          "translate": true,
+          "rotate": true,
+          "scale": false,
+          "bend": false,
+          "twist": false,
+          "detach": false,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [],
+        "collider": {
+          "type": "box",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "proxy for click/explode only"
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": false,
+          "fractureGroup": "standards",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0.0,
+          "debrisMaterial": "petal"
+        }
+      },
+      "material": "petal",
+      "materialLayers": [
+        "petal"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [
+        {
+          "id": "standard-spoon",
+          "kind": "contour",
+          "description": "narrow claw, broad blunt blade, slight incurve",
+          "evidenceRefs": [
+            "zone:top-center"
+          ],
+          "detailRef": "d-standard-spoon"
+        }
+      ],
+      "surfaceDetail": {
+        "macroRoughness": 0.0,
+        "microRoughness": 0.0,
+        "bumpAmplitude": 0.0,
+        "normalPattern": "",
+        "displacementPattern": "",
+        "occlusionPattern": "",
+        "edgeWearPattern": "",
+        "notes": ""
+      },
+      "evidenceRefs": [
+        "zone:top-center"
+      ],
+      "details": [],
+      "fidelityTier": "form",
+      "colorMaterialRecipe": {
+        "dominantAlbedo": "rgba(212, 84, 90, 1.0)",
+        "secondaryAlbedo": "rgba(226, 123, 123, 1.0)",
+        "materialClass": "unknown",
+        "materialClassConfidence": 0.8,
+        "materialClassNote": "botanical tissue (petal/leaf/stem): thin dielectric, no listed class fits",
+        "colorGradient": {
+          "type": "linear",
+          "axis": "petal base -> edge -> tip",
+          "stops": [
+            {
+              "position": 0.0,
+              "color": "rgba(201, 162, 74, 1.0)"
+            },
+            {
+              "position": 0.25,
+              "color": "rgba(216, 96, 90, 1.0)"
+            },
+            {
+              "position": 0.5,
+              "color": "rgba(212, 84, 90, 1.0)"
+            },
+            {
+              "position": 0.75,
+              "color": "rgba(216, 93, 97, 1.0)"
+            },
+            {
+              "position": 1.0,
+              "color": "rgba(226, 123, 123, 1.0)"
+            }
+          ]
+        },
+        "evidenceRefs": [
+          "zone:top-center"
+        ]
+      }
+    },
+    {
+      "id": "style-arms",
+      "name": "Style arms (x3)",
+      "level": "micro",
+      "role": "body",
+      "importance": 0.8,
+      "confidence": 0.55,
+      "primitive": "plane-card",
+      "topologyClass": "conforming-shell",
+      "topologyRationale": "Small petaloid strap over each fall: bent card.",
+      "geometryDescriptor": {
+        "topologyIntent": "smooth organic surface",
+        "edgeTreatment": {
+          "type": "none",
+          "bevelRadius": 0.0,
+          "segments": 1
+        },
+        "deformationStack": [
+          {
+            "type": "bend",
+            "axis": "length",
+            "fromDeg": 40,
+            "toDeg": 75
+          }
+        ],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "vertex normals from generated geometry"
+      },
+      "parent": "perianth",
+      "attachment": {
+        "parentId": "perianth",
+        "parentSocket": "perianth-base-r0.004",
+        "contactType": "overlap",
+        "localStart": [
+          0,
+          0,
+          0
+        ],
+        "localEnd": [
+          0.05,
+          0.02,
+          0
+        ],
+        "embedDepth": 0.004,
+        "overlap": 0.02,
+        "gapTolerance": 0.002,
+        "contactNormal": [
+          0,
+          1,
+          0
+        ],
+        "baseRadius": 0.002,
+        "endRadius": 0.01,
+        "evidenceRefs": [
+          "zone:top-center"
+        ]
+      },
+      "dimensions": {
+        "width": 0.022,
+        "height": 0.055,
+        "depth": 0.02,
+        "units": "world",
+        "confidence": 0.55
+      },
+      "transform": {
+        "position": [
+          0,
+          0.01,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "static-child",
+        "pivot": {
+          "mode": "custom",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            0,
+            1
+          ],
+          "confidence": 0.7
+        },
+        "transformChannels": {
+          "translate": true,
+          "rotate": true,
+          "scale": false,
+          "bend": false,
+          "twist": false,
+          "detach": false,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [],
+        "collider": {
+          "type": "box",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "proxy for click/explode only"
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": false,
+          "fractureGroup": "style-arms",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0.0,
+          "debrisMaterial": "petal"
+        }
+      },
+      "material": "petal",
+      "materialLayers": [
+        "petal"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [
+        {
+          "id": "style-arm-crest",
+          "kind": "contour",
+          "description": "yellow-orange arm with bifid crest",
+          "evidenceRefs": [
+            "zone:top-center"
+          ],
+          "detailRef": "d-style-arms"
+        }
+      ],
+      "surfaceDetail": {
+        "macroRoughness": 0.0,
+        "microRoughness": 0.0,
+        "bumpAmplitude": 0.0,
+        "normalPattern": "",
+        "displacementPattern": "",
+        "occlusionPattern": "",
+        "edgeWearPattern": "",
+        "notes": ""
+      },
+      "evidenceRefs": [
+        "zone:top-center"
+      ],
+      "details": [],
+      "fidelityTier": "form",
+      "colorMaterialRecipe": {
+        "dominantAlbedo": "rgba(212, 84, 90, 1.0)",
+        "secondaryAlbedo": "rgba(226, 123, 123, 1.0)",
+        "materialClass": "unknown",
+        "materialClassConfidence": 0.8,
+        "materialClassNote": "botanical tissue (petal/leaf/stem): thin dielectric, no listed class fits",
+        "colorGradient": {
+          "type": "linear",
+          "axis": "petal base -> edge -> tip",
+          "stops": [
+            {
+              "position": 0.0,
+              "color": "rgba(201, 162, 74, 1.0)"
+            },
+            {
+              "position": 0.25,
+              "color": "rgba(216, 96, 90, 1.0)"
+            },
+            {
+              "position": 0.5,
+              "color": "rgba(212, 84, 90, 1.0)"
+            },
+            {
+              "position": 0.75,
+              "color": "rgba(216, 93, 97, 1.0)"
+            },
+            {
+              "position": 1.0,
+              "color": "rgba(226, 123, 123, 1.0)"
+            }
+          ]
+        },
+        "evidenceRefs": [
+          "zone:top-center"
+        ]
+      }
+    },
+    {
+      "id": "bud",
+      "name": "Closed bud",
+      "level": "meso",
+      "role": "body",
+      "importance": 0.8,
+      "confidence": 0.65,
+      "primitive": "tapered-sweep",
+      "topologyClass": "continuous-sculpt",
+      "topologyRationale": "Closed spindle that comes to a point: tapered sweep.",
+      "geometryDescriptor": {
+        "topologyIntent": "smooth organic surface",
+        "edgeTreatment": {
+          "type": "none",
+          "bevelRadius": 0.0,
+          "segments": 1
+        },
+        "deformationStack": [],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "vertex normals from generated geometry",
+        "taperedSweep": {
+          "stations": [
+            {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rx": 0.006,
+              "rz": 0.006,
+              "twist": 0
+            },
+            {
+              "position": [
+                0,
+                0.03,
+                0
+              ],
+              "rx": 0.012,
+              "rz": 0.011,
+              "twist": 0
+            },
+            {
+              "position": [
+                0,
+                0.065,
+                0
+              ],
+              "rx": 0.008,
+              "rz": 0.007,
+              "twist": 0
+            },
+            {
+              "position": [
+                0,
+                0.09,
+                0
+              ],
+              "rx": 0.0,
+              "rz": 0.0,
+              "twist": 0
+            }
+          ],
+          "radialSegments": 12,
+          "capEnds": true
+        }
+      },
+      "parent": "stem",
+      "attachment": {
+        "parentId": "stem",
+        "parentSocket": "node-0.70",
+        "contactType": "embed",
+        "localStart": [
+          0,
+          0,
+          0
+        ],
+        "localEnd": [
+          0,
+          0.09,
+          0
+        ],
+        "embedDepth": 0.004,
+        "overlap": 0.02,
+        "gapTolerance": 0.002,
+        "contactNormal": [
+          0,
+          1,
+          0
+        ],
+        "baseRadius": 0.006,
+        "endRadius": 0.0,
+        "evidenceRefs": [
+          "zone:middle-center"
+        ]
+      },
+      "dimensions": {
+        "width": 0.024,
+        "height": 0.09,
+        "depth": 0.024,
+        "units": "world",
+        "confidence": 0.65
+      },
+      "transform": {
+        "position": [
+          0.02,
+          0.72,
+          -0.01
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "static-child",
+        "pivot": {
+          "mode": "custom",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            0,
+            1
+          ],
+          "confidence": 0.7
+        },
+        "transformChannels": {
+          "translate": true,
+          "rotate": true,
+          "scale": false,
+          "bend": false,
+          "twist": false,
+          "detach": false,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [],
+        "collider": {
+          "type": "capsule",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "proxy for click/explode only"
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": false,
+          "fractureGroup": "bud",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0.0,
+          "debrisMaterial": "stem"
+        }
+      },
+      "material": "stem",
+      "materialLayers": [
+        "stem"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [
+        {
+          "id": "bud-tip",
+          "kind": "contour",
+          "description": "acuminate tip",
+          "evidenceRefs": [
+            "zone:middle-center"
+          ],
+          "detailRef": "d-bud-tip"
+        }
+      ],
+      "surfaceDetail": {
+        "macroRoughness": 0.0,
+        "microRoughness": 0.0,
+        "bumpAmplitude": 0.0,
+        "normalPattern": "",
+        "displacementPattern": "",
+        "occlusionPattern": "",
+        "edgeWearPattern": "",
+        "notes": ""
+      },
+      "evidenceRefs": [
+        "zone:middle-center"
+      ],
+      "details": [],
+      "fidelityTier": "form",
+      "colorMaterialRecipe": {
+        "dominantAlbedo": "rgba(122, 144, 80, 1.0)",
+        "secondaryAlbedo": "rgba(127, 148, 88, 1.0)",
+        "materialClass": "unknown",
+        "materialClassConfidence": 0.8,
+        "materialClassNote": "botanical tissue (petal/leaf/stem): thin dielectric, no listed class fits",
+        "colorGradient": {
+          "type": "linear",
+          "axis": "base-to-tip",
+          "stops": [
+            {
+              "position": 0.0,
+              "color": "rgba(108, 128, 68, 1.0)"
+            },
+            {
+              "position": 0.333,
+              "color": "rgba(121, 135, 70, 1.0)"
+            },
+            {
+              "position": 0.667,
+              "color": "rgba(122, 144, 80, 1.0)"
+            },
+            {
+              "position": 1.0,
+              "color": "rgba(127, 148, 88, 1.0)"
+            }
+          ]
+        },
+        "evidenceRefs": [
+          "zone:middle-center"
+        ]
+      }
+    },
+    {
+      "id": "leaf-sword",
+      "name": "Sword leaf",
+      "level": "macro",
+      "role": "body",
+      "importance": 0.8,
+      "confidence": 0.75,
+      "primitive": "plane-card",
+      "topologyClass": "conforming-shell",
+      "topologyRationale": "Long linear blade with sheathing base and slight arc: deformed card, DoubleSide.",
+      "geometryDescriptor": {
+        "topologyIntent": "smooth organic surface",
+        "edgeTreatment": {
+          "type": "none",
+          "bevelRadius": 0.0,
+          "segments": 1
+        },
+        "deformationStack": [
+          {
+            "type": "wrap",
+            "amount": 1.0,
+            "region": "base 20%"
+          },
+          {
+            "type": "bend",
+            "axis": "length",
+            "fromDeg": 12,
+            "toDeg": 22
+          }
+        ],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "vertex normals from generated geometry"
+      },
+      "parent": "stem",
+      "attachment": {
+        "parentId": "stem",
+        "parentSocket": "node-0.25",
+        "contactType": "overlap",
+        "localStart": [
+          0,
+          0,
+          0
+        ],
+        "localEnd": [
+          0.145,
+          0.43,
+          0
+        ],
+        "embedDepth": 0.004,
+        "overlap": 0.02,
+        "gapTolerance": 0.002,
+        "contactNormal": [
+          0,
+          1,
+          0
+        ],
+        "baseRadius": 0.008,
+        "endRadius": 0.0,
+        "evidenceRefs": [
+          "zone:bottom-right"
+        ]
+      },
+      "dimensions": {
+        "width": 0.042,
+        "height": 0.455,
+        "depth": 0.02,
+        "units": "world",
+        "confidence": 0.75
+      },
+      "transform": {
+        "position": [
+          -0.004,
+          0.25,
+          0.003
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "static-child",
+        "pivot": {
+          "mode": "custom",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            0,
+            1
+          ],
+          "confidence": 0.7
+        },
+        "transformChannels": {
+          "translate": true,
+          "rotate": true,
+          "scale": false,
+          "bend": false,
+          "twist": false,
+          "detach": false,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [],
+        "collider": {
+          "type": "box",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "proxy for click/explode only"
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": false,
+          "fractureGroup": "leaf-sword",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0.0,
+          "debrisMaterial": "leaf"
+        }
+      },
+      "material": "leaf",
+      "materialLayers": [
+        "leaf"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [
+        {
+          "id": "leaf-sheath",
+          "kind": "seam",
+          "description": "base wraps the stem",
+          "evidenceRefs": [
+            "zone:bottom-center"
+          ],
+          "detailRef": "d-sheath"
+        }
+      ],
+      "surfaceDetail": {
+        "macroRoughness": 0.0,
+        "microRoughness": 0.0,
+        "bumpAmplitude": 0.0,
+        "normalPattern": "",
+        "displacementPattern": "",
+        "occlusionPattern": "",
+        "edgeWearPattern": "",
+        "notes": ""
+      },
+      "evidenceRefs": [
+        "zone:bottom-right"
+      ],
+      "details": [],
+      "fidelityTier": "form",
+      "colorMaterialRecipe": {
+        "dominantAlbedo": "rgba(108, 133, 79, 1.0)",
+        "secondaryAlbedo": "rgba(113, 135, 89, 1.0)",
+        "materialClass": "unknown",
+        "materialClassConfidence": 0.8,
+        "materialClassNote": "botanical tissue (petal/leaf/stem): thin dielectric, no listed class fits",
+        "colorGradient": {
+          "type": "linear",
+          "axis": "base-to-tip",
+          "stops": [
+            {
+              "position": 0.0,
+              "color": "rgba(95, 122, 69, 1.0)"
+            },
+            {
+              "position": 0.5,
+              "color": "rgba(108, 133, 79, 1.0)"
+            },
+            {
+              "position": 1.0,
+              "color": "rgba(113, 135, 89, 1.0)"
+            }
+          ]
+        },
+        "evidenceRefs": [
+          "zone:bottom-right"
+        ]
+      }
+    },
+    {
+      "id": "leaf-spathe",
+      "name": "Spathe leaf",
+      "level": "macro",
+      "role": "body",
+      "importance": 0.8,
+      "confidence": 0.7,
+      "primitive": "plane-card",
+      "topologyClass": "conforming-shell",
+      "topologyRationale": "Narrow sheathing blade running straight up alongside the stem: deformed card, DoubleSide.",
+      "geometryDescriptor": {
+        "topologyIntent": "smooth organic surface",
+        "edgeTreatment": {
+          "type": "none",
+          "bevelRadius": 0.0,
+          "segments": 1
+        },
+        "deformationStack": [
+          {
+            "type": "wrap",
+            "amount": 0.9,
+            "region": "base 25%"
+          },
+          {
+            "type": "bend",
+            "axis": "length",
+            "fromDeg": 2,
+            "toDeg": 5
+          }
+        ],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "vertex normals from generated geometry"
+      },
+      "parent": "stem",
+      "attachment": {
+        "parentId": "stem",
+        "parentSocket": "node-0.60",
+        "contactType": "overlap",
+        "localStart": [
+          0,
+          0,
+          0
+        ],
+        "localEnd": [
+          0.005,
+          0.29,
+          0
+        ],
+        "embedDepth": 0.004,
+        "overlap": 0.02,
+        "gapTolerance": 0.002,
+        "contactNormal": [
+          0,
+          1,
+          0
+        ],
+        "baseRadius": 0.007,
+        "endRadius": 0.0,
+        "evidenceRefs": [
+          "zone:middle-center"
+        ]
+      },
+      "dimensions": {
+        "width": 0.026,
+        "height": 0.29,
+        "depth": 0.015,
+        "units": "world",
+        "confidence": 0.7
+      },
+      "transform": {
+        "position": [
+          -0.013,
+          0.6,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "static-child",
+        "pivot": {
+          "mode": "custom",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            0,
+            1
+          ],
+          "confidence": 0.7
+        },
+        "transformChannels": {
+          "translate": true,
+          "rotate": true,
+          "scale": false,
+          "bend": false,
+          "twist": false,
+          "detach": false,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [],
+        "collider": {
+          "type": "box",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "proxy for click/explode only"
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": false,
+          "fractureGroup": "leaf-spathe",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0.0,
+          "debrisMaterial": "leaf"
+        }
+      },
+      "material": "leaf",
+      "materialLayers": [
+        "leaf"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [],
+      "surfaceDetail": {
+        "macroRoughness": 0.0,
+        "microRoughness": 0.0,
+        "bumpAmplitude": 0.0,
+        "normalPattern": "",
+        "displacementPattern": "",
+        "occlusionPattern": "",
+        "edgeWearPattern": "",
+        "notes": ""
+      },
+      "evidenceRefs": [
+        "zone:middle-center"
+      ],
+      "details": [],
+      "fidelityTier": "form",
+      "colorMaterialRecipe": {
+        "dominantAlbedo": "rgba(108, 133, 79, 1.0)",
+        "secondaryAlbedo": "rgba(113, 135, 89, 1.0)",
+        "materialClass": "unknown",
+        "materialClassConfidence": 0.8,
+        "materialClassNote": "botanical tissue (petal/leaf/stem): thin dielectric, no listed class fits",
+        "colorGradient": {
+          "type": "linear",
+          "axis": "base-to-tip",
+          "stops": [
+            {
+              "position": 0.0,
+              "color": "rgba(95, 122, 69, 1.0)"
+            },
+            {
+              "position": 0.5,
+              "color": "rgba(108, 133, 79, 1.0)"
+            },
+            {
+              "position": 1.0,
+              "color": "rgba(113, 135, 89, 1.0)"
+            }
+          ]
+        },
+        "evidenceRefs": [
+          "zone:middle-center"
+        ]
+      }
+    }
+  ],
+  "materials": [
+    {
+      "id": "petal",
+      "name": "Tepal thin shell",
+      "type": "physical",
+      "shaderModel": "MeshPhysicalMaterial, procedural vertex-colour gradient",
+      "baseColor": "#c9a24a",
+      "color": "#c9a24a",
+      "albedo": {
+        "dominant": "#DB5B63",
+        "secondary": [
+          "#CD404B",
+          "#BC2A37",
+          "#EC8486"
+        ],
+        "samplingNotes": "Reference-derived from foreground pixels; de-lit to reduce baked shadows/highlights.",
+        "map": {
+          "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/petal/petal_albedo.png",
+          "url": "petal_albedo.png",
+          "channel": "albedo",
+          "source": "reference-pixel-extraction"
+        }
+      },
+      "colorVariation": {
+        "palette": [
+          "#DB5B63",
+          "#CD404B",
+          "#BC2A37",
+          "#EC8486",
+          "#646422"
+        ],
+        "pattern": "reference-derived pixel palette",
+        "amplitude": 0.136,
+        "heightCorrelation": 0.42
+      },
+      "textureResolution": 1024,
+      "textureProjection": {
+        "mode": "uv",
+        "repeat": [
+          2.0,
+          2.0
+        ],
+        "anisotropy": 8,
+        "texelDensityIntent": "Preserve stable world/object-scale detail; do not stretch micro detail with component scale."
+      },
+      "surfaceFrequencyBands": [
+        {
+          "id": "macro",
+          "frequency": 2.0,
+          "amplitude": 0.393,
+          "role": "reference-derived broad albedo and height breakup"
+        },
+        {
+          "id": "meso",
+          "frequency": 14.0,
+          "amplitude": 0.35,
+          "role": "reference-derived cracks, ridges, pores, grain, or leaf clusters"
+        },
+        {
+          "id": "micro",
+          "frequency": 72.0,
+          "amplitude": 0.14,
+          "role": "reference-derived micro highlight breakup under grazing light"
+        }
+      ],
+      "roughness": {
+        "base": 0.728,
+        "variation": 0.091,
+        "map": "independent-procedural-field",
+        "localResponse": "reference-derived roughness estimate; cavities and textured zones trend rougher, bright highlights trend smoother",
+        "extractedEvidenceMap": {
+          "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/petal/petal_roughness.png",
+          "url": "petal_roughness.png",
+          "channel": "roughness",
+          "source": "reference-pixel-extraction"
+        },
+        "mapNote": "extracted map kept as evidence only; brief forbids external texture files, so the factory uses the scalar"
+      },
+      "metalness": {
+        "base": 0.0,
+        "variation": 0.0
+      },
+      "normal": {
+        "pattern": "reference-derived height-gradient normal map",
+        "strength": 0.212,
+        "map": {
+          "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/petal/petal_normal.png",
+          "url": "petal_normal.png",
+          "channel": "normal",
+          "source": "reference-pixel-extraction"
+        },
+        "heightSource": {
+          "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/petal/petal_height.png",
+          "url": "petal_height.png",
+          "channel": "height",
+          "source": "reference-pixel-extraction"
+        },
+        "space": "tangent"
+      },
+      "bump": {
+        "pattern": "reference-derived height field",
+        "amplitude": 0.021,
+        "map": {
+          "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/petal/petal_height.png",
+          "url": "petal_height.png",
+          "channel": "height",
+          "source": "reference-pixel-extraction"
+        }
+      },
+      "displacement": {
+        "pattern": "none",
+        "amplitude": 0.0,
+        "scale": 1.0,
+        "silhouetteAffects": false
+      },
+      "ambientOcclusion": {
+        "cavityStrength": 0.38,
+        "contactShadowBias": 0.35,
+        "map": {
+          "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/petal/petal_ao.png",
+          "url": "petal_ao.png",
+          "channel": "ao",
+          "source": "reference-pixel-extraction"
+        },
+        "notes": "Reference-derived cavity estimate from local height minima; verify against grazing-light screenshot."
+      },
+      "wear": {
+        "edgeWear": 0.0,
+        "scratches": [],
+        "chips": []
+      },
+      "dirt": {
+        "amount": 0.0,
+        "cavityBias": 0.0,
+        "color": "#2F2A22"
+      },
+      "localOverrides": [
+        {
+          "id": "signal-patch",
+          "region": "fall v 0.05-0.38, centre 45%",
+          "color": "#eccb52",
+          "detailRef": "d-signal",
+          "evidenceRefs": [
+            "zone:top-center"
+          ]
+        },
+        {
+          "id": "fall-edge-lighten",
+          "region": "outer 30% of margin",
+          "color": "#ea9590",
+          "detailRef": "d-fall-edge",
+          "evidenceRefs": [
+            "zone:top-right"
+          ]
+        },
+        {
+          "id": "standard-salmon",
+          "region": "standards",
+          "color": "#f0a19d",
+          "evidenceRefs": [
+            "zone:top-center"
+          ]
+        },
+        {
+          "id": "reference-pbr-pixel-evidence",
+          "type": "material-map-evidence",
+          "evidenceRefs": [
+            "full-object"
+          ],
+          "channels": [
+            "albedo",
+            "roughness",
+            "height",
+            "normal",
+            "ambient-occlusion"
+          ],
+          "notes": "Use generated maps as material evidence, then refine after browser screenshot comparison."
+        }
+      ],
+      "shaderNotes": [
+        "Every mesh castShadow = true; no external textures.",
+        "Reference-derived maps are estimates from image pixels; verify with neutral, grazing, and reference-matched renders.",
+        "Do not treat baked image shadows as final albedo; rerun extraction with a tighter material crop if highlights/shadows pollute the maps."
+      ],
+      "notes": "Replace with image-derived color, roughness, noise, and edge-wear notes.",
+      "translucency": "semi-translucent thin shell",
+      "side": "DoubleSide",
+      "finishClass": "botanical-matte-dielectric",
+      "texturePalette": [
+        "#A67C43",
+        "#E99295",
+        "#D6515A",
+        "#C63B46",
+        "#DC5761"
+      ],
+      "proceduralTexture": {
+        "kind": "vertex-colour gradient",
+        "note": "no canvas or file textures"
+      },
+      "clearcoat": {
+        "base": 0.0,
+        "variation": 0.0
+      },
+      "clearcoatRoughness": 0.0,
+      "transmission": 0.0,
+      "ior": 1.4,
+      "envMapIntensity": 0.6,
+      "referencePbr": {
+        "version": "1.0",
+        "sourceImage": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/petal.png",
+        "extractor": "stage1_intake/extract_pbr_evidence.py",
+        "method": "single-image pixel evidence with de-lighting estimate; not photogrammetry",
+        "usable": true,
+        "verdict": "pass",
+        "confidence": 0.79,
+        "estimatedFidelity": 0.79,
+        "targetThreshold": 0.7,
+        "hardLimit": "A single image cannot uniquely recover true albedo/roughness/normal/AO; maps are reference-derived estimates.",
+        "maps": {
+          "albedo": {
+            "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/petal/petal_albedo.png",
+            "url": "petal_albedo.png",
+            "channel": "albedo",
+            "source": "reference-pixel-extraction"
+          },
+          "roughness": {
+            "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/petal/petal_roughness.png",
+            "url": "petal_roughness.png",
+            "channel": "roughness",
+            "source": "reference-pixel-extraction"
+          },
+          "height": {
+            "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/petal/petal_height.png",
+            "url": "petal_height.png",
+            "channel": "height",
+            "source": "reference-pixel-extraction"
+          },
+          "normal": {
+            "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/petal/petal_normal.png",
+            "url": "petal_normal.png",
+            "channel": "normal",
+            "source": "reference-pixel-extraction"
+          },
+          "ao": {
+            "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/petal/petal_ao.png",
+            "url": "petal_ao.png",
+            "channel": "ao",
+            "source": "reference-pixel-extraction"
+          }
+        },
+        "diagnostics": {
+          "sourceWidth": 150,
+          "sourceHeight": 75,
+          "mapSize": 1024,
+          "cropBBoxPixels": {
+            "x": 0,
+            "y": 0,
+            "width": 150,
+            "height": 75
+          },
+          "mask": {
+            "backgroundColor": "#DD6D68",
+            "backgroundNoise": 126.321,
+            "transparentPixelFraction": 0.0,
+            "foregroundCoverage": 0.9489
+          },
+          "mapStats": {
+            "valueRange": 0.3234,
+            "heightP90Gradient": 0.04765,
+            "roughnessBase": 0.728,
+            "roughnessVariation": 0.091,
+            "normalStrength": 0.212,
+            "blurRadius": 21
+          },
+          "palette": [
+            "#DB5B63",
+            "#CD404B",
+            "#BC2A37",
+            "#EC8486",
+            "#646422"
+          ]
+        },
+        "warnings": [
+          "image is not clearly isolated from background; using most pixels as material evidence",
+          "object/background separation is weak",
+          "single-image inverse rendering cannot prove true physical PBR; confidence is capped"
+        ]
+      },
+      "finishCorrection": "analyze_texture classified this crop as 'candy-coat'; overridden: plant tissue is a non-metallic dielectric (metalness 0, no clearcoat, no anisotropy)"
+    },
+    {
+      "id": "stem",
+      "name": "Stem / bud / ovary",
+      "type": "physical",
+      "shaderModel": "MeshPhysicalMaterial, procedural vertex-colour gradient",
+      "baseColor": "#6c8044",
+      "color": "#6c8044",
+      "albedo": {
+        "dominant": "#808B43",
+        "secondary": [
+          "#899555",
+          "#78833A",
+          "#9AA571"
+        ],
+        "samplingNotes": "Reference-derived from foreground pixels; de-lit to reduce baked shadows/highlights.",
+        "map": {
+          "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/stem/stem_albedo.png",
+          "url": "stem_albedo.png",
+          "channel": "albedo",
+          "source": "reference-pixel-extraction"
+        }
+      },
+      "colorVariation": {
+        "palette": [
+          "#808B43",
+          "#899555",
+          "#78833A",
+          "#9AA571",
+          "#D4D9C2"
+        ],
+        "pattern": "reference-derived pixel palette",
+        "amplitude": 0.121,
+        "heightCorrelation": 0.42
+      },
+      "textureResolution": 1024,
+      "textureProjection": {
+        "mode": "uv",
+        "repeat": [
+          2.0,
+          2.0
+        ],
+        "anisotropy": 8,
+        "texelDensityIntent": "Preserve stable world/object-scale detail; do not stretch micro detail with component scale."
+      },
+      "surfaceFrequencyBands": [
+        {
+          "id": "macro",
+          "frequency": 2.0,
+          "amplitude": 0.381,
+          "role": "reference-derived broad albedo and height breakup"
+        },
+        {
+          "id": "meso",
+          "frequency": 14.0,
+          "amplitude": 0.273,
+          "role": "reference-derived cracks, ridges, pores, grain, or leaf clusters"
+        },
+        {
+          "id": "micro",
+          "frequency": 72.0,
+          "amplitude": 0.125,
+          "role": "reference-derived micro highlight breakup under grazing light"
+        }
+      ],
+      "roughness": {
+        "base": 0.694,
+        "variation": 0.05,
+        "map": "independent-procedural-field",
+        "localResponse": "reference-derived roughness estimate; cavities and textured zones trend rougher, bright highlights trend smoother",
+        "extractedEvidenceMap": {
+          "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/stem/stem_roughness.png",
+          "url": "stem_roughness.png",
+          "channel": "roughness",
+          "source": "reference-pixel-extraction"
+        },
+        "mapNote": "extracted map kept as evidence only; brief forbids external texture files, so the factory uses the scalar"
+      },
+      "metalness": {
+        "base": 0.0,
+        "variation": 0.0
+      },
+      "normal": {
+        "pattern": "reference-derived height-gradient normal map",
+        "strength": 0.19,
+        "map": {
+          "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/stem/stem_normal.png",
+          "url": "stem_normal.png",
+          "channel": "normal",
+          "source": "reference-pixel-extraction"
+        },
+        "heightSource": {
+          "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/stem/stem_height.png",
+          "url": "stem_height.png",
+          "channel": "height",
+          "source": "reference-pixel-extraction"
+        },
+        "space": "tangent"
+      },
+      "bump": {
+        "pattern": "reference-derived height field",
+        "amplitude": 0.013,
+        "map": {
+          "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/stem/stem_height.png",
+          "url": "stem_height.png",
+          "channel": "height",
+          "source": "reference-pixel-extraction"
+        }
+      },
+      "displacement": {
+        "pattern": "none",
+        "amplitude": 0.0,
+        "scale": 1.0,
+        "silhouetteAffects": false
+      },
+      "ambientOcclusion": {
+        "cavityStrength": 0.38,
+        "contactShadowBias": 0.35,
+        "map": {
+          "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/stem/stem_ao.png",
+          "url": "stem_ao.png",
+          "channel": "ao",
+          "source": "reference-pixel-extraction"
+        },
+        "notes": "Reference-derived cavity estimate from local height minima; verify against grazing-light screenshot."
+      },
+      "wear": {
+        "edgeWear": 0.0,
+        "scratches": [],
+        "chips": []
+      },
+      "dirt": {
+        "amount": 0.0,
+        "cavityBias": 0.0,
+        "color": "#2F2A22"
+      },
+      "localOverrides": [
+        {
+          "id": "bud-tint",
+          "region": "bud tip",
+          "color": "#a4b77f",
+          "evidenceRefs": [
+            "zone:middle-center"
+          ]
+        },
+        {
+          "id": "reference-pbr-pixel-evidence",
+          "type": "material-map-evidence",
+          "evidenceRefs": [
+            "full-object"
+          ],
+          "channels": [
+            "albedo",
+            "roughness",
+            "height",
+            "normal",
+            "ambient-occlusion"
+          ],
+          "notes": "Use generated maps as material evidence, then refine after browser screenshot comparison."
+        }
+      ],
+      "shaderNotes": [
+        "Every mesh castShadow = true; no external textures.",
+        "Reference-derived maps are estimates from image pixels; verify with neutral, grazing, and reference-matched renders.",
+        "Do not treat baked image shadows as final albedo; rerun extraction with a tighter material crop if highlights/shadows pollute the maps."
+      ],
+      "notes": "Replace with image-derived color, roughness, noise, and edge-wear notes.",
+      "translucency": "opaque",
+      "side": "DoubleSide",
+      "finishClass": "botanical-matte-dielectric",
+      "texturePalette": [
+        "#CAD1B8",
+        "#85904C",
+        "#7C873F",
+        "#899556",
+        "#F7F8F4"
+      ],
+      "proceduralTexture": {
+        "kind": "vertex-colour gradient",
+        "note": "no canvas or file textures"
+      },
+      "clearcoat": {
+        "base": 0.0,
+        "variation": 0.0
+      },
+      "clearcoatRoughness": 0.0,
+      "transmission": 0.0,
+      "ior": 1.4,
+      "envMapIntensity": 0.6,
+      "referencePbr": {
+        "version": "1.0",
+        "sourceImage": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/stem.png",
+        "extractor": "stage1_intake/extract_pbr_evidence.py",
+        "method": "single-image pixel evidence with de-lighting estimate; not photogrammetry",
+        "usable": true,
+        "verdict": "pass",
+        "confidence": 0.86,
+        "estimatedFidelity": 0.86,
+        "targetThreshold": 0.7,
+        "hardLimit": "A single image cannot uniquely recover true albedo/roughness/normal/AO; maps are reference-derived estimates.",
+        "maps": {
+          "albedo": {
+            "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/stem/stem_albedo.png",
+            "url": "stem_albedo.png",
+            "channel": "albedo",
+            "source": "reference-pixel-extraction"
+          },
+          "roughness": {
+            "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/stem/stem_roughness.png",
+            "url": "stem_roughness.png",
+            "channel": "roughness",
+            "source": "reference-pixel-extraction"
+          },
+          "height": {
+            "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/stem/stem_height.png",
+            "url": "stem_height.png",
+            "channel": "height",
+            "source": "reference-pixel-extraction"
+          },
+          "normal": {
+            "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/stem/stem_normal.png",
+            "url": "stem_normal.png",
+            "channel": "normal",
+            "source": "reference-pixel-extraction"
+          },
+          "ao": {
+            "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/stem/stem_ao.png",
+            "url": "stem_ao.png",
+            "channel": "ao",
+            "source": "reference-pixel-extraction"
+          }
+        },
+        "diagnostics": {
+          "sourceWidth": 26,
+          "sourceHeight": 280,
+          "mapSize": 1024,
+          "cropBBoxPixels": {
+            "x": 0,
+            "y": 0,
+            "width": 25,
+            "height": 280
+          },
+          "mask": {
+            "backgroundColor": "#FCFCFB",
+            "backgroundNoise": 7.0,
+            "transparentPixelFraction": 0.0,
+            "foregroundCoverage": 0.7346
+          },
+          "mapStats": {
+            "valueRange": 0.2878,
+            "heightP90Gradient": 0.02919,
+            "roughnessBase": 0.694,
+            "roughnessVariation": 0.05,
+            "normalStrength": 0.19,
+            "blurRadius": 21
+          },
+          "palette": [
+            "#808B43",
+            "#899555",
+            "#78833A",
+            "#9AA571",
+            "#D4D9C2"
+          ]
+        },
+        "warnings": [
+          "single-image inverse rendering cannot prove true physical PBR; confidence is capped"
+        ]
+      },
+      "finishCorrection": "analyze_texture classified this crop as 'painted-metal'; overridden: plant tissue is a non-metallic dielectric (metalness 0, no clearcoat, no anisotropy)"
+    },
+    {
+      "id": "leaf",
+      "name": "Sword/spathe leaf",
+      "type": "physical",
+      "shaderModel": "MeshPhysicalMaterial, procedural vertex-colour gradient",
+      "baseColor": "#5f7a45",
+      "color": "#5f7a45",
+      "albedo": {
+        "dominant": "#6E8756",
+        "secondary": [
+          "#637A4F",
+          "#91A866",
+          "#7C965D"
+        ],
+        "samplingNotes": "Reference-derived from foreground pixels; de-lit to reduce baked shadows/highlights.",
+        "map": {
+          "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/leaf/leaf_albedo.png",
+          "url": "leaf_albedo.png",
+          "channel": "albedo",
+          "source": "reference-pixel-extraction"
+        }
+      },
+      "colorVariation": {
+        "palette": [
+          "#6E8756",
+          "#637A4F",
+          "#91A866",
+          "#7C965D",
+          "#566C44"
+        ],
+        "pattern": "reference-derived pixel palette",
+        "amplitude": 0.1,
+        "heightCorrelation": 0.42
+      },
+      "textureResolution": 1024,
+      "textureProjection": {
+        "mode": "uv",
+        "repeat": [
+          2.0,
+          2.0
+        ],
+        "anisotropy": 8,
+        "texelDensityIntent": "Preserve stable world/object-scale detail; do not stretch micro detail with component scale."
+      },
+      "surfaceFrequencyBands": [
+        {
+          "id": "macro",
+          "frequency": 2.0,
+          "amplitude": 0.363,
+          "role": "reference-derived broad albedo and height breakup"
+        },
+        {
+          "id": "meso",
+          "frequency": 14.0,
+          "amplitude": 0.28,
+          "role": "reference-derived cracks, ridges, pores, grain, or leaf clusters"
+        },
+        {
+          "id": "micro",
+          "frequency": 72.0,
+          "amplitude": 0.129,
+          "role": "reference-derived micro highlight breakup under grazing light"
+        }
+      ],
+      "roughness": {
+        "base": 0.711,
+        "variation": 0.064,
+        "map": "independent-procedural-field",
+        "localResponse": "reference-derived roughness estimate; cavities and textured zones trend rougher, bright highlights trend smoother",
+        "extractedEvidenceMap": {
+          "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/leaf/leaf_roughness.png",
+          "url": "leaf_roughness.png",
+          "channel": "roughness",
+          "source": "reference-pixel-extraction"
+        },
+        "mapNote": "extracted map kept as evidence only; brief forbids external texture files, so the factory uses the scalar"
+      },
+      "metalness": {
+        "base": 0.0,
+        "variation": 0.0
+      },
+      "normal": {
+        "pattern": "reference-derived height-gradient normal map",
+        "strength": 0.192,
+        "map": {
+          "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/leaf/leaf_normal.png",
+          "url": "leaf_normal.png",
+          "channel": "normal",
+          "source": "reference-pixel-extraction"
+        },
+        "heightSource": {
+          "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/leaf/leaf_height.png",
+          "url": "leaf_height.png",
+          "channel": "height",
+          "source": "reference-pixel-extraction"
+        },
+        "space": "tangent"
+      },
+      "bump": {
+        "pattern": "reference-derived height field",
+        "amplitude": 0.014,
+        "map": {
+          "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/leaf/leaf_height.png",
+          "url": "leaf_height.png",
+          "channel": "height",
+          "source": "reference-pixel-extraction"
+        }
+      },
+      "displacement": {
+        "pattern": "none",
+        "amplitude": 0.0,
+        "scale": 1.0,
+        "silhouetteAffects": false
+      },
+      "ambientOcclusion": {
+        "cavityStrength": 0.38,
+        "contactShadowBias": 0.35,
+        "map": {
+          "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/leaf/leaf_ao.png",
+          "url": "leaf_ao.png",
+          "channel": "ao",
+          "source": "reference-pixel-extraction"
+        },
+        "notes": "Reference-derived cavity estimate from local height minima; verify against grazing-light screenshot."
+      },
+      "wear": {
+        "edgeWear": 0.0,
+        "scratches": [],
+        "chips": []
+      },
+      "dirt": {
+        "amount": 0.0,
+        "cavityBias": 0.0,
+        "color": "#2F2A22"
+      },
+      "localOverrides": [
+        {
+          "id": "parallel-vein-tint",
+          "region": "whole blade, lengthwise",
+          "color": "#7b9361",
+          "detailRef": "d-leaf-veins",
+          "evidenceRefs": [
+            "zone:bottom-right"
+          ]
+        },
+        {
+          "id": "reference-pbr-pixel-evidence",
+          "type": "material-map-evidence",
+          "evidenceRefs": [
+            "full-object"
+          ],
+          "channels": [
+            "albedo",
+            "roughness",
+            "height",
+            "normal",
+            "ambient-occlusion"
+          ],
+          "notes": "Use generated maps as material evidence, then refine after browser screenshot comparison."
+        }
+      ],
+      "shaderNotes": [
+        "Every mesh castShadow = true; no external textures.",
+        "Reference-derived maps are estimates from image pixels; verify with neutral, grazing, and reference-matched renders.",
+        "Do not treat baked image shadows as final albedo; rerun extraction with a tighter material crop if highlights/shadows pollute the maps."
+      ],
+      "notes": "Replace with image-derived color, roughness, noise, and edge-wear notes.",
+      "translucency": "opaque",
+      "side": "DoubleSide",
+      "finishClass": "botanical-matte-dielectric",
+      "texturePalette": [
+        "#C6D1B6",
+        "#A1B289",
+        "#768D57",
+        "#687F53",
+        "#728563"
+      ],
+      "proceduralTexture": {
+        "kind": "vertex-colour gradient",
+        "note": "no canvas or file textures"
+      },
+      "clearcoat": {
+        "base": 0.0,
+        "variation": 0.0
+      },
+      "clearcoatRoughness": 0.0,
+      "transmission": 0.0,
+      "ior": 1.4,
+      "envMapIntensity": 0.6,
+      "referencePbr": {
+        "version": "1.0",
+        "sourceImage": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/leaf.png",
+        "extractor": "stage1_intake/extract_pbr_evidence.py",
+        "method": "single-image pixel evidence with de-lighting estimate; not photogrammetry",
+        "usable": true,
+        "verdict": "pass",
+        "confidence": 0.818,
+        "estimatedFidelity": 0.818,
+        "targetThreshold": 0.7,
+        "hardLimit": "A single image cannot uniquely recover true albedo/roughness/normal/AO; maps are reference-derived estimates.",
+        "maps": {
+          "albedo": {
+            "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/leaf/leaf_albedo.png",
+            "url": "leaf_albedo.png",
+            "channel": "albedo",
+            "source": "reference-pixel-extraction"
+          },
+          "roughness": {
+            "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/leaf/leaf_roughness.png",
+            "url": "leaf_roughness.png",
+            "channel": "roughness",
+            "source": "reference-pixel-extraction"
+          },
+          "height": {
+            "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/leaf/leaf_height.png",
+            "url": "leaf_height.png",
+            "channel": "height",
+            "source": "reference-pixel-extraction"
+          },
+          "normal": {
+            "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/leaf/leaf_normal.png",
+            "url": "leaf_normal.png",
+            "channel": "normal",
+            "source": "reference-pixel-extraction"
+          },
+          "ao": {
+            "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/leaf/leaf_ao.png",
+            "url": "leaf_ao.png",
+            "channel": "ao",
+            "source": "reference-pixel-extraction"
+          }
+        },
+        "diagnostics": {
+          "sourceWidth": 50,
+          "sourceHeight": 100,
+          "mapSize": 1024,
+          "cropBBoxPixels": {
+            "x": 0,
+            "y": 0,
+            "width": 50,
+            "height": 100
+          },
+          "mask": {
+            "backgroundColor": "#FCFCFC",
+            "backgroundNoise": 264.798,
+            "transparentPixelFraction": 0.0,
+            "foregroundCoverage": 0.8604
+          },
+          "mapStats": {
+            "valueRange": 0.2374,
+            "heightP90Gradient": 0.03087,
+            "roughnessBase": 0.711,
+            "roughnessVariation": 0.064,
+            "normalStrength": 0.192,
+            "blurRadius": 21
+          },
+          "palette": [
+            "#6E8756",
+            "#637A4F",
+            "#91A866",
+            "#7C965D",
+            "#566C44"
+          ]
+        },
+        "warnings": [
+          "single-image inverse rendering cannot prove true physical PBR; confidence is capped",
+          "low value range weakens height/roughness inference"
+        ]
+      },
+      "finishCorrection": "analyze_texture classified this crop as 'painted-metal'; overridden: plant tissue is a non-metallic dielectric (metalness 0, no clearcoat, no anisotropy)"
+    }
+  ],
+  "repetitionSystems": [
+    {
+      "id": "fall-ring",
+      "componentRef": "falls",
+      "count": 3,
+      "distribution": "trimerous: azimuth 0/±120°, seeded ±6° and ±6% size",
+      "seeded": true,
+      "evidenceRefs": [
+        "zone:top-center"
+      ]
+    },
+    {
+      "id": "standard-ring",
+      "componentRef": "standards",
+      "count": 3,
+      "distribution": "alternate: 180/±60°",
+      "seeded": true,
+      "evidenceRefs": [
+        "zone:top-center"
+      ]
+    },
+    {
+      "id": "style-arm-ring",
+      "componentRef": "style-arms",
+      "count": 3,
+      "distribution": "over each fall",
+      "seeded": true,
+      "evidenceRefs": [
+        "zone:top-center"
+      ]
+    }
+  ],
+  "buildPasses": [
+    {
+      "id": "blockout",
+      "goal": "Stem 0.83 high, head 0.34 wide at h 0.84-1.0, sword leaf to (+0.14,0.68), spathe leaf to h 0.89.",
+      "componentRefs": [
+        "stem",
+        "perianth",
+        "leaf-sword",
+        "leaf-spathe"
+      ],
+      "acceptance": [
+        "Front silhouette proportions match reference",
+        "AI vision comparison score >= 0.7"
+      ]
+    },
+    {
+      "id": "structural-pass",
+      "goal": "Ovary, falls/standards/style arms, bud, pivots base/midStem/head, sheaths.",
+      "componentRefs": [
+        "ovary",
+        "falls",
+        "standards",
+        "style-arms",
+        "bud"
+      ],
+      "acceptance": [
+        "No floating parts",
+        "Pivots exist"
+      ]
+    },
+    {
+      "id": "form-refinement",
+      "goal": "Fall arch/droop and tip curl, standard spoon, leaf sheath wrap; side/3/4/top silhouettes.",
+      "componentRefs": [
+        "falls",
+        "standards",
+        "leaf-sword"
+      ],
+      "acceptance": [
+        "Falls read as arched shells from side/top"
+      ]
+    },
+    {
+      "id": "material-pass",
+      "goal": "Coral falls with yellow signal, salmon standards, green leaves.",
+      "componentRefs": [
+        "falls",
+        "standards",
+        "leaf-sword"
+      ],
+      "acceptance": [
+        "Colour stops match sampled palette"
+      ]
+    },
+    {
+      "id": "interaction-pass",
+      "goal": "Options seed/openness/stemLean/stemHeight/bend/scale; userData.tick sway.",
+      "componentRefs": [
+        "stem",
+        "perianth"
+      ],
+      "acceptance": [
+        "Same seed -> same flower"
+      ]
+    },
+    {
+      "id": "optimization-pass",
+      "goal": "Triangle budget <= 60k.",
+      "componentRefs": [
+        "stem"
+      ],
+      "acceptance": [
+        "build passes"
+      ]
+    }
+  ],
+  "visualEvidence": [
+    {
+      "timestamp": "2026-10-20T06:25:37.855749+00:00",
+      "passId": "blockout",
+      "estimatedFidelity": 0.66,
+      "aiVisionScore": 0.7,
+      "visualAcceptanceThreshold": 0.7,
+      "layerScores": {
+        "silhouetteProportion": 0.74,
+        "componentStructure": 0.66,
+        "formDetail": 0.68,
+        "materialSurface": 0.66,
+        "lightingCamera": 0.75
+      },
+      "featureReviews": [
+        {
+          "id": "fall-spread",
+          "score": 0.78,
+          "notes": "left fall arches then droops, front fall hangs toward camera/right with signal patch; head row widths within ~0.02"
+        },
+        {
+          "id": "standards",
+          "score": 0.7,
+          "notes": "three upright spoons present; slightly darker and narrower than the reference's pale salmon standards"
+        },
+        {
+          "id": "leaves",
+          "score": 0.6,
+          "notes": "sword leaf good; spathe leaf grows straight while the stem leans right, leaving a visible gap: attachment defect"
+        },
+        {
+          "id": "stem",
+          "score": 0.8,
+          "notes": "tapered stem, upper lean into head matches"
+        }
+      ],
+      "referenceScreenshot": "/Users/yelimkim/Projects/3dShadows/references/iris.png",
+      "renderScreenshot": "/Users/yelimkim/Projects/3dShadows/work/iris/renders/blockout-r1-front.png",
+      "comparisonImage": "/Users/yelimkim/Projects/3dShadows/work/iris/renders/blockout-r1-cmp.png",
+      "cameraView": "front",
+      "notes": "",
+      "aiVisionNotes": "Recognisable iris from all views; spathe attachment is a structural defect that must be fixed before any further pass."
+    },
+    {
+      "timestamp": "2026-10-20T06:27:23.434766+00:00",
+      "passId": "blockout",
+      "estimatedFidelity": 0.72,
+      "aiVisionScore": 0.74,
+      "visualAcceptanceThreshold": 0.7,
+      "layerScores": {
+        "silhouetteProportion": 0.78,
+        "componentStructure": 0.78,
+        "formDetail": 0.7,
+        "materialSurface": 0.66,
+        "lightingCamera": 0.75
+      },
+      "featureReviews": [
+        {
+          "id": "fall-spread",
+          "score": 0.78,
+          "notes": "three falls on distinct azimuths: side falls arch and droop, front fall hangs toward camera/right; yellow signal patches"
+        },
+        {
+          "id": "standards",
+          "score": 0.72,
+          "notes": "three upright splayed spoons reaching the top; a little darker/narrower than the reference"
+        },
+        {
+          "id": "leaves",
+          "score": 0.78,
+          "notes": "sword leaf sheathes at h0.25 and reaches (+0.14,0.68); spathe leaf now follows the stem lean and wraps it up toward the head"
+        },
+        {
+          "id": "stem",
+          "score": 0.8,
+          "notes": "tapered stem with lean into the head, long bud spindle beside it"
+        }
+      ],
+      "referenceScreenshot": "/Users/yelimkim/Projects/3dShadows/references/iris.png",
+      "renderScreenshot": "/Users/yelimkim/Projects/3dShadows/work/iris/renders/blockout-r2-front.png",
+      "comparisonImage": "/Users/yelimkim/Projects/3dShadows/work/iris/renders/blockout-r2-cmp.png",
+      "cameraView": "front",
+      "notes": "",
+      "aiVisionNotes": "Reads as the reference iris from every azimuth and as a wall shadow; gate failure is grid quantisation, not wrong form. Kept as best version."
+    }
+  ],
+  "reviewHistory": [
+    {
+      "timestamp": "2026-10-20T06:25:37.855749+00:00",
+      "passId": "blockout",
+      "estimatedFidelity": 0.66,
+      "aiVisionScore": 0.7,
+      "visualAcceptanceThreshold": 0.7,
+      "layerScores": {
+        "silhouetteProportion": 0.74,
+        "componentStructure": 0.66,
+        "formDetail": 0.68,
+        "materialSurface": 0.66,
+        "lightingCamera": 0.75
+      },
+      "featureReviews": [
+        {
+          "id": "fall-spread",
+          "score": 0.78,
+          "notes": "left fall arches then droops, front fall hangs toward camera/right with signal patch; head row widths within ~0.02"
+        },
+        {
+          "id": "standards",
+          "score": 0.7,
+          "notes": "three upright spoons present; slightly darker and narrower than the reference's pale salmon standards"
+        },
+        {
+          "id": "leaves",
+          "score": 0.6,
+          "notes": "sword leaf good; spathe leaf grows straight while the stem leans right, leaving a visible gap: attachment defect"
+        },
+        {
+          "id": "stem",
+          "score": 0.8,
+          "notes": "tapered stem, upper lean into head matches"
+        }
+      ],
+      "action": "refine-code",
+      "summary": "Iris blockout r1: head/fall spread reads; Tier-1 IoU 0.635 fails; spathe leaf detaches from leaning stem",
+      "matched": [
+        "aspect 0.014 and scale 0.023 pass",
+        "turntable/multi-angle pass",
+        "front fall droop + side fall arch",
+        "sword leaf tip near (+0.14,0.68)"
+      ],
+      "mismatches": [
+        "Tier-1 IoU 0.635",
+        "spathe leaf gap beside stem above h0.60",
+        "leaf sheath bottoms read flat-cut"
+      ],
+      "specFixes": [],
+      "codeFixes": [
+        "bend spathe leaf with the stem lean (azimuth toward +x)",
+        "keep sheath bases narrow"
+      ],
+      "evidence": [],
+      "mapStrippedRender": "/Users/yelimkim/Projects/3dShadows/work/iris/renders/blockout-r1-front-unlit.png",
+      "reviewViewpoints": [
+        "front",
+        "side",
+        "three-quarter",
+        "top",
+        "rear"
+      ],
+      "visualEvidence": {
+        "referenceScreenshot": "/Users/yelimkim/Projects/3dShadows/references/iris.png",
+        "renderScreenshot": "/Users/yelimkim/Projects/3dShadows/work/iris/renders/blockout-r1-front.png",
+        "comparisonImage": "/Users/yelimkim/Projects/3dShadows/work/iris/renders/blockout-r1-cmp.png",
+        "cameraView": "front",
+        "notes": "",
+        "aiVisionNotes": "Recognisable iris from all views; spathe attachment is a structural defect that must be fixed before any further pass."
+      }
+    },
+    {
+      "timestamp": "2026-10-20T06:27:23.434766+00:00",
+      "passId": "blockout",
+      "estimatedFidelity": 0.72,
+      "aiVisionScore": 0.74,
+      "visualAcceptanceThreshold": 0.7,
+      "layerScores": {
+        "silhouetteProportion": 0.78,
+        "componentStructure": 0.78,
+        "formDetail": 0.7,
+        "materialSurface": 0.66,
+        "lightingCamera": 0.75
+      },
+      "featureReviews": [
+        {
+          "id": "fall-spread",
+          "score": 0.78,
+          "notes": "three falls on distinct azimuths: side falls arch and droop, front fall hangs toward camera/right; yellow signal patches"
+        },
+        {
+          "id": "standards",
+          "score": 0.72,
+          "notes": "three upright splayed spoons reaching the top; a little darker/narrower than the reference"
+        },
+        {
+          "id": "leaves",
+          "score": 0.78,
+          "notes": "sword leaf sheathes at h0.25 and reaches (+0.14,0.68); spathe leaf now follows the stem lean and wraps it up toward the head"
+        },
+        {
+          "id": "stem",
+          "score": 0.8,
+          "notes": "tapered stem with lean into the head, long bud spindle beside it"
+        }
+      ],
+      "action": "request-input",
+      "summary": "Iris blockout r2: BLOCKED by Tier-1 silhouette IoU hard gate (0.710 < 0.85); every other deterministic gate passes",
+      "matched": [
+        "aspect 0.014 and scale 0.023 pass",
+        "turntable/multi-angle pass (side area 0.47 of front, no holes)",
+        "spathe attachment fixed",
+        "bud spindle"
+      ],
+      "mismatches": [
+        "Tier-1 IoU 0.710: thin stem/leaf edges and petal outlines lose cells on the 224 grid",
+        "standards slightly dark",
+        "venation not modelled"
+      ],
+      "specFixes": [],
+      "codeFixes": [
+        "none pending for the gate",
+        "request user acceptance of the Tier-1 exception"
+      ],
+      "evidence": [],
+      "mapStrippedRender": "/Users/yelimkim/Projects/3dShadows/work/iris/renders/blockout-r2-front-unlit.png",
+      "reviewViewpoints": [
+        "front",
+        "side",
+        "three-quarter",
+        "top",
+        "rear"
+      ],
+      "visualEvidence": {
+        "referenceScreenshot": "/Users/yelimkim/Projects/3dShadows/references/iris.png",
+        "renderScreenshot": "/Users/yelimkim/Projects/3dShadows/work/iris/renders/blockout-r2-front.png",
+        "comparisonImage": "/Users/yelimkim/Projects/3dShadows/work/iris/renders/blockout-r2-cmp.png",
+        "cameraView": "front",
+        "notes": "",
+        "aiVisionNotes": "Reads as the reference iris from every azimuth and as a wall shadow; gate failure is grid quantisation, not wrong form. Kept as best version."
+      }
+    }
+  ],
+  "lodPlan": [
+    {
+      "tier": "near",
+      "distance": 0,
+      "strategy": "full component tree and material layers"
+    },
+    {
+      "tier": "far",
+      "distance": 30,
+      "strategy": "merge static components and reduce local feature geometry"
+    }
+  ],
+  "performanceBudget": {
+    "qualityPriority": "silhouette-fidelity",
+    "targetTriangles": 60000,
+    "maxDrawCalls": 60,
+    "textureSize": 2048,
+    "fpsTarget": 30,
+    "optimizationPolicy": "Reach accepted visual fidelity first, then optimize without removing reference-critical geometry or surface layers."
+  },
+  "lightingFromPhoto": [
+    {
+      "id": "key-sun",
+      "type": "directional",
+      "intensity": 3.0,
+      "color": "#fff4e6",
+      "castShadow": true,
+      "note": "viewer-owned sun; user orbits azimuth/elevation; PCF soft shadow map 2048, the cast shadow on the wall/ground is the hero read"
+    },
+    {
+      "id": "fill-hemisphere",
+      "type": "hemisphere",
+      "intensity": 0.35,
+      "sky": "#ffffff",
+      "ground": "#888070",
+      "note": "soft fill matching the photo's white seamless studio light"
+    },
+    {
+      "id": "environment",
+      "type": "environment",
+      "source": "RoomEnvironment PMREM",
+      "intensity": 0.35,
+      "note": "exposure 1.0 with ACES filmic tone mapping, sRGB output"
+    },
+    {
+      "id": "ground-contact",
+      "type": "shadow",
+      "note": "ground shadow / contact shadow from the viewer ground plane (receiveShadow); no baked ambient occlusion"
+    }
+  ],
+  "proceduralStrategy": [
+    "Shared kit src/flowers/flowerKit.ts (tube, shell, whorls, pivots, sway).",
+    "Falls/standards/style arms as whorls with explicit azimuths; signal patch as a vertex-colour blotch."
+  ],
+  "animationAnchors": [
+    {
+      "id": "base",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "use": "sway"
+    },
+    {
+      "id": "midStem",
+      "position": [
+        -0.015,
+        0.55,
+        0
+      ],
+      "use": "bend"
+    },
+    {
+      "id": "head",
+      "position": [
+        0.025,
+        0.83,
+        0
+      ],
+      "use": "nod"
+    }
+  ],
+  "destructionAnchors": [
+    "actionProfile.destruction.fractureGroup marks detachable or breakable component sets",
+    "component seams and sockets define plausible break points instead of random explosions"
+  ],
+  "risks": [
+    {
+      "id": "tulip-falls",
+      "description": "Falls may read upright",
+      "mitigation": "bend 62->112 deg"
+    },
+    {
+      "id": "flat-falls",
+      "description": "falls flat from side",
+      "mitigation": "cup + arch, review side/top"
+    }
+  ],
+  "localSpecSearch": {
+    "collection": "core_3d",
+    "query": "Iris flower petal thin shell double sided botanical stem tapered tube curve sword leaf sheath blade subsurface translucency petal",
+    "index": {
+      "status": "hit",
+      "reason": "current",
+      "fingerprint": "62f2831e1d52eeb6dbb94a87c44fa25b1f4926626a7b1f8c2bcadc63e04e9471"
+    },
+    "matches": [
+      {
+        "record_id": "core.shader-mapping-conegeometry-tapered-tips",
+        "file_path": "docs/raw/img2threejs-skill-dataset.json",
+        "heading": null,
+        "key_path": "categories.rendering_shader_mapping[11]",
+        "score": 6.299817361323,
+        "snippets": [
+          "Maps to tapered projectile-like or pointed components. Ánh xạ tới các bộ phận thon nhọn giống đầu đạn hoặc có mũi nhọn. Recognition cues: Tapered pointed shape narrowing to a point — projectile tips, some conical muzzle device shapes Dấu hiệu ..."
+        ],
+        "source_refs": [
+          {
+            "path": "docs/raw/img2threejs-skill-dataset.json",
+            "heading": null,
+            "key_path": "categories.rendering_shader_mapping[11]"
+          }
+        ],
+        "evidence_refs": [
+          {
+            "kind": "source",
+            "ref": "docs/raw/img2threejs-skill-dataset.json",
+            "note": "img2threejs NotebookLM research distillation"
+          }
+        ]
+      },
+      {
+        "record_id": "core.pbr-subsurface-scattering-sss",
+        "file_path": "docs/raw/img2threejs-skill-dataset.json",
+        "heading": null,
+        "key_path": "categories.material_pbr[5]",
+        "score": 5.777507968452,
+        "snippets": [
+          "... xuyên vào và tán xạ bên trong trước khi thoát ra (da, sáp, đá cẩm thạch, một số nhựa polymer). Recognition cues: Edges/thin sections of the material glow softly when backlit rather than showing a hard black silhouette; Relevant mainly to ..."
+        ],
+        "source_refs": [
+          {
+            "path": "docs/raw/img2threejs-skill-dataset.json",
+            "heading": null,
+            "key_path": "categories.material_pbr[5]"
+          }
+        ],
+        "evidence_refs": [
+          {
+            "kind": "source",
+            "ref": "docs/raw/img2threejs-skill-dataset.json",
+            "note": "img2threejs NotebookLM research distillation"
+          }
+        ]
+      },
+      {
+        "record_id": "core.shader-mapping-tubegeometry-straps-cables-belts",
+        "file_path": "docs/raw/img2threejs-skill-dataset.json",
+        "heading": null,
+        "key_path": "categories.rendering_shader_mapping[10]",
+        "score": 4.445426974684,
+        "snippets": [
+          "Maps to flexible components following a 3D curve. Ánh xạ tới các bộ phận mềm dẻo chạy theo một đường cong 3D. Recognition cues: Flexible, curve-following linear component — sling strap, pressure-switch cable, ammo belt draping into a receiver ..."
+        ],
+        "source_refs": [
+          {
+            "path": "docs/raw/img2threejs-skill-dataset.json",
+            "heading": null,
+            "key_path": "categories.rendering_shader_mapping[10]"
+          }
+        ],
+        "evidence_refs": [
+          {
+            "kind": "source",
+            "ref": "docs/raw/img2threejs-skill-dataset.json",
+            "note": "img2threejs NotebookLM research distillation"
+          }
+        ]
+      }
+    ]
+  },
+  "runtimeOptions": {
+    "seed": "int, default 1",
+    "openness": "0..1, default 0.8 (reference)",
+    "stemLean": "radians",
+    "stemHeight": "multiplier",
+    "bend": "multiplier",
+    "scale": "uniform"
+  },
+  "pbrExtractionHistory": [
+    {
+      "materialId": "petal",
+      "confidence": 0.79,
+      "verdict": "pass",
+      "usable": true,
+      "maps": {
+        "albedo": {
+          "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/petal/petal_albedo.png",
+          "url": "petal_albedo.png",
+          "channel": "albedo",
+          "source": "reference-pixel-extraction"
+        },
+        "roughness": {
+          "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/petal/petal_roughness.png",
+          "url": "petal_roughness.png",
+          "channel": "roughness",
+          "source": "reference-pixel-extraction"
+        },
+        "height": {
+          "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/petal/petal_height.png",
+          "url": "petal_height.png",
+          "channel": "height",
+          "source": "reference-pixel-extraction"
+        },
+        "normal": {
+          "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/petal/petal_normal.png",
+          "url": "petal_normal.png",
+          "channel": "normal",
+          "source": "reference-pixel-extraction"
+        },
+        "ao": {
+          "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/petal/petal_ao.png",
+          "url": "petal_ao.png",
+          "channel": "ao",
+          "source": "reference-pixel-extraction"
+        }
+      }
+    },
+    {
+      "materialId": "stem",
+      "confidence": 0.86,
+      "verdict": "pass",
+      "usable": true,
+      "maps": {
+        "albedo": {
+          "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/stem/stem_albedo.png",
+          "url": "stem_albedo.png",
+          "channel": "albedo",
+          "source": "reference-pixel-extraction"
+        },
+        "roughness": {
+          "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/stem/stem_roughness.png",
+          "url": "stem_roughness.png",
+          "channel": "roughness",
+          "source": "reference-pixel-extraction"
+        },
+        "height": {
+          "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/stem/stem_height.png",
+          "url": "stem_height.png",
+          "channel": "height",
+          "source": "reference-pixel-extraction"
+        },
+        "normal": {
+          "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/stem/stem_normal.png",
+          "url": "stem_normal.png",
+          "channel": "normal",
+          "source": "reference-pixel-extraction"
+        },
+        "ao": {
+          "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/stem/stem_ao.png",
+          "url": "stem_ao.png",
+          "channel": "ao",
+          "source": "reference-pixel-extraction"
+        }
+      }
+    },
+    {
+      "materialId": "leaf",
+      "confidence": 0.818,
+      "verdict": "pass",
+      "usable": true,
+      "maps": {
+        "albedo": {
+          "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/leaf/leaf_albedo.png",
+          "url": "leaf_albedo.png",
+          "channel": "albedo",
+          "source": "reference-pixel-extraction"
+        },
+        "roughness": {
+          "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/leaf/leaf_roughness.png",
+          "url": "leaf_roughness.png",
+          "channel": "roughness",
+          "source": "reference-pixel-extraction"
+        },
+        "height": {
+          "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/leaf/leaf_height.png",
+          "url": "leaf_height.png",
+          "channel": "height",
+          "source": "reference-pixel-extraction"
+        },
+        "normal": {
+          "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/leaf/leaf_normal.png",
+          "url": "leaf_normal.png",
+          "channel": "normal",
+          "source": "reference-pixel-extraction"
+        },
+        "ao": {
+          "path": "/Users/yelimkim/Projects/3dShadows/work/iris/material-evidence/leaf/leaf_ao.png",
+          "url": "leaf_ao.png",
+          "channel": "ao",
+          "source": "reference-pixel-extraction"
+        }
+      }
+    }
+  ],
+  "tier1Results": [
+    {
+      "passed": false,
+      "checks": {
+        "silhouetteIoU": 0.6351,
+        "aspectRatioDelta": 0.0139,
+        "scaleDelta": 0.0231,
+        "bilateralSymmetryError": 0.0784,
+        "colorDelta": {
+          "checked": 10,
+          "maxDeltaE": 11.52,
+          "perComponent": [
+            {
+              "componentId": null,
+              "deltaE": 11.52
+            },
+            {
+              "componentId": null,
+              "deltaE": 11.52
+            },
+            {
+              "componentId": null,
+              "deltaE": 11.52
+            },
+            {
+              "componentId": null,
+              "deltaE": 9.22
+            },
+            {
+              "componentId": null,
+              "deltaE": 9.22
+            },
+            {
+              "componentId": null,
+              "deltaE": 9.22
+            },
+            {
+              "componentId": null,
+              "deltaE": 9.22
+            },
+            {
+              "componentId": null,
+              "deltaE": 11.52
+            },
+            {
+              "componentId": null,
+              "deltaE": 10.2
+            },
+            {
+              "componentId": null,
+              "deltaE": 10.2
+            }
+          ],
+          "gated": false
+        }
+      },
+      "failures": [
+        "silhouette IoU 0.635 is below threshold 0.85"
+      ],
+      "maskWarnings": [],
+      "renderHash": "15f387baa08d07c3",
+      "passId": "blockout",
+      "mapStrippedRender": "/Users/yelimkim/Projects/3dShadows/work/iris/renders/blockout-r1-front-unlit.png"
+    },
+    {
+      "passed": false,
+      "checks": {
+        "silhouetteIoU": 0.7102,
+        "aspectRatioDelta": 0.0139,
+        "scaleDelta": 0.0231,
+        "bilateralSymmetryError": 0.0829,
+        "colorDelta": {
+          "checked": 10,
+          "maxDeltaE": 12.81,
+          "perComponent": [
+            {
+              "componentId": null,
+              "deltaE": 12.81
+            },
+            {
+              "componentId": null,
+              "deltaE": 12.81
+            },
+            {
+              "componentId": null,
+              "deltaE": 12.81
+            },
+            {
+              "componentId": null,
+              "deltaE": 9.27
+            },
+            {
+              "componentId": null,
+              "deltaE": 9.27
+            },
+            {
+              "componentId": null,
+              "deltaE": 9.27
+            },
+            {
+              "componentId": null,
+              "deltaE": 9.27
+            },
+            {
+              "componentId": null,
+              "deltaE": 12.81
+            },
+            {
+              "componentId": null,
+              "deltaE": 9.3
+            },
+            {
+              "componentId": null,
+              "deltaE": 9.3
+            }
+          ],
+          "gated": false
+        }
+      },
+      "failures": [
+        "silhouette IoU 0.710 is below threshold 0.85"
+      ],
+      "maskWarnings": [],
+      "renderHash": "9ba976340a7f3960",
+      "passId": "blockout",
+      "mapStrippedRender": "/Users/yelimkim/Projects/3dShadows/work/iris/renders/blockout-r2-front-unlit.png"
+    }
+  ]
+}

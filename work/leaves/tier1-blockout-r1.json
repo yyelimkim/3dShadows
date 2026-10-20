@@ -1,0 +1,51 @@
+{
+  "passed": false,
+  "checks": {
+    "silhouetteIoU": 0.4512,
+    "aspectRatioDelta": 0.1607,
+    "scaleDelta": 0.0724,
+    "bilateralSymmetryError": 0.0649,
+    "colorDelta": {
+      "checked": 6,
+      "maxDeltaE": 8.02,
+      "perComponent": [
+        {
+          "componentId": null,
+          "deltaE": 8.02
+        },
+        {
+          "componentId": null,
+          "deltaE": 4.87
+        },
+        {
+          "componentId": null,
+          "deltaE": 8.02
+        },
+        {
+          "componentId": null,
+          "deltaE": 4.87
+        },
+        {
+          "componentId": null,
+          "deltaE": 4.87
+        },
+        {
+          "componentId": null,
+          "deltaE": 8.02
+        }
+      ],
+      "gated": false
+    }
+  },
+  "failures": [
+    "silhouette IoU 0.451 is below threshold 0.85",
+    "aspect-ratio delta 0.161 exceeds threshold 0.05"
+  ],
+  "maskWarnings": [
+    "reference: 26.0% of foreground cells lie outside the largest connected blob and were excluded from the bounding box; if the subject really has separated parts in this projection, they are not being measured",
+    "render: 23.7% of foreground cells lie outside the largest connected blob and were excluded from the bounding box; if the subject really has separated parts in this projection, they are not being measured"
+  ],
+  "renderHash": "ee769edade4329c2",
+  "passId": "blockout",
+  "mapStrippedRender": "/Users/yelimkim/Projects/3dShadows/work/leaves/renders/blockout-r1-front-unlit.png"
+}

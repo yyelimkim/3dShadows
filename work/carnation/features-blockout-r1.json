@@ -1,0 +1,5 @@
+[
+ {"id": "head-silhouette", "score": 0.72, "notes": "bowl width tracks reference row-by-row (h0.86-0.95) but reads as a smooth peony bowl; reference outline is a ragged, frilly cup"},
+ {"id": "stem-curve", "score": 0.8, "notes": "long tapered stem with gentle S; centreline within ~3px but 1-cell lateral slop on the 224 grid"},
+ {"id": "leaf-pair", "score": 0.8, "notes": "after roll fix blades are face-on, tips at right heights; render reads lighter/yellower than the glaucous reference"}
+]

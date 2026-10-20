@@ -1,0 +1,1252 @@
+{
+  "components": [
+    {
+      "id": "stem",
+      "name": "Stem (tapered tube, gentle S)",
+      "level": "macro",
+      "importance": 1.0,
+      "confidence": 0.85,
+      "primitive": "tapered-sweep",
+      "topologyClass": "fiber-strand",
+      "topologyRationale": "Long thin path-following strand with a slowly tapering round section: tapered sweep.",
+      "material": "stem",
+      "animationRole": "root",
+      "bend": true,
+      "collider": "capsule",
+      "dimensions": {
+        "width": 0.014,
+        "height": 0.83,
+        "depth": 0.014
+      },
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "geometry": {
+        "taperedSweep": {
+          "stations": [
+            {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rx": 0.0068,
+              "rz": 0.0068,
+              "twist": 0
+            },
+            {
+              "position": [
+                -0.004,
+                0.25,
+                0.003
+              ],
+              "rx": 0.0066,
+              "rz": 0.0066,
+              "twist": 0
+            },
+            {
+              "position": [
+                -0.012,
+                0.4,
+                0.002
+              ],
+              "rx": 0.0062,
+              "rz": 0.0062,
+              "twist": 0
+            },
+            {
+              "position": [
+                -0.015,
+                0.55,
+                0
+              ],
+              "rx": 0.006,
+              "rz": 0.006,
+              "twist": 0
+            },
+            {
+              "position": [
+                -0.008,
+                0.65,
+                -0.002
+              ],
+              "rx": 0.0057,
+              "rz": 0.0057,
+              "twist": 0
+            },
+            {
+              "position": [
+                0.01,
+                0.74,
+                -0.003
+              ],
+              "rx": 0.0052,
+              "rz": 0.0052,
+              "twist": 0
+            },
+            {
+              "position": [
+                0.022,
+                0.8,
+                -0.002
+              ],
+              "rx": 0.0045,
+              "rz": 0.0045,
+              "twist": 0
+            },
+            {
+              "position": [
+                0.025,
+                0.83,
+                0
+              ],
+              "rx": 0.0037,
+              "rz": 0.0037,
+              "twist": 0
+            }
+          ],
+          "radialSegments": 12,
+          "capEnds": true
+        }
+      },
+      "sockets": [
+        {
+          "id": "node-0.25",
+          "localPosition": [
+            -0.004,
+            0.25,
+            0.003
+          ]
+        },
+        {
+          "id": "node-0.60",
+          "localPosition": [
+            -0.013,
+            0.6,
+            0
+          ]
+        },
+        {
+          "id": "head",
+          "localPosition": [
+            0.025,
+            0.83,
+            0
+          ]
+        }
+      ],
+      "evidenceRefs": [
+        "zone:bottom-center",
+        "zone:middle-center"
+      ]
+    },
+    {
+      "id": "leaf-nodes",
+      "name": "Leaf node swellings (x2)",
+      "level": "meso",
+      "parent": "stem",
+      "confidence": 0.7,
+      "primitive": "ellipsoid",
+      "topologyClass": "continuous-sculpt",
+      "topologyRationale": "Local smooth swelling where each leaf sheath wraps the stem.",
+      "material": "stem",
+      "collider": "sphere",
+      "dimensions": {
+        "width": 0.017,
+        "height": 0.02,
+        "depth": 0.017
+      },
+      "position": [
+        -0.004,
+        0.25,
+        0.003
+      ],
+      "attachment": {
+        "socket": "node-0.25",
+        "contactType": "embed",
+        "localStart": [
+          0,
+          -0.01,
+          0
+        ],
+        "localEnd": [
+          0,
+          0.01,
+          0
+        ],
+        "embedDepth": 0.004,
+        "overlap": 0.02,
+        "baseRadius": 0.0085,
+        "endRadius": 0.0085
+      },
+      "localFeatures": [
+        {
+          "id": "node-swelling",
+          "kind": "contour",
+          "description": "radius +0.0018 over 0.02 at h 0.25 and 0.60",
+          "evidenceRefs": [
+            "zone:middle-center"
+          ],
+          "detailRef": "d-stem-node"
+        }
+      ],
+      "evidenceRefs": [
+        "zone:middle-center"
+      ]
+    },
+    {
+      "id": "ovary",
+      "name": "Ovary / perianth tube",
+      "level": "meso",
+      "parent": "stem",
+      "confidence": 0.7,
+      "primitive": "lathe",
+      "topologyClass": "continuous-sculpt",
+      "topologyRationale": "Rotationally symmetric green swelling under the perianth: lathe.",
+      "material": "stem",
+      "collider": "capsule",
+      "dimensions": {
+        "width": 0.016,
+        "height": 0.04,
+        "depth": 0.016
+      },
+      "position": [
+        0.025,
+        0.83,
+        0
+      ],
+      "geometry": {
+        "latheProfile": {
+          "points": [
+            [
+              0.0037,
+              0
+            ],
+            [
+              0.0075,
+              0.012
+            ],
+            [
+              0.008,
+              0.026
+            ],
+            [
+              0.006,
+              0.038
+            ],
+            [
+              0.003,
+              0.042
+            ]
+          ],
+          "segments": 18
+        }
+      },
+      "attachment": {
+        "socket": "head",
+        "contactType": "embed",
+        "localStart": [
+          0,
+          0,
+          0
+        ],
+        "localEnd": [
+          0,
+          0.042,
+          0
+        ],
+        "embedDepth": 0.004,
+        "overlap": 0.02,
+        "baseRadius": 0.0037,
+        "endRadius": 0.006
+      },
+      "evidenceRefs": [
+        "zone:top-center"
+      ]
+    },
+    {
+      "id": "perianth",
+      "name": "Perianth (falls + standards + style arms)",
+      "level": "macro",
+      "parent": "ovary",
+      "importance": 1.0,
+      "confidence": 0.7,
+      "primitive": "instanced-cluster",
+      "topologyClass": "conforming-shell",
+      "topologyRationale": "Head is an assembly of curved thin tepal shells on a trimerous plan.",
+      "material": "petal",
+      "animationRole": "head",
+      "collider": "sphere",
+      "dimensions": {
+        "width": 0.34,
+        "height": 0.16,
+        "depth": 0.3
+      },
+      "position": [
+        0,
+        0.04,
+        0
+      ],
+      "geometry": {
+        "instancedBase": "plane-card"
+      },
+      "attachment": {
+        "socket": "ovary-top",
+        "contactType": "socket",
+        "localStart": [
+          0,
+          0,
+          0
+        ],
+        "localEnd": [
+          0,
+          0.14,
+          0
+        ],
+        "embedDepth": 0.004,
+        "overlap": 0.02,
+        "baseRadius": 0.006,
+        "endRadius": 0.17
+      },
+      "evidenceRefs": [
+        "zone:top-center"
+      ]
+    },
+    {
+      "id": "falls",
+      "name": "Falls (x3)",
+      "level": "meso",
+      "parent": "perianth",
+      "confidence": 0.75,
+      "primitive": "plane-card",
+      "topologyClass": "conforming-shell",
+      "topologyRationale": "Broad thin tepal arched outward then drooping, cupped across its width: bent card, DoubleSide.",
+      "material": "petal",
+      "collider": "box",
+      "dimensions": {
+        "width": 0.075,
+        "height": 0.165,
+        "depth": 0.06
+      },
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "deformationStack": [
+        {
+          "type": "bend",
+          "axis": "length",
+          "fromDeg": 62,
+          "toDeg": 112
+        },
+        {
+          "type": "cup",
+          "axis": "width",
+          "amount": 0.18
+        }
+      ],
+      "attachment": {
+        "socket": "perianth-base-r0.006",
+        "contactType": "overlap",
+        "localStart": [
+          0,
+          0,
+          0
+        ],
+        "localEnd": [
+          0.16,
+          0,
+          0
+        ],
+        "embedDepth": 0.004,
+        "overlap": 0.02,
+        "baseRadius": 0.004,
+        "endRadius": 0.035
+      },
+      "localFeatures": [
+        {
+          "id": "fall-arch",
+          "kind": "contour",
+          "description": "arch then droop; right fall tip curls up",
+          "evidenceRefs": [
+            "zone:top-left"
+          ],
+          "detailRef": "d-fall-arch"
+        }
+      ],
+      "evidenceRefs": [
+        "zone:top-left",
+        "zone:top-right"
+      ]
+    },
+    {
+      "id": "standards",
+      "name": "Standards (x3)",
+      "level": "meso",
+      "parent": "perianth",
+      "confidence": 0.7,
+      "primitive": "plane-card",
+      "topologyClass": "conforming-shell",
+      "topologyRationale": "Upright spoon-shaped tepal, strongly cupped: bent card, DoubleSide.",
+      "material": "petal",
+      "collider": "box",
+      "dimensions": {
+        "width": 0.058,
+        "height": 0.145,
+        "depth": 0.04
+      },
+      "position": [
+        0,
+        0.008,
+        0
+      ],
+      "deformationStack": [
+        {
+          "type": "bend",
+          "axis": "length",
+          "fromDeg": 16,
+          "toDeg": -4
+        },
+        {
+          "type": "cup",
+          "axis": "width",
+          "amount": 0.45
+        }
+      ],
+      "attachment": {
+        "socket": "perianth-base-r0.005",
+        "contactType": "overlap",
+        "localStart": [
+          0,
+          0,
+          0
+        ],
+        "localEnd": [
+          0,
+          0.14,
+          0
+        ],
+        "embedDepth": 0.004,
+        "overlap": 0.02,
+        "baseRadius": 0.003,
+        "endRadius": 0.028
+      },
+      "localFeatures": [
+        {
+          "id": "standard-spoon",
+          "kind": "contour",
+          "description": "narrow claw, broad blunt blade, slight incurve",
+          "evidenceRefs": [
+            "zone:top-center"
+          ],
+          "detailRef": "d-standard-spoon"
+        }
+      ],
+      "evidenceRefs": [
+        "zone:top-center"
+      ]
+    },
+    {
+      "id": "style-arms",
+      "name": "Style arms (x3)",
+      "level": "micro",
+      "parent": "perianth",
+      "confidence": 0.55,
+      "primitive": "plane-card",
+      "topologyClass": "conforming-shell",
+      "topologyRationale": "Small petaloid strap over each fall: bent card.",
+      "material": "petal",
+      "collider": "box",
+      "dimensions": {
+        "width": 0.022,
+        "height": 0.055,
+        "depth": 0.02
+      },
+      "position": [
+        0,
+        0.01,
+        0
+      ],
+      "deformationStack": [
+        {
+          "type": "bend",
+          "axis": "length",
+          "fromDeg": 40,
+          "toDeg": 75
+        }
+      ],
+      "attachment": {
+        "socket": "perianth-base-r0.004",
+        "contactType": "overlap",
+        "localStart": [
+          0,
+          0,
+          0
+        ],
+        "localEnd": [
+          0.05,
+          0.02,
+          0
+        ],
+        "embedDepth": 0.004,
+        "overlap": 0.02,
+        "baseRadius": 0.002,
+        "endRadius": 0.01
+      },
+      "localFeatures": [
+        {
+          "id": "style-arm-crest",
+          "kind": "contour",
+          "description": "yellow-orange arm with bifid crest",
+          "evidenceRefs": [
+            "zone:top-center"
+          ],
+          "detailRef": "d-style-arms"
+        }
+      ],
+      "evidenceRefs": [
+        "zone:top-center"
+      ]
+    },
+    {
+      "id": "bud",
+      "name": "Closed bud",
+      "level": "meso",
+      "parent": "stem",
+      "confidence": 0.65,
+      "primitive": "tapered-sweep",
+      "topologyClass": "continuous-sculpt",
+      "topologyRationale": "Closed spindle that comes to a point: tapered sweep.",
+      "material": "stem",
+      "collider": "capsule",
+      "dimensions": {
+        "width": 0.024,
+        "height": 0.09,
+        "depth": 0.024
+      },
+      "position": [
+        0.02,
+        0.72,
+        -0.01
+      ],
+      "geometry": {
+        "taperedSweep": {
+          "stations": [
+            {
+              "position": [
+                0,
+                0,
+                0
+              ],
+              "rx": 0.006,
+              "rz": 0.006,
+              "twist": 0
+            },
+            {
+              "position": [
+                0,
+                0.03,
+                0
+              ],
+              "rx": 0.012,
+              "rz": 0.011,
+              "twist": 0
+            },
+            {
+              "position": [
+                0,
+                0.065,
+                0
+              ],
+              "rx": 0.008,
+              "rz": 0.007,
+              "twist": 0
+            },
+            {
+              "position": [
+                0,
+                0.09,
+                0
+              ],
+              "rx": 0.0,
+              "rz": 0.0,
+              "twist": 0
+            }
+          ],
+          "radialSegments": 12,
+          "capEnds": true
+        }
+      },
+      "attachment": {
+        "socket": "node-0.70",
+        "contactType": "embed",
+        "localStart": [
+          0,
+          0,
+          0
+        ],
+        "localEnd": [
+          0,
+          0.09,
+          0
+        ],
+        "embedDepth": 0.004,
+        "overlap": 0.02,
+        "baseRadius": 0.006,
+        "endRadius": 0.0
+      },
+      "localFeatures": [
+        {
+          "id": "bud-tip",
+          "kind": "contour",
+          "description": "acuminate tip",
+          "evidenceRefs": [
+            "zone:middle-center"
+          ],
+          "detailRef": "d-bud-tip"
+        }
+      ],
+      "evidenceRefs": [
+        "zone:middle-center"
+      ]
+    },
+    {
+      "id": "leaf-sword",
+      "name": "Sword leaf",
+      "level": "macro",
+      "parent": "stem",
+      "confidence": 0.75,
+      "primitive": "plane-card",
+      "topologyClass": "conforming-shell",
+      "topologyRationale": "Long linear blade with sheathing base and slight arc: deformed card, DoubleSide.",
+      "material": "leaf",
+      "collider": "box",
+      "dimensions": {
+        "width": 0.042,
+        "height": 0.455,
+        "depth": 0.02
+      },
+      "position": [
+        -0.004,
+        0.25,
+        0.003
+      ],
+      "deformationStack": [
+        {
+          "type": "wrap",
+          "amount": 1.0,
+          "region": "base 20%"
+        },
+        {
+          "type": "bend",
+          "axis": "length",
+          "fromDeg": 12,
+          "toDeg": 22
+        }
+      ],
+      "attachment": {
+        "socket": "node-0.25",
+        "contactType": "overlap",
+        "localStart": [
+          0,
+          0,
+          0
+        ],
+        "localEnd": [
+          0.145,
+          0.43,
+          0
+        ],
+        "embedDepth": 0.004,
+        "overlap": 0.02,
+        "baseRadius": 0.008,
+        "endRadius": 0.0
+      },
+      "localFeatures": [
+        {
+          "id": "leaf-sheath",
+          "kind": "seam",
+          "description": "base wraps the stem",
+          "evidenceRefs": [
+            "zone:bottom-center"
+          ],
+          "detailRef": "d-sheath"
+        }
+      ],
+      "evidenceRefs": [
+        "zone:bottom-right"
+      ]
+    },
+    {
+      "id": "leaf-spathe",
+      "name": "Spathe leaf",
+      "level": "macro",
+      "parent": "stem",
+      "confidence": 0.7,
+      "primitive": "plane-card",
+      "topologyClass": "conforming-shell",
+      "topologyRationale": "Narrow sheathing blade running straight up alongside the stem: deformed card, DoubleSide.",
+      "material": "leaf",
+      "collider": "box",
+      "dimensions": {
+        "width": 0.026,
+        "height": 0.29,
+        "depth": 0.015
+      },
+      "position": [
+        -0.013,
+        0.6,
+        0
+      ],
+      "deformationStack": [
+        {
+          "type": "wrap",
+          "amount": 0.9,
+          "region": "base 25%"
+        },
+        {
+          "type": "bend",
+          "axis": "length",
+          "fromDeg": 2,
+          "toDeg": 5
+        }
+      ],
+      "attachment": {
+        "socket": "node-0.60",
+        "contactType": "overlap",
+        "localStart": [
+          0,
+          0,
+          0
+        ],
+        "localEnd": [
+          0.005,
+          0.29,
+          0
+        ],
+        "embedDepth": 0.004,
+        "overlap": 0.02,
+        "baseRadius": 0.007,
+        "endRadius": 0.0
+      },
+      "evidenceRefs": [
+        "zone:middle-center"
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "id": "petal",
+      "name": "Tepal thin shell",
+      "stops": [
+        "#c9a24a",
+        "#d8605a",
+        "#d4545a",
+        "#d85d61",
+        "#e27b7b"
+      ],
+      "roughness": 0.6,
+      "translucency": "semi-translucent thin shell",
+      "samplingNotes": "Median pixel colours over the petal mask, base->tip and centre->edge (references/iris.png).",
+      "localOverrides": [
+        {
+          "id": "signal-patch",
+          "region": "fall v 0.05-0.38, centre 45%",
+          "color": "#eccb52",
+          "detailRef": "d-signal",
+          "evidenceRefs": [
+            "zone:top-center"
+          ]
+        },
+        {
+          "id": "fall-edge-lighten",
+          "region": "outer 30% of margin",
+          "color": "#ea9590",
+          "detailRef": "d-fall-edge",
+          "evidenceRefs": [
+            "zone:top-right"
+          ]
+        },
+        {
+          "id": "standard-salmon",
+          "region": "standards",
+          "color": "#f0a19d",
+          "evidenceRefs": [
+            "zone:top-center"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "stem",
+      "name": "Stem / bud / ovary",
+      "stops": [
+        "#6c8044",
+        "#798746",
+        "#7a9050",
+        "#7f9458"
+      ],
+      "roughness": 0.6,
+      "samplingNotes": "Green-mask medians bottom->top.",
+      "localOverrides": [
+        {
+          "id": "bud-tint",
+          "region": "bud tip",
+          "color": "#a4b77f",
+          "evidenceRefs": [
+            "zone:middle-center"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "leaf",
+      "name": "Sword/spathe leaf",
+      "stops": [
+        "#5f7a45",
+        "#6c854f",
+        "#718759"
+      ],
+      "roughness": 0.66,
+      "samplingNotes": "Leaf-region green medians.",
+      "localOverrides": [
+        {
+          "id": "parallel-vein-tint",
+          "region": "whole blade, lengthwise",
+          "color": "#7b9361",
+          "detailRef": "d-leaf-veins",
+          "evidenceRefs": [
+            "zone:bottom-right"
+          ]
+        }
+      ]
+    }
+  ],
+  "repetitionSystems": [
+    {
+      "id": "fall-ring",
+      "componentRef": "falls",
+      "count": 3,
+      "distribution": "trimerous: azimuth 0/\u00b1120\u00b0, seeded \u00b16\u00b0 and \u00b16% size",
+      "seeded": true,
+      "evidenceRefs": [
+        "zone:top-center"
+      ]
+    },
+    {
+      "id": "standard-ring",
+      "componentRef": "standards",
+      "count": 3,
+      "distribution": "alternate: 180/\u00b160\u00b0",
+      "seeded": true,
+      "evidenceRefs": [
+        "zone:top-center"
+      ]
+    },
+    {
+      "id": "style-arm-ring",
+      "componentRef": "style-arms",
+      "count": 3,
+      "distribution": "over each fall",
+      "seeded": true,
+      "evidenceRefs": [
+        "zone:top-center"
+      ]
+    }
+  ],
+  "passes": [
+    {
+      "id": "blockout",
+      "goal": "Stem 0.83 high, head 0.34 wide at h 0.84-1.0, sword leaf to (+0.14,0.68), spathe leaf to h 0.89.",
+      "componentRefs": [
+        "stem",
+        "perianth",
+        "leaf-sword",
+        "leaf-spathe"
+      ],
+      "acceptance": [
+        "Front silhouette proportions match reference",
+        "AI vision comparison score >= 0.7"
+      ]
+    },
+    {
+      "id": "structural-pass",
+      "goal": "Ovary, falls/standards/style arms, bud, pivots base/midStem/head, sheaths.",
+      "componentRefs": [
+        "ovary",
+        "falls",
+        "standards",
+        "style-arms",
+        "bud"
+      ],
+      "acceptance": [
+        "No floating parts",
+        "Pivots exist"
+      ]
+    },
+    {
+      "id": "form-refinement",
+      "goal": "Fall arch/droop and tip curl, standard spoon, leaf sheath wrap; side/3/4/top silhouettes.",
+      "componentRefs": [
+        "falls",
+        "standards",
+        "leaf-sword"
+      ],
+      "acceptance": [
+        "Falls read as arched shells from side/top"
+      ]
+    },
+    {
+      "id": "material-pass",
+      "goal": "Coral falls with yellow signal, salmon standards, green leaves.",
+      "componentRefs": [
+        "falls",
+        "standards",
+        "leaf-sword"
+      ],
+      "acceptance": [
+        "Colour stops match sampled palette"
+      ]
+    },
+    {
+      "id": "interaction-pass",
+      "goal": "Options seed/openness/stemLean/stemHeight/bend/scale; userData.tick sway.",
+      "componentRefs": [
+        "stem",
+        "perianth"
+      ],
+      "acceptance": [
+        "Same seed -> same flower"
+      ]
+    },
+    {
+      "id": "optimization-pass",
+      "goal": "Triangle budget <= 60k.",
+      "componentRefs": [
+        "stem"
+      ],
+      "acceptance": [
+        "build passes"
+      ]
+    }
+  ],
+  "featureReviewTargets": [
+    {
+      "id": "fall-spread",
+      "name": "Three spreading falls",
+      "tier": "critical",
+      "passIds": [
+        "blockout",
+        "form-refinement"
+      ],
+      "minimumScore": 0.75,
+      "mustPass": true,
+      "componentRefs": [
+        "falls"
+      ],
+      "evidenceRefs": [
+        "zone:top-left",
+        "zone:top-right"
+      ]
+    },
+    {
+      "id": "standards",
+      "name": "Upright standards",
+      "tier": "critical",
+      "passIds": [
+        "blockout",
+        "form-refinement"
+      ],
+      "minimumScore": 0.7,
+      "mustPass": true,
+      "componentRefs": [
+        "standards"
+      ],
+      "evidenceRefs": [
+        "zone:top-center"
+      ]
+    },
+    {
+      "id": "leaves",
+      "name": "Sword + spathe leaves",
+      "tier": "critical",
+      "passIds": [
+        "blockout",
+        "structural-pass"
+      ],
+      "minimumScore": 0.75,
+      "mustPass": true,
+      "componentRefs": [
+        "leaf-sword",
+        "leaf-spathe"
+      ],
+      "evidenceRefs": [
+        "zone:bottom-right"
+      ]
+    },
+    {
+      "id": "stem",
+      "name": "Tapered stem",
+      "tier": "critical",
+      "passIds": [
+        "blockout"
+      ],
+      "minimumScore": 0.75,
+      "mustPass": true,
+      "componentRefs": [
+        "stem"
+      ],
+      "evidenceRefs": [
+        "zone:bottom-center"
+      ]
+    },
+    {
+      "id": "petal-color",
+      "name": "Coral/salmon/yellow palette",
+      "tier": "critical",
+      "passIds": [
+        "material-pass"
+      ],
+      "minimumScore": 0.7,
+      "mustPass": true,
+      "componentRefs": [
+        "falls",
+        "standards"
+      ],
+      "evidenceRefs": [
+        "zone:top-center"
+      ]
+    }
+  ],
+  "silhouette": {
+    "boundingShape": "tall: 0.34 wide head on a 0.83 stem",
+    "aspectRatios": [
+      {
+        "name": "head width / total height",
+        "value": 0.34
+      }
+    ],
+    "symmetry": "trimerous head, asymmetric leaves",
+    "dominantCurves": [
+      "falls arch out then droop",
+      "sword leaf diagonal up-right"
+    ],
+    "negativeSpaces": [
+      "gap between sword leaf and stem h 0.3-0.68"
+    ],
+    "landmarks": [
+      {
+        "id": "left-fall-tip",
+        "position": [
+          -0.145,
+          0.91,
+          0
+        ]
+      },
+      {
+        "id": "right-fall-tip",
+        "position": [
+          0.19,
+          0.91,
+          0
+        ]
+      },
+      {
+        "id": "sword-tip",
+        "position": [
+          0.14,
+          0.68,
+          0
+        ]
+      },
+      {
+        "id": "head-top",
+        "position": [
+          0.03,
+          1.0,
+          0
+        ]
+      }
+    ]
+  },
+  "viewEvidence": [
+    {
+      "id": "full-object",
+      "view": "front",
+      "imageRegion": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1,
+        "units": "normalized"
+      },
+      "observations": [
+        "single front view on white"
+      ],
+      "confidence": 0.85
+    },
+    {
+      "id": "zone:top-center",
+      "view": "front",
+      "imageRegion": {
+        "x": 0.33,
+        "y": 0,
+        "width": 0.34,
+        "height": 0.33,
+        "units": "normalized"
+      },
+      "observations": [
+        "standards, signal, style arms"
+      ],
+      "confidence": 0.8
+    },
+    {
+      "id": "zone:top-left",
+      "view": "front",
+      "imageRegion": {
+        "x": 0,
+        "y": 0,
+        "width": 0.33,
+        "height": 0.33,
+        "units": "normalized"
+      },
+      "observations": [
+        "left fall"
+      ],
+      "confidence": 0.8
+    },
+    {
+      "id": "zone:top-right",
+      "view": "front",
+      "imageRegion": {
+        "x": 0.67,
+        "y": 0,
+        "width": 0.33,
+        "height": 0.33,
+        "units": "normalized"
+      },
+      "observations": [
+        "right fall tip curl"
+      ],
+      "confidence": 0.8
+    },
+    {
+      "id": "zone:middle-center",
+      "view": "front",
+      "imageRegion": {
+        "x": 0.33,
+        "y": 0.33,
+        "width": 0.34,
+        "height": 0.33,
+        "units": "normalized"
+      },
+      "observations": [
+        "spathe leaf, bud, node"
+      ],
+      "confidence": 0.8
+    },
+    {
+      "id": "zone:bottom-center",
+      "view": "front",
+      "imageRegion": {
+        "x": 0.33,
+        "y": 0.66,
+        "width": 0.34,
+        "height": 0.34,
+        "units": "normalized"
+      },
+      "observations": [
+        "lower stem, sword sheath"
+      ],
+      "confidence": 0.8
+    },
+    {
+      "id": "zone:bottom-right",
+      "view": "front",
+      "imageRegion": {
+        "x": 0.5,
+        "y": 0.33,
+        "width": 0.5,
+        "height": 0.67,
+        "units": "normalized"
+      },
+      "observations": [
+        "sword leaf"
+      ],
+      "confidence": 0.8
+    }
+  ],
+  "assumptions": [
+    "Back standard and fall inferred from trimerous symmetry.",
+    "Sword leaf blade rolled to face the camera as photographed.",
+    "Bud placed slightly behind-right of the stem."
+  ],
+  "risks": [
+    {
+      "id": "tulip-falls",
+      "description": "Falls may read upright",
+      "mitigation": "bend 62->112 deg"
+    },
+    {
+      "id": "flat-falls",
+      "description": "falls flat from side",
+      "mitigation": "cup + arch, review side/top"
+    }
+  ],
+  "proceduralStrategy": [
+    "Shared kit src/flowers/flowerKit.ts (tube, shell, whorls, pivots, sway).",
+    "Falls/standards/style arms as whorls with explicit azimuths; signal patch as a vertex-colour blotch."
+  ],
+  "animationAnchors": [
+    {
+      "id": "base",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "use": "sway"
+    },
+    {
+      "id": "midStem",
+      "position": [
+        -0.015,
+        0.55,
+        0
+      ],
+      "use": "bend"
+    },
+    {
+      "id": "head",
+      "position": [
+        0.025,
+        0.83,
+        0
+      ],
+      "use": "nod"
+    }
+  ],
+  "runtimeOptions": {
+    "seed": "int, default 1",
+    "openness": "0..1, default 0.8 (reference)",
+    "stemLean": "radians",
+    "stemHeight": "multiplier",
+    "bend": "multiplier",
+    "scale": "uniform"
+  },
+  "detailKinds": {},
+  "detailLinks": {
+    "d-fall-arch": "fall-arch",
+    "d-signal": "signal-patch",
+    "d-standard-spoon": "standard-spoon",
+    "d-style-arms": "style-arm-crest",
+    "d-sheath": "leaf-sheath",
+    "d-bud-tip": "bud-tip",
+    "d-fall-edge": "fall-edge-lighten",
+    "d-leaf-veins": "parallel-vein-tint",
+    "d-stem-node": "node-swelling"
+  }
+}

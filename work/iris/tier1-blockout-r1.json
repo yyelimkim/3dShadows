@@ -1,0 +1,63 @@
+{
+  "passed": false,
+  "checks": {
+    "silhouetteIoU": 0.6351,
+    "aspectRatioDelta": 0.0139,
+    "scaleDelta": 0.0231,
+    "bilateralSymmetryError": 0.0784,
+    "colorDelta": {
+      "checked": 10,
+      "maxDeltaE": 11.52,
+      "perComponent": [
+        {
+          "componentId": null,
+          "deltaE": 11.52
+        },
+        {
+          "componentId": null,
+          "deltaE": 11.52
+        },
+        {
+          "componentId": null,
+          "deltaE": 11.52
+        },
+        {
+          "componentId": null,
+          "deltaE": 9.22
+        },
+        {
+          "componentId": null,
+          "deltaE": 9.22
+        },
+        {
+          "componentId": null,
+          "deltaE": 9.22
+        },
+        {
+          "componentId": null,
+          "deltaE": 9.22
+        },
+        {
+          "componentId": null,
+          "deltaE": 11.52
+        },
+        {
+          "componentId": null,
+          "deltaE": 10.2
+        },
+        {
+          "componentId": null,
+          "deltaE": 10.2
+        }
+      ],
+      "gated": false
+    }
+  },
+  "failures": [
+    "silhouette IoU 0.635 is below threshold 0.85"
+  ],
+  "maskWarnings": [],
+  "renderHash": "15f387baa08d07c3",
+  "passId": "blockout",
+  "mapStrippedRender": "/Users/yelimkim/Projects/3dShadows/work/iris/renders/blockout-r1-front-unlit.png"
+}

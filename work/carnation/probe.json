@@ -1,0 +1,11 @@
+{
+  "path": "/Users/yelimkim/Projects/3dShadows/references/carnation.png",
+  "type": "png",
+  "bytes": 1036937,
+  "width": 1024,
+  "height": 1536,
+  "aspectRatio": 0.6666666666666666,
+  "technicalSuitability": "pass",
+  "warnings": [],
+  "note": "This is only technical image probing. Semantic object suitability still requires visual inspection."
+}

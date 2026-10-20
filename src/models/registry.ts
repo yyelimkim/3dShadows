@@ -1,5 +1,6 @@
 import type * as THREE from 'three';
 import { createSampleSculptureModel } from './sample/createSampleSculptureModel';
+import { flowers } from '../flowers/registry';
 
 export type ModelEntry = {
   id: string;
@@ -18,4 +19,11 @@ export const models: ModelEntry[] = [
     status: 'sample',
     create: () => createSampleSculptureModel({ castShadow: true }),
   },
+  ...flowers.map((f): ModelEntry => ({
+    id: f.id,
+    name: f.label,
+    reference: `/references/${f.id}.png`,
+    status: 'in-progress',
+    create: () => f.create(),
+  })),
 ];

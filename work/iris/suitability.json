@@ -1,0 +1,3 @@
+{"reference": "references/iris.png", "verdict": "conditional",
+ "reasons": ["single obvious subject on white, ~94% of frame height", "strong front silhouette; falls, standards, leaves separable", "single view; trimerous symmetry lets the hidden fall/standard be inferred", "silhouette-first stylization accepted by the brief; venation skipped"],
+ "missingViews": ["side", "top"], "acceptedBy": "user brief: infer back by continuing petal curvature"}

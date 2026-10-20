@@ -1,0 +1,14 @@
+{
+  "admitted": true,
+  "reasons": [],
+  "provenance": {
+    "viewpoint": "front",
+    "sourcePath": "/Users/yelimkim/Projects/3dShadows/references/leaves.jpeg",
+    "width": 843,
+    "height": 1264,
+    "foregroundCoverage": 0.1332,
+    "largestComponentFraction": 1.0,
+    "pHash": 12655390865781428136,
+    "duplicateOfHash": null
+  }
+}

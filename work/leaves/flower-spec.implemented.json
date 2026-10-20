@@ -1,0 +1,1680 @@
+{
+ "id": "leaves",
+ "label": "Eucalyptus leaves",
+ "stem": {
+  "points": [
+   [
+    0,
+    0,
+    0
+   ],
+   [
+    -0.002,
+    0.148,
+    0.002
+   ],
+   [
+    -0.004,
+    0.304,
+    0
+   ],
+   [
+    -0.013,
+    0.452,
+    -0.002
+   ],
+   [
+    -0.017,
+    0.574,
+    0
+   ],
+   [
+    -0.009,
+    0.687,
+    0.002
+   ],
+   [
+    0.008,
+    0.8,
+    0
+   ],
+   [
+    0.02,
+    0.887,
+    -0.001
+   ],
+   [
+    0.03,
+    0.957,
+    0
+   ],
+   [
+    0.034,
+    0.978,
+    0
+   ]
+  ],
+  "radii": [
+   0.005,
+   0.0045,
+   0.004,
+   0.0036,
+   0.0032,
+   0.0028,
+   0.0024,
+   0.002,
+   0.0017,
+   0.0015
+  ],
+  "colors": [
+   "#5c4830",
+   "#4e4630",
+   "#4f5a36",
+   "#6b7a52"
+  ],
+  "midHeight": 0.5
+ },
+ "leaves": [
+  {
+   "id": "p0l",
+   "attachHeight": 0.1114519427402863,
+   "azimuth": -90,
+   "rootOffset": 0.002,
+   "shell": {
+    "length": 0.055,
+    "width": 0.05225,
+    "widthPeak": 0.42,
+    "baseWidth": 0.1,
+    "tipSharpness": 0.9,
+    "bendFrom": 58,
+    "bendTo": 78,
+    "cup": 0.12,
+    "keel": 0.05,
+    "colors": [
+     "#34421d",
+     "#3f4f25",
+     "#4a5c2e",
+     "#556936"
+    ],
+    "edgeColor": "#64784e",
+    "edgeStart": 0.5,
+    "segmentsU": 10,
+    "segmentsV": 12,
+    "roll": -80
+   }
+  },
+  {
+   "id": "p0r",
+   "attachHeight": 0.1114519427402863,
+   "azimuth": 90,
+   "rootOffset": 0.002,
+   "shell": {
+    "length": 0.055,
+    "width": 0.05225,
+    "widthPeak": 0.42,
+    "baseWidth": 0.1,
+    "tipSharpness": 0.9,
+    "bendFrom": 58,
+    "bendTo": 78,
+    "cup": 0.12,
+    "keel": 0.05,
+    "colors": [
+     "#34421d",
+     "#3f4f25",
+     "#4a5c2e",
+     "#556936"
+    ],
+    "edgeColor": "#64784e",
+    "edgeStart": 0.5,
+    "segmentsU": 10,
+    "segmentsV": 12,
+    "roll": 80
+   }
+  },
+  {
+   "id": "p1l",
+   "attachHeight": 0.19529652351738241,
+   "azimuth": -60,
+   "rootOffset": 0.002,
+   "shell": {
+    "length": 0.085,
+    "width": 0.08075,
+    "widthPeak": 0.42,
+    "baseWidth": 0.1,
+    "tipSharpness": 0.9,
+    "bendFrom": 58,
+    "bendTo": 78,
+    "cup": 0.12,
+    "keel": 0.05,
+    "colors": [
+     "#34421d",
+     "#3f4f25",
+     "#4a5c2e",
+     "#556936"
+    ],
+    "edgeColor": "#64784e",
+    "edgeStart": 0.5,
+    "segmentsU": 10,
+    "segmentsV": 12,
+    "roll": -69.28203230275508
+   }
+  },
+  {
+   "id": "p1r",
+   "attachHeight": 0.19529652351738241,
+   "azimuth": 120,
+   "rootOffset": 0.002,
+   "shell": {
+    "length": 0.09,
+    "width": 0.08549999999999999,
+    "widthPeak": 0.42,
+    "baseWidth": 0.1,
+    "tipSharpness": 0.9,
+    "bendFrom": 58,
+    "bendTo": 78,
+    "cup": 0.12,
+    "keel": 0.05,
+    "colors": [
+     "#34421d",
+     "#3f4f25",
+     "#4a5c2e",
+     "#556936"
+    ],
+    "edgeColor": "#64784e",
+    "edgeStart": 0.5,
+    "segmentsU": 10,
+    "segmentsV": 12,
+    "roll": 69.2820323027551
+   }
+  },
+  {
+   "id": "p2l",
+   "attachHeight": 0.27096114519427406,
+   "azimuth": -90,
+   "rootOffset": 0.002,
+   "shell": {
+    "length": 0.09,
+    "width": 0.08549999999999999,
+    "widthPeak": 0.42,
+    "baseWidth": 0.1,
+    "tipSharpness": 0.9,
+    "bendFrom": 58,
+    "bendTo": 78,
+    "cup": 0.12,
+    "keel": 0.05,
+    "colors": [
+     "#34421d",
+     "#3f4f25",
+     "#4a5c2e",
+     "#556936"
+    ],
+    "edgeColor": "#64784e",
+    "edgeStart": 0.5,
+    "segmentsU": 10,
+    "segmentsV": 12,
+    "roll": -80
+   }
+  },
+  {
+   "id": "p2r",
+   "attachHeight": 0.27096114519427406,
+   "azimuth": 90,
+   "rootOffset": 0.002,
+   "shell": {
+    "length": 0.095,
+    "width": 0.09025,
+    "widthPeak": 0.42,
+    "baseWidth": 0.1,
+    "tipSharpness": 0.9,
+    "bendFrom": 58,
+    "bendTo": 78,
+    "cup": 0.12,
+    "keel": 0.05,
+    "colors": [
+     "#34421d",
+     "#3f4f25",
+     "#4a5c2e",
+     "#556936"
+    ],
+    "edgeColor": "#64784e",
+    "edgeStart": 0.5,
+    "segmentsU": 10,
+    "segmentsV": 12,
+    "roll": 80
+   }
+  },
+  {
+   "id": "p3l",
+   "attachHeight": 0.3783231083844581,
+   "azimuth": -60,
+   "rootOffset": 0.002,
+   "shell": {
+    "length": 0.085,
+    "width": 0.08075,
+    "widthPeak": 0.42,
+    "baseWidth": 0.1,
+    "tipSharpness": 0.9,
+    "bendFrom": 58,
+    "bendTo": 78,
+    "cup": 0.12,
+    "keel": 0.05,
+    "colors": [
+     "#34421d",
+     "#3f4f25",
+     "#4a5c2e",
+     "#556936"
+    ],
+    "edgeColor": "#64784e",
+    "edgeStart": 0.5,
+    "segmentsU": 10,
+    "segmentsV": 12,
+    "roll": -69.28203230275508
+   }
+  },
+  {
+   "id": "p3r",
+   "attachHeight": 0.3783231083844581,
+   "azimuth": 120,
+   "rootOffset": 0.002,
+   "shell": {
+    "length": 0.09,
+    "width": 0.08549999999999999,
+    "widthPeak": 0.42,
+    "baseWidth": 0.1,
+    "tipSharpness": 0.9,
+    "bendFrom": 58,
+    "bendTo": 78,
+    "cup": 0.12,
+    "keel": 0.05,
+    "colors": [
+     "#34421d",
+     "#3f4f25",
+     "#4a5c2e",
+     "#556936"
+    ],
+    "edgeColor": "#64784e",
+    "edgeStart": 0.5,
+    "segmentsU": 10,
+    "segmentsV": 12,
+    "roll": 69.2820323027551
+   }
+  },
+  {
+   "id": "p4l",
+   "attachHeight": 0.4498977505112475,
+   "azimuth": -90,
+   "rootOffset": 0.002,
+   "shell": {
+    "length": 0.07,
+    "width": 0.0665,
+    "widthPeak": 0.42,
+    "baseWidth": 0.1,
+    "tipSharpness": 0.9,
+    "bendFrom": 58,
+    "bendTo": 78,
+    "cup": 0.12,
+    "keel": 0.05,
+    "colors": [
+     "#34421d",
+     "#3f4f25",
+     "#4a5c2e",
+     "#556936"
+    ],
+    "edgeColor": "#64784e",
+    "edgeStart": 0.5,
+    "segmentsU": 10,
+    "segmentsV": 12,
+    "roll": -80
+   }
+  },
+  {
+   "id": "p4r",
+   "attachHeight": 0.4498977505112475,
+   "azimuth": 90,
+   "rootOffset": 0.002,
+   "shell": {
+    "length": 0.085,
+    "width": 0.08075,
+    "widthPeak": 0.42,
+    "baseWidth": 0.1,
+    "tipSharpness": 0.9,
+    "bendFrom": 58,
+    "bendTo": 78,
+    "cup": 0.12,
+    "keel": 0.05,
+    "colors": [
+     "#34421d",
+     "#3f4f25",
+     "#4a5c2e",
+     "#556936"
+    ],
+    "edgeColor": "#64784e",
+    "edgeStart": 0.5,
+    "segmentsU": 10,
+    "segmentsV": 12,
+    "roll": 80
+   }
+  },
+  {
+   "id": "p5l",
+   "attachHeight": 0.5521472392638037,
+   "azimuth": -60,
+   "rootOffset": 0.002,
+   "shell": {
+    "length": 0.085,
+    "width": 0.08075,
+    "widthPeak": 0.42,
+    "baseWidth": 0.1,
+    "tipSharpness": 0.9,
+    "bendFrom": 58,
+    "bendTo": 78,
+    "cup": 0.12,
+    "keel": 0.05,
+    "colors": [
+     "#34421d",
+     "#3f4f25",
+     "#4a5c2e",
+     "#556936"
+    ],
+    "edgeColor": "#64784e",
+    "edgeStart": 0.5,
+    "segmentsU": 10,
+    "segmentsV": 12,
+    "roll": -69.28203230275508
+   }
+  },
+  {
+   "id": "p5r",
+   "attachHeight": 0.5521472392638037,
+   "azimuth": 120,
+   "rootOffset": 0.002,
+   "shell": {
+    "length": 0.08,
+    "width": 0.076,
+    "widthPeak": 0.42,
+    "baseWidth": 0.1,
+    "tipSharpness": 0.9,
+    "bendFrom": 58,
+    "bendTo": 78,
+    "cup": 0.12,
+    "keel": 0.05,
+    "colors": [
+     "#34421d",
+     "#3f4f25",
+     "#4a5c2e",
+     "#556936"
+    ],
+    "edgeColor": "#64784e",
+    "edgeStart": 0.5,
+    "segmentsU": 10,
+    "segmentsV": 12,
+    "roll": 69.2820323027551
+   }
+  },
+  {
+   "id": "p6l",
+   "attachHeight": 0.6400817995910021,
+   "azimuth": -90,
+   "rootOffset": 0.002,
+   "shell": {
+    "length": 0.095,
+    "width": 0.09025,
+    "widthPeak": 0.42,
+    "baseWidth": 0.1,
+    "tipSharpness": 0.9,
+    "bendFrom": 58,
+    "bendTo": 78,
+    "cup": 0.12,
+    "keel": 0.05,
+    "colors": [
+     "#34421d",
+     "#3f4f25",
+     "#4a5c2e",
+     "#556936"
+    ],
+    "edgeColor": "#64784e",
+    "edgeStart": 0.5,
+    "segmentsU": 10,
+    "segmentsV": 12,
+    "roll": -80
+   }
+  },
+  {
+   "id": "p6r",
+   "attachHeight": 0.6400817995910021,
+   "azimuth": 90,
+   "rootOffset": 0.002,
+   "shell": {
+    "length": 0.09,
+    "width": 0.08549999999999999,
+    "widthPeak": 0.42,
+    "baseWidth": 0.1,
+    "tipSharpness": 0.9,
+    "bendFrom": 58,
+    "bendTo": 78,
+    "cup": 0.12,
+    "keel": 0.05,
+    "colors": [
+     "#34421d",
+     "#3f4f25",
+     "#4a5c2e",
+     "#556936"
+    ],
+    "edgeColor": "#64784e",
+    "edgeStart": 0.5,
+    "segmentsU": 10,
+    "segmentsV": 12,
+    "roll": 80
+   }
+  },
+  {
+   "id": "p7l",
+   "attachHeight": 0.7361963190184049,
+   "azimuth": -60,
+   "rootOffset": 0.002,
+   "shell": {
+    "length": 0.075,
+    "width": 0.07125,
+    "widthPeak": 0.42,
+    "baseWidth": 0.1,
+    "tipSharpness": 0.9,
+    "bendFrom": 58,
+    "bendTo": 78,
+    "cup": 0.12,
+    "keel": 0.05,
+    "colors": [
+     "#34421d",
+     "#3f4f25",
+     "#4a5c2e",
+     "#556936"
+    ],
+    "edgeColor": "#64784e",
+    "edgeStart": 0.5,
+    "segmentsU": 10,
+    "segmentsV": 12,
+    "roll": -69.28203230275508
+   }
+  },
+  {
+   "id": "p7r",
+   "attachHeight": 0.7361963190184049,
+   "azimuth": 120,
+   "rootOffset": 0.002,
+   "shell": {
+    "length": 0.065,
+    "width": 0.06175,
+    "widthPeak": 0.42,
+    "baseWidth": 0.1,
+    "tipSharpness": 0.9,
+    "bendFrom": 58,
+    "bendTo": 78,
+    "cup": 0.12,
+    "keel": 0.05,
+    "colors": [
+     "#34421d",
+     "#3f4f25",
+     "#4a5c2e",
+     "#556936"
+    ],
+    "edgeColor": "#64784e",
+    "edgeStart": 0.5,
+    "segmentsU": 10,
+    "segmentsV": 12,
+    "roll": 69.2820323027551
+   }
+  },
+  {
+   "id": "p8l",
+   "attachHeight": 0.8047034764826176,
+   "azimuth": -90,
+   "rootOffset": 0.002,
+   "shell": {
+    "length": 0.095,
+    "width": 0.09025,
+    "widthPeak": 0.42,
+    "baseWidth": 0.1,
+    "tipSharpness": 0.9,
+    "bendFrom": 58,
+    "bendTo": 78,
+    "cup": 0.12,
+    "keel": 0.05,
+    "colors": [
+     "#34421d",
+     "#3f4f25",
+     "#4a5c2e",
+     "#556936"
+    ],
+    "edgeColor": "#64784e",
+    "edgeStart": 0.5,
+    "segmentsU": 10,
+    "segmentsV": 12,
+    "roll": -80
+   }
+  },
+  {
+   "id": "p8r",
+   "attachHeight": 0.8047034764826176,
+   "azimuth": 90,
+   "rootOffset": 0.002,
+   "shell": {
+    "length": 0.08,
+    "width": 0.076,
+    "widthPeak": 0.42,
+    "baseWidth": 0.1,
+    "tipSharpness": 0.9,
+    "bendFrom": 58,
+    "bendTo": 78,
+    "cup": 0.12,
+    "keel": 0.05,
+    "colors": [
+     "#34421d",
+     "#3f4f25",
+     "#4a5c2e",
+     "#556936"
+    ],
+    "edgeColor": "#64784e",
+    "edgeStart": 0.5,
+    "segmentsU": 10,
+    "segmentsV": 12,
+    "roll": 80
+   }
+  },
+  {
+   "id": "p9l",
+   "attachHeight": 0.8619631901840491,
+   "azimuth": -60,
+   "rootOffset": 0.002,
+   "shell": {
+    "length": 0.08,
+    "width": 0.076,
+    "widthPeak": 0.42,
+    "baseWidth": 0.1,
+    "tipSharpness": 0.9,
+    "bendFrom": 35,
+    "bendTo": 55,
+    "cup": 0.12,
+    "keel": 0.05,
+    "colors": [
+     "#34421d",
+     "#3f4f25",
+     "#4a5c2e",
+     "#556936"
+    ],
+    "edgeColor": "#64784e",
+    "edgeStart": 0.5,
+    "segmentsU": 10,
+    "segmentsV": 12,
+    "roll": -69.28203230275508
+   }
+  },
+  {
+   "id": "p9r",
+   "attachHeight": 0.8619631901840491,
+   "azimuth": 120,
+   "rootOffset": 0.002,
+   "shell": {
+    "length": 0.07,
+    "width": 0.0665,
+    "widthPeak": 0.42,
+    "baseWidth": 0.1,
+    "tipSharpness": 0.9,
+    "bendFrom": 35,
+    "bendTo": 55,
+    "cup": 0.12,
+    "keel": 0.05,
+    "colors": [
+     "#34421d",
+     "#3f4f25",
+     "#4a5c2e",
+     "#556936"
+    ],
+    "edgeColor": "#64784e",
+    "edgeStart": 0.5,
+    "segmentsU": 10,
+    "segmentsV": 12,
+    "roll": 69.2820323027551
+   }
+  },
+  {
+   "id": "p10l",
+   "attachHeight": 0.9202453987730062,
+   "azimuth": -90,
+   "rootOffset": 0.002,
+   "shell": {
+    "length": 0.08,
+    "width": 0.076,
+    "widthPeak": 0.42,
+    "baseWidth": 0.1,
+    "tipSharpness": 0.9,
+    "bendFrom": 30,
+    "bendTo": 45,
+    "cup": 0.12,
+    "keel": 0.05,
+    "colors": [
+     "#34421d",
+     "#3f4f25",
+     "#4a5c2e",
+     "#556936"
+    ],
+    "edgeColor": "#64784e",
+    "edgeStart": 0.5,
+    "segmentsU": 10,
+    "segmentsV": 12,
+    "roll": -80
+   }
+  },
+  {
+   "id": "p10r",
+   "attachHeight": 0.9202453987730062,
+   "azimuth": 90,
+   "rootOffset": 0.002,
+   "shell": {
+    "length": 0.065,
+    "width": 0.06175,
+    "widthPeak": 0.42,
+    "baseWidth": 0.1,
+    "tipSharpness": 0.9,
+    "bendFrom": 30,
+    "bendTo": 45,
+    "cup": 0.12,
+    "keel": 0.05,
+    "colors": [
+     "#34421d",
+     "#3f4f25",
+     "#4a5c2e",
+     "#556936"
+    ],
+    "edgeColor": "#64784e",
+    "edgeStart": 0.5,
+    "segmentsU": 10,
+    "segmentsV": 12,
+    "roll": 80
+   }
+  },
+  {
+   "id": "p11l",
+   "attachHeight": 0.9815950920245399,
+   "azimuth": -60,
+   "rootOffset": 0.002,
+   "shell": {
+    "length": 0.055,
+    "width": 0.05225,
+    "widthPeak": 0.42,
+    "baseWidth": 0.1,
+    "tipSharpness": 0.9,
+    "bendFrom": 18,
+    "bendTo": 32,
+    "cup": 0.12,
+    "keel": 0.05,
+    "colors": [
+     "#34421d",
+     "#3f4f25",
+     "#4a5c2e",
+     "#556936"
+    ],
+    "edgeColor": "#64784e",
+    "edgeStart": 0.5,
+    "segmentsU": 10,
+    "segmentsV": 12,
+    "roll": -69.28203230275508
+   }
+  },
+  {
+   "id": "p11r",
+   "attachHeight": 0.9815950920245399,
+   "azimuth": 120,
+   "rootOffset": 0.002,
+   "shell": {
+    "length": 0.05,
+    "width": 0.0475,
+    "widthPeak": 0.42,
+    "baseWidth": 0.1,
+    "tipSharpness": 0.9,
+    "bendFrom": 18,
+    "bendTo": 32,
+    "cup": 0.12,
+    "keel": 0.05,
+    "colors": [
+     "#34421d",
+     "#3f4f25",
+     "#4a5c2e",
+     "#556936"
+    ],
+    "edgeColor": "#64784e",
+    "edgeStart": 0.5,
+    "segmentsU": 10,
+    "segmentsV": 12,
+    "roll": 69.2820323027551
+   }
+  }
+ ],
+ "branches": [
+  {
+   "id": "A",
+   "attachHeight": 0.6666666666666667,
+   "points": [
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     -0.05,
+     0.03,
+     0.02
+    ],
+    [
+     -0.09,
+     0.055,
+     0.04
+    ],
+    [
+     -0.12,
+     0.07,
+     0.05
+    ]
+   ],
+   "radii": [
+    0.0024,
+    0.0018,
+    0.0012,
+    0.0008
+   ],
+   "colors": [
+    "#5a4a34",
+    "#5d5a3a",
+    "#6b7a52"
+   ],
+   "leaves": [
+    {
+     "id": "1a",
+     "t": 0.35,
+     "azimuth": 90,
+     "shell": {
+      "length": 0.06,
+      "width": 0.056999999999999995,
+      "widthPeak": 0.42,
+      "baseWidth": 0.1,
+      "tipSharpness": 0.9,
+      "bendFrom": 58,
+      "bendTo": 78,
+      "cup": 0.12,
+      "keel": 0.05,
+      "colors": [
+       "#34421d",
+       "#3f4f25",
+       "#4a5c2e",
+       "#556936"
+      ],
+      "edgeColor": "#64784e",
+      "edgeStart": 0.5,
+      "segmentsU": 10,
+      "segmentsV": 12,
+      "roll": 80
+     }
+    },
+    {
+     "id": "1b",
+     "t": 0.35,
+     "azimuth": -90,
+     "shell": {
+      "length": 0.0552,
+      "width": 0.052439999999999994,
+      "widthPeak": 0.42,
+      "baseWidth": 0.1,
+      "tipSharpness": 0.9,
+      "bendFrom": 58,
+      "bendTo": 78,
+      "cup": 0.12,
+      "keel": 0.05,
+      "colors": [
+       "#34421d",
+       "#3f4f25",
+       "#4a5c2e",
+       "#556936"
+      ],
+      "edgeColor": "#64784e",
+      "edgeStart": 0.5,
+      "segmentsU": 10,
+      "segmentsV": 12,
+      "roll": -80
+     }
+    },
+    {
+     "id": "2a",
+     "t": 0.65,
+     "azimuth": 55,
+     "shell": {
+      "length": 0.055,
+      "width": 0.05225,
+      "widthPeak": 0.42,
+      "baseWidth": 0.1,
+      "tipSharpness": 0.9,
+      "bendFrom": 58,
+      "bendTo": 78,
+      "cup": 0.12,
+      "keel": 0.05,
+      "colors": [
+       "#34421d",
+       "#3f4f25",
+       "#4a5c2e",
+       "#556936"
+      ],
+      "edgeColor": "#64784e",
+      "edgeStart": 0.5,
+      "segmentsU": 10,
+      "segmentsV": 12,
+      "roll": 65.53216354311934
+     }
+    },
+    {
+     "id": "2b",
+     "t": 0.65,
+     "azimuth": -125,
+     "shell": {
+      "length": 0.0506,
+      "width": 0.048069999999999995,
+      "widthPeak": 0.42,
+      "baseWidth": 0.1,
+      "tipSharpness": 0.9,
+      "bendFrom": 58,
+      "bendTo": 78,
+      "cup": 0.12,
+      "keel": 0.05,
+      "colors": [
+       "#34421d",
+       "#3f4f25",
+       "#4a5c2e",
+       "#556936"
+      ],
+      "edgeColor": "#64784e",
+      "edgeStart": 0.5,
+      "segmentsU": 10,
+      "segmentsV": 12,
+      "roll": -65.53216354311937
+     }
+    },
+    {
+     "id": "ta",
+     "t": 1,
+     "azimuth": 90,
+     "shell": {
+      "length": 0.045,
+      "width": 0.042749999999999996,
+      "widthPeak": 0.42,
+      "baseWidth": 0.1,
+      "tipSharpness": 0.9,
+      "bendFrom": 18,
+      "bendTo": 32,
+      "cup": 0.12,
+      "keel": 0.05,
+      "colors": [
+       "#34421d",
+       "#3f4f25",
+       "#4a5c2e",
+       "#556936"
+      ],
+      "edgeColor": "#64784e",
+      "edgeStart": 0.5,
+      "segmentsU": 10,
+      "segmentsV": 12,
+      "roll": 80
+     }
+    },
+    {
+     "id": "tb",
+     "t": 1,
+     "azimuth": -90,
+     "shell": {
+      "length": 0.0414,
+      "width": 0.03933,
+      "widthPeak": 0.42,
+      "baseWidth": 0.1,
+      "tipSharpness": 0.9,
+      "bendFrom": 18,
+      "bendTo": 32,
+      "cup": 0.12,
+      "keel": 0.05,
+      "colors": [
+       "#34421d",
+       "#3f4f25",
+       "#4a5c2e",
+       "#556936"
+      ],
+      "edgeColor": "#64784e",
+      "edgeStart": 0.5,
+      "segmentsU": 10,
+      "segmentsV": 12,
+      "roll": -80
+     }
+    }
+   ]
+  },
+  {
+   "id": "B",
+   "attachHeight": 0.4447852760736196,
+   "points": [
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     -0.065,
+     0.06,
+     -0.025
+    ],
+    [
+     -0.14,
+     0.12,
+     -0.05
+    ],
+    [
+     -0.195,
+     0.16,
+     -0.06
+    ]
+   ],
+   "radii": [
+    0.0026,
+    0.002,
+    0.0014,
+    0.0008
+   ],
+   "colors": [
+    "#5a4a34",
+    "#5d5a3a",
+    "#6b7a52"
+   ],
+   "leaves": [
+    {
+     "id": "1a",
+     "t": 0.3,
+     "azimuth": 90,
+     "shell": {
+      "length": 0.05,
+      "width": 0.0475,
+      "widthPeak": 0.42,
+      "baseWidth": 0.1,
+      "tipSharpness": 0.9,
+      "bendFrom": 58,
+      "bendTo": 78,
+      "cup": 0.12,
+      "keel": 0.05,
+      "colors": [
+       "#34421d",
+       "#3f4f25",
+       "#4a5c2e",
+       "#556936"
+      ],
+      "edgeColor": "#64784e",
+      "edgeStart": 0.5,
+      "segmentsU": 10,
+      "segmentsV": 12,
+      "roll": 80
+     }
+    },
+    {
+     "id": "1b",
+     "t": 0.3,
+     "azimuth": -90,
+     "shell": {
+      "length": 0.046000000000000006,
+      "width": 0.0437,
+      "widthPeak": 0.42,
+      "baseWidth": 0.1,
+      "tipSharpness": 0.9,
+      "bendFrom": 58,
+      "bendTo": 78,
+      "cup": 0.12,
+      "keel": 0.05,
+      "colors": [
+       "#34421d",
+       "#3f4f25",
+       "#4a5c2e",
+       "#556936"
+      ],
+      "edgeColor": "#64784e",
+      "edgeStart": 0.5,
+      "segmentsU": 10,
+      "segmentsV": 12,
+      "roll": -80
+     }
+    },
+    {
+     "id": "2a",
+     "t": 0.55,
+     "azimuth": 55,
+     "shell": {
+      "length": 0.055,
+      "width": 0.05225,
+      "widthPeak": 0.42,
+      "baseWidth": 0.1,
+      "tipSharpness": 0.9,
+      "bendFrom": 58,
+      "bendTo": 78,
+      "cup": 0.12,
+      "keel": 0.05,
+      "colors": [
+       "#34421d",
+       "#3f4f25",
+       "#4a5c2e",
+       "#556936"
+      ],
+      "edgeColor": "#64784e",
+      "edgeStart": 0.5,
+      "segmentsU": 10,
+      "segmentsV": 12,
+      "roll": 65.53216354311934
+     }
+    },
+    {
+     "id": "2b",
+     "t": 0.55,
+     "azimuth": -125,
+     "shell": {
+      "length": 0.0506,
+      "width": 0.048069999999999995,
+      "widthPeak": 0.42,
+      "baseWidth": 0.1,
+      "tipSharpness": 0.9,
+      "bendFrom": 58,
+      "bendTo": 78,
+      "cup": 0.12,
+      "keel": 0.05,
+      "colors": [
+       "#34421d",
+       "#3f4f25",
+       "#4a5c2e",
+       "#556936"
+      ],
+      "edgeColor": "#64784e",
+      "edgeStart": 0.5,
+      "segmentsU": 10,
+      "segmentsV": 12,
+      "roll": -65.53216354311937
+     }
+    },
+    {
+     "id": "3a",
+     "t": 0.8,
+     "azimuth": 90,
+     "shell": {
+      "length": 0.075,
+      "width": 0.07125,
+      "widthPeak": 0.42,
+      "baseWidth": 0.1,
+      "tipSharpness": 0.9,
+      "bendFrom": 58,
+      "bendTo": 78,
+      "cup": 0.12,
+      "keel": 0.05,
+      "colors": [
+       "#34421d",
+       "#3f4f25",
+       "#4a5c2e",
+       "#556936"
+      ],
+      "edgeColor": "#64784e",
+      "edgeStart": 0.5,
+      "segmentsU": 10,
+      "segmentsV": 12,
+      "roll": 80
+     }
+    },
+    {
+     "id": "3b",
+     "t": 0.8,
+     "azimuth": -90,
+     "shell": {
+      "length": 0.069,
+      "width": 0.06555,
+      "widthPeak": 0.42,
+      "baseWidth": 0.1,
+      "tipSharpness": 0.9,
+      "bendFrom": 58,
+      "bendTo": 78,
+      "cup": 0.12,
+      "keel": 0.05,
+      "colors": [
+       "#34421d",
+       "#3f4f25",
+       "#4a5c2e",
+       "#556936"
+      ],
+      "edgeColor": "#64784e",
+      "edgeStart": 0.5,
+      "segmentsU": 10,
+      "segmentsV": 12,
+      "roll": -80
+     }
+    },
+    {
+     "id": "ta",
+     "t": 1,
+     "azimuth": 55,
+     "shell": {
+      "length": 0.06,
+      "width": 0.056999999999999995,
+      "widthPeak": 0.42,
+      "baseWidth": 0.1,
+      "tipSharpness": 0.9,
+      "bendFrom": 18,
+      "bendTo": 32,
+      "cup": 0.12,
+      "keel": 0.05,
+      "colors": [
+       "#34421d",
+       "#3f4f25",
+       "#4a5c2e",
+       "#556936"
+      ],
+      "edgeColor": "#64784e",
+      "edgeStart": 0.5,
+      "segmentsU": 10,
+      "segmentsV": 12,
+      "roll": 65.53216354311934
+     }
+    },
+    {
+     "id": "tb",
+     "t": 1,
+     "azimuth": -125,
+     "shell": {
+      "length": 0.0552,
+      "width": 0.052439999999999994,
+      "widthPeak": 0.42,
+      "baseWidth": 0.1,
+      "tipSharpness": 0.9,
+      "bendFrom": 18,
+      "bendTo": 32,
+      "cup": 0.12,
+      "keel": 0.05,
+      "colors": [
+       "#34421d",
+       "#3f4f25",
+       "#4a5c2e",
+       "#556936"
+      ],
+      "edgeColor": "#64784e",
+      "edgeStart": 0.5,
+      "segmentsU": 10,
+      "segmentsV": 12,
+      "roll": -65.53216354311937
+     }
+    }
+   ]
+  },
+  {
+   "id": "C",
+   "attachHeight": 0.20449897750511248,
+   "points": [
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     -0.07,
+     0.045,
+     0.02
+    ],
+    [
+     -0.14,
+     0.085,
+     0.035
+    ],
+    [
+     -0.195,
+     0.113,
+     0.045
+    ]
+   ],
+   "radii": [
+    0.0026,
+    0.002,
+    0.0014,
+    0.0008
+   ],
+   "colors": [
+    "#5a4a34",
+    "#5d5a3a",
+    "#6b7a52"
+   ],
+   "leaves": [
+    {
+     "id": "1a",
+     "t": 0.4,
+     "azimuth": 90,
+     "shell": {
+      "length": 0.05,
+      "width": 0.0475,
+      "widthPeak": 0.42,
+      "baseWidth": 0.1,
+      "tipSharpness": 0.9,
+      "bendFrom": 58,
+      "bendTo": 78,
+      "cup": 0.12,
+      "keel": 0.05,
+      "colors": [
+       "#34421d",
+       "#3f4f25",
+       "#4a5c2e",
+       "#556936"
+      ],
+      "edgeColor": "#64784e",
+      "edgeStart": 0.5,
+      "segmentsU": 10,
+      "segmentsV": 12,
+      "roll": 80
+     }
+    },
+    {
+     "id": "1b",
+     "t": 0.4,
+     "azimuth": -90,
+     "shell": {
+      "length": 0.046000000000000006,
+      "width": 0.0437,
+      "widthPeak": 0.42,
+      "baseWidth": 0.1,
+      "tipSharpness": 0.9,
+      "bendFrom": 58,
+      "bendTo": 78,
+      "cup": 0.12,
+      "keel": 0.05,
+      "colors": [
+       "#34421d",
+       "#3f4f25",
+       "#4a5c2e",
+       "#556936"
+      ],
+      "edgeColor": "#64784e",
+      "edgeStart": 0.5,
+      "segmentsU": 10,
+      "segmentsV": 12,
+      "roll": -80
+     }
+    },
+    {
+     "id": "2a",
+     "t": 0.7,
+     "azimuth": 55,
+     "shell": {
+      "length": 0.055,
+      "width": 0.05225,
+      "widthPeak": 0.42,
+      "baseWidth": 0.1,
+      "tipSharpness": 0.9,
+      "bendFrom": 58,
+      "bendTo": 78,
+      "cup": 0.12,
+      "keel": 0.05,
+      "colors": [
+       "#34421d",
+       "#3f4f25",
+       "#4a5c2e",
+       "#556936"
+      ],
+      "edgeColor": "#64784e",
+      "edgeStart": 0.5,
+      "segmentsU": 10,
+      "segmentsV": 12,
+      "roll": 65.53216354311934
+     }
+    },
+    {
+     "id": "2b",
+     "t": 0.7,
+     "azimuth": -125,
+     "shell": {
+      "length": 0.0506,
+      "width": 0.048069999999999995,
+      "widthPeak": 0.42,
+      "baseWidth": 0.1,
+      "tipSharpness": 0.9,
+      "bendFrom": 58,
+      "bendTo": 78,
+      "cup": 0.12,
+      "keel": 0.05,
+      "colors": [
+       "#34421d",
+       "#3f4f25",
+       "#4a5c2e",
+       "#556936"
+      ],
+      "edgeColor": "#64784e",
+      "edgeStart": 0.5,
+      "segmentsU": 10,
+      "segmentsV": 12,
+      "roll": -65.53216354311937
+     }
+    },
+    {
+     "id": "ta",
+     "t": 1,
+     "azimuth": 90,
+     "shell": {
+      "length": 0.06,
+      "width": 0.056999999999999995,
+      "widthPeak": 0.42,
+      "baseWidth": 0.1,
+      "tipSharpness": 0.9,
+      "bendFrom": 18,
+      "bendTo": 32,
+      "cup": 0.12,
+      "keel": 0.05,
+      "colors": [
+       "#34421d",
+       "#3f4f25",
+       "#4a5c2e",
+       "#556936"
+      ],
+      "edgeColor": "#64784e",
+      "edgeStart": 0.5,
+      "segmentsU": 10,
+      "segmentsV": 12,
+      "roll": 80
+     }
+    },
+    {
+     "id": "tb",
+     "t": 1,
+     "azimuth": -90,
+     "shell": {
+      "length": 0.0552,
+      "width": 0.052439999999999994,
+      "widthPeak": 0.42,
+      "baseWidth": 0.1,
+      "tipSharpness": 0.9,
+      "bendFrom": 18,
+      "bendTo": 32,
+      "cup": 0.12,
+      "keel": 0.05,
+      "colors": [
+       "#34421d",
+       "#3f4f25",
+       "#4a5c2e",
+       "#556936"
+      ],
+      "edgeColor": "#64784e",
+      "edgeStart": 0.5,
+      "segmentsU": 10,
+      "segmentsV": 12,
+      "roll": -80
+     }
+    }
+   ]
+  },
+  {
+   "id": "D",
+   "attachHeight": 0.13803680981595093,
+   "points": [
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0.065,
+     0.08,
+     -0.02
+    ],
+    [
+     0.14,
+     0.17,
+     -0.04
+    ],
+    [
+     0.2,
+     0.235,
+     -0.05
+    ]
+   ],
+   "radii": [
+    0.0028,
+    0.0022,
+    0.0015,
+    0.0008
+   ],
+   "colors": [
+    "#5a4a34",
+    "#5d5a3a",
+    "#6b7a52"
+   ],
+   "leaves": [
+    {
+     "id": "1a",
+     "t": 0.3,
+     "azimuth": 90,
+     "shell": {
+      "length": 0.06,
+      "width": 0.056999999999999995,
+      "widthPeak": 0.42,
+      "baseWidth": 0.1,
+      "tipSharpness": 0.9,
+      "bendFrom": 58,
+      "bendTo": 78,
+      "cup": 0.12,
+      "keel": 0.05,
+      "colors": [
+       "#34421d",
+       "#3f4f25",
+       "#4a5c2e",
+       "#556936"
+      ],
+      "edgeColor": "#64784e",
+      "edgeStart": 0.5,
+      "segmentsU": 10,
+      "segmentsV": 12,
+      "roll": 80
+     }
+    },
+    {
+     "id": "1b",
+     "t": 0.3,
+     "azimuth": -90,
+     "shell": {
+      "length": 0.0552,
+      "width": 0.052439999999999994,
+      "widthPeak": 0.42,
+      "baseWidth": 0.1,
+      "tipSharpness": 0.9,
+      "bendFrom": 58,
+      "bendTo": 78,
+      "cup": 0.12,
+      "keel": 0.05,
+      "colors": [
+       "#34421d",
+       "#3f4f25",
+       "#4a5c2e",
+       "#556936"
+      ],
+      "edgeColor": "#64784e",
+      "edgeStart": 0.5,
+      "segmentsU": 10,
+      "segmentsV": 12,
+      "roll": -80
+     }
+    },
+    {
+     "id": "2a",
+     "t": 0.55,
+     "azimuth": 55,
+     "shell": {
+      "length": 0.05,
+      "width": 0.0475,
+      "widthPeak": 0.42,
+      "baseWidth": 0.1,
+      "tipSharpness": 0.9,
+      "bendFrom": 58,
+      "bendTo": 78,
+      "cup": 0.12,
+      "keel": 0.05,
+      "colors": [
+       "#34421d",
+       "#3f4f25",
+       "#4a5c2e",
+       "#556936"
+      ],
+      "edgeColor": "#64784e",
+      "edgeStart": 0.5,
+      "segmentsU": 10,
+      "segmentsV": 12,
+      "roll": 65.53216354311934
+     }
+    },
+    {
+     "id": "2b",
+     "t": 0.55,
+     "azimuth": -125,
+     "shell": {
+      "length": 0.046000000000000006,
+      "width": 0.0437,
+      "widthPeak": 0.42,
+      "baseWidth": 0.1,
+      "tipSharpness": 0.9,
+      "bendFrom": 58,
+      "bendTo": 78,
+      "cup": 0.12,
+      "keel": 0.05,
+      "colors": [
+       "#34421d",
+       "#3f4f25",
+       "#4a5c2e",
+       "#556936"
+      ],
+      "edgeColor": "#64784e",
+      "edgeStart": 0.5,
+      "segmentsU": 10,
+      "segmentsV": 12,
+      "roll": -65.53216354311937
+     }
+    },
+    {
+     "id": "3a",
+     "t": 0.8,
+     "azimuth": 90,
+     "shell": {
+      "length": 0.055,
+      "width": 0.05225,
+      "widthPeak": 0.42,
+      "baseWidth": 0.1,
+      "tipSharpness": 0.9,
+      "bendFrom": 58,
+      "bendTo": 78,
+      "cup": 0.12,
+      "keel": 0.05,
+      "colors": [
+       "#34421d",
+       "#3f4f25",
+       "#4a5c2e",
+       "#556936"
+      ],
+      "edgeColor": "#64784e",
+      "edgeStart": 0.5,
+      "segmentsU": 10,
+      "segmentsV": 12,
+      "roll": 80
+     }
+    },
+    {
+     "id": "3b",
+     "t": 0.8,
+     "azimuth": -90,
+     "shell": {
+      "length": 0.0506,
+      "width": 0.048069999999999995,
+      "widthPeak": 0.42,
+      "baseWidth": 0.1,
+      "tipSharpness": 0.9,
+      "bendFrom": 58,
+      "bendTo": 78,
+      "cup": 0.12,
+      "keel": 0.05,
+      "colors": [
+       "#34421d",
+       "#3f4f25",
+       "#4a5c2e",
+       "#556936"
+      ],
+      "edgeColor": "#64784e",
+      "edgeStart": 0.5,
+      "segmentsU": 10,
+      "segmentsV": 12,
+      "roll": -80
+     }
+    },
+    {
+     "id": "ta",
+     "t": 1,
+     "azimuth": 55,
+     "shell": {
+      "length": 0.05,
+      "width": 0.0475,
+      "widthPeak": 0.42,
+      "baseWidth": 0.1,
+      "tipSharpness": 0.9,
+      "bendFrom": 18,
+      "bendTo": 32,
+      "cup": 0.12,
+      "keel": 0.05,
+      "colors": [
+       "#34421d",
+       "#3f4f25",
+       "#4a5c2e",
+       "#556936"
+      ],
+      "edgeColor": "#64784e",
+      "edgeStart": 0.5,
+      "segmentsU": 10,
+      "segmentsV": 12,
+      "roll": 65.53216354311934
+     }
+    },
+    {
+     "id": "tb",
+     "t": 1,
+     "azimuth": -125,
+     "shell": {
+      "length": 0.046000000000000006,
+      "width": 0.0437,
+      "widthPeak": 0.42,
+      "baseWidth": 0.1,
+      "tipSharpness": 0.9,
+      "bendFrom": 18,
+      "bendTo": 32,
+      "cup": 0.12,
+      "keel": 0.05,
+      "colors": [
+       "#34421d",
+       "#3f4f25",
+       "#4a5c2e",
+       "#556936"
+      ],
+      "edgeColor": "#64784e",
+      "edgeStart": 0.5,
+      "segmentsU": 10,
+      "segmentsV": 12,
+      "roll": -65.53216354311937
+     }
+    }
+   ]
+  }
+ ],
+ "materials": {
+  "petal": {
+   "roughness": 0.7
+  },
+  "stem": {
+   "roughness": 0.697
+  },
+  "leaf": {
+   "roughness": 0.734
+  }
+ },
+ "sway": {
+  "amplitude": 0.018,
+  "speed": 0.45
+ }
+}

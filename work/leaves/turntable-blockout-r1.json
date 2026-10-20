@@ -1,0 +1,98 @@
+{
+  "angles": [
+    {
+      "azimuth": 0.0,
+      "path": "/Users/yelimkim/Projects/3dShadows/work/leaves/renders/blockout-r1-front.png",
+      "isReference": true,
+      "segmented": true,
+      "holed": true,
+      "interiorHolePixelCount": 6486,
+      "interiorHoleFraction": 0.03533680563122453,
+      "largestHolePixelCount": 2142,
+      "largestHoleBBox": {
+        "x": 352,
+        "y": 609,
+        "width": 61,
+        "height": 69
+      },
+      "areaFraction": 0.1722562577893899,
+      "ratio": 1.0,
+      "degenerate": false
+    },
+    {
+      "azimuth": 90.0,
+      "path": "/Users/yelimkim/Projects/3dShadows/work/leaves/renders/blockout-r1-az90.png",
+      "isReference": false,
+      "segmented": true,
+      "holed": true,
+      "interiorHolePixelCount": 1933,
+      "interiorHoleFraction": 0.03415013338515627,
+      "largestHolePixelCount": 1001,
+      "largestHoleBBox": {
+        "x": 427,
+        "y": 618,
+        "width": 20,
+        "height": 88
+      },
+      "areaFraction": 0.05312082376083007,
+      "ratio": 0.30838254843419705,
+      "degenerate": false
+    },
+    {
+      "azimuth": 180.0,
+      "path": "/Users/yelimkim/Projects/3dShadows/work/leaves/renders/blockout-r1-az180.png",
+      "isReference": false,
+      "segmented": true,
+      "holed": true,
+      "interiorHolePixelCount": 6518,
+      "interiorHoleFraction": 0.03552121027161355,
+      "largestHolePixelCount": 2146,
+      "largestHoleBBox": {
+        "x": 430,
+        "y": 610,
+        "width": 61,
+        "height": 68
+      },
+      "areaFraction": 0.172207456792348,
+      "ratio": 0.9997166953603417,
+      "degenerate": false
+    },
+    {
+      "azimuth": 270.0,
+      "path": "/Users/yelimkim/Projects/3dShadows/work/leaves/renders/blockout-r1-az270.png",
+      "isReference": false,
+      "segmented": true,
+      "holed": true,
+      "interiorHolePixelCount": 1959,
+      "interiorHoleFraction": 0.03463272341553964,
+      "largestHolePixelCount": 1010,
+      "largestHoleBBox": {
+        "x": 395,
+        "y": 618,
+        "width": 21,
+        "height": 88
+      },
+      "areaFraction": 0.05308516149376098,
+      "ratio": 0.3081755181206006,
+      "degenerate": false
+    }
+  ],
+  "referenceAzimuth": 0.0,
+  "requiredAzimuths": [
+    0.0,
+    90.0,
+    180.0,
+    270.0
+  ],
+  "azimuthTolerance": 5.0,
+  "missingAzimuths": [],
+  "covered": true,
+  "collapseRatio": 0.15,
+  "degenerate": false,
+  "allowHoles": true,
+  "holed": true,
+  "unsegmentedAzimuths": [],
+  "segmentationReliable": true,
+  "passed": true,
+  "note": "deterministic; zero token; mandatory azimuth coverage catches off-axis-only defects, interior-hole flood fill catches silhouette-enclosed background that an area-only check misses"
+}

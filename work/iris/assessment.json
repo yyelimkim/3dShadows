@@ -1,0 +1,403 @@
+{
+  "targetName": "Iris",
+  "sourceImage": "/Users/yelimkim/Projects/3dShadows/references/iris.png",
+  "preSpecAssessment": {
+    "objectClass": {
+      "primaryType": "cut flower stem \u2014 beardless (Louisiana-type) iris",
+      "primaryDomain": "object",
+      "formLanguage": [
+        "organic",
+        "botanical-like"
+      ],
+      "structureKind": [
+        "branching hierarchy",
+        "layered shell",
+        "repeated modules"
+      ],
+      "motionPotential": [
+        "whole-object transform",
+        "bendable"
+      ],
+      "materialFamilies": [
+        "leaf",
+        "petal (thin translucent dielectric)"
+      ],
+      "notes": "Organic thin-shelled object, not a character. Shadow hero piece: silhouette from every azimuth first."
+    },
+    "complexity": {
+      "tier": "moderate",
+      "scores": {
+        "silhouetteComplexity": 3,
+        "componentCount": 2,
+        "hierarchyDepth": 2,
+        "repetitionDensity": 1,
+        "materialLayerCount": 2,
+        "localDetailDensity": 1,
+        "occlusionRisk": 2,
+        "actionReadinessNeed": 1
+      },
+      "estimatedCounts": {
+        "macroComponents": 4,
+        "mesoComponents": 5,
+        "microFeatureGroups": 3,
+        "materialLayers": 3,
+        "repetitionSystems": 3
+      },
+      "reasoning": [
+        "Wide trimerous head: 3 spreading falls dominate the silhouette, 3 upright standards form the crown.",
+        "Two very different leaves (long sword leaf, narrow spathe leaf) both sheathe the stem.",
+        "Back fall/standard hidden: occlusion 2."
+      ]
+    },
+    "specDepthDecision": {
+      "requiredDepth": "moderate",
+      "minimumComponentLevels": [
+        "macro",
+        "meso",
+        "micro"
+      ],
+      "needsRepetitionSystems": true,
+      "needsMaterialLocalOverrides": true,
+      "needsMultipleReviewViews": true,
+      "needsActionReadyHierarchy": true,
+      "rationale": "Silhouette depends on the fall spread and both leaves; pivots base/midStem/head needed for sway."
+    },
+    "unknownsToResolveBeforeImplementation": [],
+    "detailInventory": {
+      "scanMethod": "grid-3x3",
+      "targetMinDetails": 6,
+      "note": "Enumerate every identity-defining small detail before authoring the spec. Each detail must map to a component.localFeatures entry or material.localOverrides entry, never prose only. Use forge/stage1_intake/build_detail_inventory.py to scan zones.",
+      "details": [
+        {
+          "id": "d-fall-arch",
+          "zone": "top-left",
+          "kind": "contour",
+          "description": "falls arch up then droop; right fall tip curls upward",
+          "mapsTo": {
+            "ref": "fall-arch"
+          },
+          "confidence": 0.8
+        },
+        {
+          "id": "d-signal",
+          "zone": "top-center",
+          "kind": "stain",
+          "description": "yellow signal patch at each fall base",
+          "mapsTo": {
+            "ref": "signal-patch"
+          },
+          "confidence": 0.8
+        },
+        {
+          "id": "d-standard-spoon",
+          "zone": "top-center",
+          "kind": "contour",
+          "description": "standards spoon-shaped: narrow claw, broad blunt blade, slight incurve",
+          "mapsTo": {
+            "ref": "standard-spoon"
+          },
+          "confidence": 0.75
+        },
+        {
+          "id": "d-style-arms",
+          "zone": "top-center",
+          "kind": "contour",
+          "description": "three small yellow-orange style arms over the falls",
+          "mapsTo": {
+            "ref": "style-arm-crest"
+          },
+          "confidence": 0.6
+        },
+        {
+          "id": "d-sheath",
+          "zone": "bottom-center",
+          "kind": "seam",
+          "description": "sword and spathe leaves wrap the stem at their bases (sheath)",
+          "mapsTo": {
+            "ref": "leaf-sheath"
+          },
+          "confidence": 0.75
+        },
+        {
+          "id": "d-bud-tip",
+          "zone": "middle-center",
+          "kind": "contour",
+          "description": "closed green bud with acuminate tip beside the stem",
+          "mapsTo": {
+            "ref": "bud-tip"
+          },
+          "confidence": 0.7
+        },
+        {
+          "id": "d-fall-edge",
+          "zone": "top-right",
+          "kind": "linework",
+          "description": "falls lighten toward the margin, near-white at the right fall tip",
+          "mapsTo": {
+            "ref": "fall-edge-lighten"
+          },
+          "confidence": 0.65
+        },
+        {
+          "id": "d-leaf-veins",
+          "zone": "bottom-right",
+          "kind": "linework",
+          "description": "parallel venation on sword leaf (colour only)",
+          "mapsTo": {
+            "ref": "parallel-vein-tint"
+          },
+          "confidence": 0.5
+        },
+        {
+          "id": "d-stem-node",
+          "zone": "middle-center",
+          "kind": "contour",
+          "description": "stem thickens at the two leaf nodes",
+          "mapsTo": {
+            "ref": "node-swelling"
+          },
+          "confidence": 0.7
+        }
+      ]
+    },
+    "anatomy": {
+      "applies": false,
+      "styleHeads": 0.0,
+      "proportions": {
+        "headUnit": 0.0,
+        "torso": 0.0,
+        "legs": 0.0,
+        "shoulderWidth": 0.0,
+        "hipWidth": 0.0
+      },
+      "pose": {
+        "type": "unassessed",
+        "jointAngles": {}
+      },
+      "faceLandmarks": {
+        "eyeLine": 0.0,
+        "eyeSpacing": 0.0,
+        "noseBase": 0.0,
+        "mouthLine": 0.0,
+        "hairline": 0.0
+      },
+      "features": [],
+      "confidence": 0.0,
+      "note": "Only meaningful when objectClass.primaryDomain is character or hybrid. Set applies=true and fill from forge/stage1_intake/extract_landmarks.py. See grimoire/character/reconstruction.md and grimoire/character/likeness_maximization.md."
+    },
+    "sourceImage": "/Users/yelimkim/Projects/3dShadows/references/iris.png",
+    "resolvedInferences": [
+      {
+        "id": "back-petals",
+        "status": "inferred",
+        "resolution": "trimerous symmetry: falls at 0/\u00b1120\u00b0, standards at 180/\u00b160\u00b0"
+      },
+      {
+        "id": "sword-leaf-depth",
+        "status": "inferred",
+        "resolution": "blade rolled to face the camera, grows toward +x"
+      },
+      {
+        "id": "bud-depth",
+        "status": "inferred",
+        "resolution": "bud sits slightly behind/right of the stem"
+      }
+    ]
+  },
+  "qualityContract": {
+    "qualityBar": "moderate",
+    "definitionOfDone": [
+      "Front silhouette: head 0.34 wide at h 0.84-1.0 on a 0.83 stem; sword leaf tip at (+0.14,0.68); spathe leaf up to h 0.89.",
+      "From side/3/4/top the falls read as arched curved shells spreading on three azimuths; standards upright cupped spoons.",
+      "Every mesh casts shadows; petals DoubleSide; origin at stem base, default height 1.0."
+    ],
+    "minimumSpecDepth": {
+      "macroComponents": 3,
+      "mesoComponents": 5,
+      "microFeatureGroups": 3,
+      "materialLayers": 3,
+      "repetitionSystems": 3,
+      "reviewViewpoints": 4
+    },
+    "featureGroups": [
+      {
+        "id": "fall-spread",
+        "name": "Three spreading falls",
+        "required": true,
+        "qualityCriteria": [
+          "falls \u22480.16 long, 0.07 wide; left/right nearly horizontal, front droops"
+        ],
+        "evidenceRefs": [
+          "zone:top-left",
+          "zone:top-right"
+        ],
+        "failureModes": [
+          "falls upright like tulip petals",
+          "flat cards from the side"
+        ]
+      },
+      {
+        "id": "standards",
+        "name": "Upright standards",
+        "required": true,
+        "qualityCriteria": [
+          "3 spoon standards \u22480.14 tall to h 1.0"
+        ],
+        "evidenceRefs": [
+          "zone:top-center"
+        ],
+        "failureModes": [
+          "standards flare out"
+        ]
+      },
+      {
+        "id": "leaves",
+        "name": "Sword and spathe leaves",
+        "required": true,
+        "qualityCriteria": [
+          "sword leaf 0.45 long up-right from h 0.25; spathe leaf straight up from h 0.60"
+        ],
+        "evidenceRefs": [
+          "zone:bottom-right",
+          "zone:middle-center"
+        ],
+        "failureModes": [
+          "leaf floats off stem",
+          "leaf edge-on"
+        ]
+      },
+      {
+        "id": "stem",
+        "name": "Tapered stem",
+        "required": true,
+        "qualityCriteria": [
+          "diameter \u22480.012, slight lean left mid-height then right toward the head"
+        ],
+        "evidenceRefs": [
+          "zone:bottom-center"
+        ],
+        "failureModes": [
+          "dead straight cylinder"
+        ]
+      },
+      {
+        "id": "petal-color",
+        "name": "Coral falls, salmon standards, yellow signal",
+        "required": true,
+        "qualityCriteria": [
+          "stops sampled from pixels"
+        ],
+        "evidenceRefs": [
+          "zone:top-center"
+        ],
+        "failureModes": [
+          "one flat red"
+        ]
+      }
+    ],
+    "visualDeltaChecks": [
+      "front silhouette IoU",
+      "fall spread width",
+      "side/top: falls arched shells",
+      "leaf tip positions",
+      "stem lean"
+    ],
+    "antiShallowSpecRules": [
+      "Do not proceed to code if qualityContract.qualityBar is unassessed.",
+      "Do not proceed to code if the spec only contains a root component for a moderate or complex object.",
+      "Do not proceed to code if required featureGroups are not represented by componentTree, materials, or repetitionSystems.",
+      "Do not proceed to code if visible local features are described only in prose and not attached to components/materials/evidenceRefs.",
+      "Do not proceed past structural-pass if attached child parts lack attachment.parentSocket, localStart, localEnd, embedDepth/overlap, and gapTolerance.",
+      "Do not pass material look-dev when albedo is reused as roughness, height, normal, or AO.",
+      "Do not pass material look-dev without macro, meso, and micro surface frequency bands for close-up materials.",
+      "Do not pass reference-fidelity material look-dev from a source image without usable referencePbr maps or an explicit documented limitation.",
+      "Do not patch a spec with extracted PBR maps when extraction confidence is below the target threshold unless the user explicitly accepts lower fidelity.",
+      "Do not place adjacent separate-geometry parts below 0.02 world-unit seam overlap (source: grimoire/build/geometry_patterns.md).",
+      "Do not satisfy raised or recessed relief, fasteners, or grip structure with a map alone when the feature affects form; use geometry or displacement (source: grimoire/build/geometry_patterns.md)."
+    ]
+  },
+  "authoringInstruction": "Fill observed object class, complexity reasoning, featureGroups, visualDeltaChecks, and unknowns before generating or implementing ObjectSculptSpec.",
+  "localSpecSearch": {
+    "collection": "core_3d",
+    "query": "Iris flower petal thin shell double sided botanical stem tapered tube curve sword leaf sheath blade subsurface translucency petal",
+    "index": {
+      "status": "hit",
+      "reason": "current",
+      "fingerprint": "62f2831e1d52eeb6dbb94a87c44fa25b1f4926626a7b1f8c2bcadc63e04e9471"
+    },
+    "matches": [
+      {
+        "record_id": "core.shader-mapping-conegeometry-tapered-tips",
+        "file_path": "docs/raw/img2threejs-skill-dataset.json",
+        "heading": null,
+        "key_path": "categories.rendering_shader_mapping[11]",
+        "score": 6.299817361323,
+        "snippets": [
+          "Maps to tapered projectile-like or pointed components. \u00c1nh x\u1ea1 t\u1edbi c\u00e1c b\u1ed9 ph\u1eadn thon nh\u1ecdn gi\u1ed1ng \u0111\u1ea7u \u0111\u1ea1n ho\u1eb7c c\u00f3 m\u0169i nh\u1ecdn. Recognition cues: Tapered pointed shape narrowing to a point \u2014 projectile tips, some conical muzzle device shapes D\u1ea5u hi\u1ec7u ..."
+        ],
+        "source_refs": [
+          {
+            "path": "docs/raw/img2threejs-skill-dataset.json",
+            "heading": null,
+            "key_path": "categories.rendering_shader_mapping[11]"
+          }
+        ],
+        "evidence_refs": [
+          {
+            "kind": "source",
+            "ref": "docs/raw/img2threejs-skill-dataset.json",
+            "note": "img2threejs NotebookLM research distillation"
+          }
+        ]
+      },
+      {
+        "record_id": "core.pbr-subsurface-scattering-sss",
+        "file_path": "docs/raw/img2threejs-skill-dataset.json",
+        "heading": null,
+        "key_path": "categories.material_pbr[5]",
+        "score": 5.777507968452,
+        "snippets": [
+          "... xuy\u00ean v\u00e0o v\u00e0 t\u00e1n x\u1ea1 b\u00ean trong tr\u01b0\u1edbc khi tho\u00e1t ra (da, s\u00e1p, \u0111\u00e1 c\u1ea9m th\u1ea1ch, m\u1ed9t s\u1ed1 nh\u1ef1a polymer). Recognition cues: Edges/thin sections of the material glow softly when backlit rather than showing a hard black silhouette; Relevant mainly to ..."
+        ],
+        "source_refs": [
+          {
+            "path": "docs/raw/img2threejs-skill-dataset.json",
+            "heading": null,
+            "key_path": "categories.material_pbr[5]"
+          }
+        ],
+        "evidence_refs": [
+          {
+            "kind": "source",
+            "ref": "docs/raw/img2threejs-skill-dataset.json",
+            "note": "img2threejs NotebookLM research distillation"
+          }
+        ]
+      },
+      {
+        "record_id": "core.shader-mapping-tubegeometry-straps-cables-belts",
+        "file_path": "docs/raw/img2threejs-skill-dataset.json",
+        "heading": null,
+        "key_path": "categories.rendering_shader_mapping[10]",
+        "score": 4.445426974684,
+        "snippets": [
+          "Maps to flexible components following a 3D curve. \u00c1nh x\u1ea1 t\u1edbi c\u00e1c b\u1ed9 ph\u1eadn m\u1ec1m d\u1ebbo ch\u1ea1y theo m\u1ed9t \u0111\u01b0\u1eddng cong 3D. Recognition cues: Flexible, curve-following linear component \u2014 sling strap, pressure-switch cable, ammo belt draping into a receiver ..."
+        ],
+        "source_refs": [
+          {
+            "path": "docs/raw/img2threejs-skill-dataset.json",
+            "heading": null,
+            "key_path": "categories.rendering_shader_mapping[10]"
+          }
+        ],
+        "evidence_refs": [
+          {
+            "kind": "source",
+            "ref": "docs/raw/img2threejs-skill-dataset.json",
+            "note": "img2threejs NotebookLM research distillation"
+          }
+        ]
+      }
+    ]
+  }
+}

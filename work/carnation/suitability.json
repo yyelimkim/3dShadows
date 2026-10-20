@@ -1,0 +1,12 @@
+{
+  "reference": "references/carnation.png",
+  "verdict": "conditional",
+  "reasons": [
+    "one obvious target object on a clean white background, occupies ~91% of frame height",
+    "strong front silhouette; head, stem, leaves all separable",
+    "single view only: corolla has approximate radial symmetry so the back is inferable by continuing the whorls",
+    "organic thin-shelled subject; user accepts a silhouette-first stylization (shadow hero piece), veins/pollen skipped"
+  ],
+  "missingViews": ["side", "top"],
+  "acceptedBy": "user brief: infer back by continuing petal curvature"
+}

@@ -1,0 +1,65 @@
+{
+  "passed": false,
+  "checks": {
+    "silhouetteIoU": 0.6772,
+    "aspectRatioDelta": 0.0257,
+    "scaleDelta": 0.0567,
+    "bilateralSymmetryError": 0.047,
+    "colorDelta": {
+      "checked": 10,
+      "maxDeltaE": 16.88,
+      "perComponent": [
+        {
+          "componentId": null,
+          "deltaE": 14.5
+        },
+        {
+          "componentId": null,
+          "deltaE": 14.5
+        },
+        {
+          "componentId": null,
+          "deltaE": 14.5
+        },
+        {
+          "componentId": null,
+          "deltaE": 14.5
+        },
+        {
+          "componentId": null,
+          "deltaE": 7.62
+        },
+        {
+          "componentId": null,
+          "deltaE": 7.62
+        },
+        {
+          "componentId": null,
+          "deltaE": 7.62
+        },
+        {
+          "componentId": null,
+          "deltaE": 7.62
+        },
+        {
+          "componentId": null,
+          "deltaE": 16.88
+        },
+        {
+          "componentId": null,
+          "deltaE": 16.88
+        }
+      ],
+      "gated": false
+    }
+  },
+  "failures": [
+    "silhouette IoU 0.677 is below threshold 0.85"
+  ],
+  "maskWarnings": [
+    "reference: 2.3% of foreground cells lie outside the largest connected blob and were excluded from the bounding box; if the subject really has separated parts in this projection, they are not being measured"
+  ],
+  "renderHash": "2c561fea76ae70f2",
+  "passId": "blockout",
+  "mapStrippedRender": "/Users/yelimkim/Projects/3dShadows/work/carnation/renders/blockout-r1-front-unlit.png"
+}
