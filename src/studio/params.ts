@@ -167,11 +167,23 @@ export function randomPalette(rand: () => number = Math.random): Partial<StudioP
   };
 }
 
-/** Halftone studio: strict two-tone screening of an exact hard-edged shadow, no blur of any kind. */
+/** Halftone studio: strict two-tone screening; soft edges become smaller dots, or exact outlines. */
 export const HALFTONE_STYLES = ['Dots', 'Squares', 'Diamonds', 'Lines', 'Threshold', 'Dither'] as const;
 export type HalftoneStyle = (typeof HALFTONE_STYLES)[number];
 
+export const HALFTONE_EDGES = ['Soft (shrinking dots)', 'Exact outline'] as const;
+export type HalftoneEdges = (typeof HALFTONE_EDGES)[number];
+
 export type HalftoneParams = {
+  edges: HalftoneEdges;
+  /** How wide the soft falloff of shrinking dots spreads (soft edges only). */
+  edgeBlur: number;
+  /** Tones below this print as outlined rings instead of solid dots (0 = off; Dots only). */
+  ringBelow: number;
+  /** Largest dot diameter as a fraction of the cell (1 = neighbours just touch, >1 = overlapping full circles). */
+  dotSize: number;
+  /** Smallest dot diameter that still prints, in base pixels. */
+  minDot: number;
   style: HalftoneStyle;
   cellSize: number;
   angle: number;
@@ -184,9 +196,14 @@ export type HalftoneParams = {
 };
 
 export const DEFAULT_HALFTONE: HalftoneParams = {
+  edges: 'Soft (shrinking dots)',
+  edgeBlur: 0.5,
+  ringBelow: 0,
+  dotSize: 0.9,
+  minDot: 1.5,
   style: 'Dots',
-  cellSize: 9,
-  angle: 45,
+  cellSize: 11,
+  angle: 0,
   threshold: 0.5,
   contrast: 1.2,
   gamma: 1,

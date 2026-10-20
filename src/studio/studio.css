@@ -47,6 +47,13 @@ html, body {
   gap: 10px;
 }
 
+/* Left stack: scene, export & file, shortcuts. Stops above the flower tray. */
+.panel-stack.left {
+  left: 16px;
+  right: auto;
+  max-height: calc(100vh - 160px);
+}
+
 /* Each panel scrolls its own contents, so both title bars always stay in view. */
 .panel-stack > .lil-gui.lil-root {
   width: 100%;
@@ -131,6 +138,7 @@ body.expanded .preview { display: none; }
 @media (max-width: 720px) {
   .tray { left: 8px; right: 8px; bottom: 8px; overflow-x: auto; }
   .panel-stack { right: 8px; top: 8px; max-height: 45vh; }
+  .panel-stack.left { left: 8px; right: auto; max-height: 30vh; }
   .preview { bottom: 120px; }
 }
 

@@ -334,39 +334,61 @@ const processMaterial = new THREE.ShaderMaterial({
 });
 
 /**
- * Halftone studio: screens an exact hard-edged shadow into exactly two colours. Each pixel tests
- * its own tone against the screen, so silhouettes follow the true flower/leaf outline and the
- * pattern only shows inside translucent tissue. No blur, no anti-aliasing.
+ * Halftone studio: strictly two-tone screening, never anti-aliased.
+ *  - Soft edges: tone comes from the soft, depth-blurred shadow and is sampled once per cell, so
+ *    each mark is a whole dot whose size tracks the tone — dense cores merge, blurred edges fade
+ *    out through ever smaller dots (optionally as rings below a tone).
+ *  - Exact outline: tone is a hard silhouette tested per pixel, so outlines follow the flower.
  */
 const halftoneMaterial = new THREE.ShaderMaterial({
   uniforms: {
     tMask: { value: null as THREE.Texture | null },
+    tBlur: { value: null as THREE.Texture | null },
+    tBlurWide: { value: null as THREE.Texture | null },
+    soft: { value: 1 },
+    edgeBlur: { value: 0.5 },
     basePx: { value: new THREE.Vector2(1600, 1000) },
     styleId: { value: 0 },
     cellSize: { value: 9 },
-    angle: { value: 45 },
+    angle: { value: 0 },
     threshold: { value: 0.5 },
     contrast: { value: 1 },
     gammaV: { value: 1 },
+    ringBelow: { value: 0 },
+    dotScale: { value: 0.9 },
+    minDotPx: { value: 1.5 },
     ink: { value: new THREE.Vector3() },
     paper: { value: new THREE.Vector3(1, 1, 1) },
     invert: { value: 0 },
   },
   vertexShader: fullscreenVert,
   fragmentShader: /* glsl */ `
-    uniform sampler2D tMask;
+    uniform sampler2D tMask, tBlur, tBlurWide;
     uniform vec2 basePx;
-    uniform float styleId, cellSize, angle, threshold, contrast, gammaV, invert;
+    uniform float soft, edgeBlur, styleId, cellSize, angle, threshold, contrast, gammaV, ringBelow, dotScale, minDotPx, invert;
     uniform vec3 ink, paper;
     varying vec2 vUv;
     const float PI = 3.14159265;
 
+    float shadowAt(vec2 uv) {
+      uv = clamp(uv, 0.0, 1.0);
+      vec4 sm = texture2D(tMask, uv);
+      if (soft < 0.5) return sm.r;
+      // Same depth-weighted softening as the photogram look: parts near the canvas keep a firm
+      // edge, parts far from it spread into a wide falloff of shrinking dots.
+      vec4 md = texture2D(tBlur, uv);
+      vec4 wide = texture2D(tBlurWide, uv);
+      float far = mix(wide.g / max(wide.b, 0.02), md.g / max(md.b, 0.02), 0.8);
+      float k = clamp((0.25 + far) * edgeBlur * 2.0, 0.0, 1.0);
+      float m = mix(sm.r, md.r, smoothstep(0.0, 0.45, k));
+      return mix(m, wide.r, smoothstep(0.4, 1.0, k));
+    }
     float toneAt(vec2 uv) {
-      float t = texture2D(tMask, clamp(uv, 0.0, 1.0)).r;
+      float t = shadowAt(uv);
       t = mix(t, 1.0 - t, invert);
       t = clamp((t - 0.5) * contrast + 0.5 + (0.5 - threshold), 0.0, 1.0);
-      // Dead zone at both ends so soft-shadow sampling noise never prints stray marks.
-      t = clamp((t - 0.03) / 0.94, 0.0, 1.0);
+      // Dead zone at both ends so faint blur tails and sampling noise never print on clean paper.
+      t = clamp((t - 0.07) / 0.9, 0.0, 1.0);
       return pow(t, 1.0 / max(gammaV, 0.01));
     }
     float bayer2(vec2 a) { a = floor(a); return fract(dot(a, vec2(0.5, a.y * 0.75))); }
@@ -378,31 +400,56 @@ const halftoneMaterial = new THREE.ShaderMaterial({
       float isInk;
       if (styleId > 3.5) {
         // Threshold (4) or ordered dither (5): per pixel, still strictly two-tone.
-        float raw = texture2D(tMask, vUv).r;
-        raw = mix(raw, 1.0 - raw, invert);
         if (styleId < 4.5) {
+          float raw = shadowAt(vUv);
+          raw = mix(raw, 1.0 - raw, invert);
           isInk = step(threshold, raw);
         } else {
-          float t = toneAt(vUv);
-          isInk = step(bayer8(px / max(cellSize / 4.0, 1.0)) + 1.0 / 128.0, t);
+          isInk = step(bayer8(px / max(cellSize / 4.0, 1.0)) + 1.0 / 128.0, toneAt(vUv));
         }
       } else {
         float a = radians(angle);
         mat2 rot = mat2(cos(a), sin(a), -sin(a), cos(a));
         vec2 q = rot * px / cellSize;
         vec2 f = fract(q) - 0.5;
-        float t = toneAt(vUv);
+        // One tone per cell, so every mark is whole. Exact-outline lines/squares/diamonds sample
+        // per pixel instead; dots always stay full circles.
+        vec2 centreUv = (transpose(rot) * ((floor(q) + 0.5) * cellSize)) / basePx;
+        float t = toneAt((soft > 0.5 || styleId < 0.5) ? centreUv : vUv);
+        float d = length(f);
+        float visible = 1.0;
         if (styleId < 0.5) {
-          // Round dots; past 50% coverage, paper dots on ink so area keeps tracking tone.
-          isInk = t <= 0.5 ? step(length(f), sqrt(t / PI)) : 1.0 - step(length(f), sqrt((1.0 - t) / PI));
+          // Full circles only: area tracks tone, capped at the chosen dot size. Dots bigger than
+          // their cell spill into neighbours, so nearby cells are tested too and every circle
+          // stays whole (large ones overlap rather than being clipped at the cell edge).
+          isInk = 0.0;
+          float reach = floor(dotScale * 0.5 + 0.5);
+          for (int j = -2; j <= 2; j++) {
+            for (int i = -2; i <= 2; i++) {
+              vec2 o = vec2(float(i), float(j));
+              if (abs(o.x) > reach || abs(o.y) > reach) continue;
+              vec2 cell = floor(q) + o;
+              float ct = toneAt((transpose(rot) * ((cell + 0.5) * cellSize)) / basePx);
+              float r = 0.5 * dotScale * sqrt(ct);
+              if (2.0 * r * cellSize < minDotPx) continue;
+              float dc = length(q - (cell + 0.5));
+              if (ct < ringBelow) {
+                float rr = max(r, 0.5 * dotScale * sqrt(ringBelow) * 0.6);
+                float stroke = max(0.07, 1.2 / cellSize);
+                isInk = max(isInk, step(rr - stroke, dc) * step(dc, rr));
+              } else {
+                isInk = max(isInk, step(dc, r));
+              }
+            }
+          }
         } else if (styleId < 1.5) {
           isInk = step(max(abs(f.x), abs(f.y)), sqrt(t) * 0.5);
         } else if (styleId < 2.5) {
-          float d = abs(f.x) + abs(f.y);
-          isInk = t <= 0.5 ? step(d, sqrt(t * 0.5)) : 1.0 - step(d, sqrt((1.0 - t) * 0.5));
+          isInk = step(abs(f.x) + abs(f.y), t);
         } else {
           isInk = step(abs(f.y), t * 0.5);
         }
+        isInk *= visible;
       }
       gl_FragColor = vec4(mix(paper, ink, isInk), 1.0);
     }`,
@@ -552,16 +599,35 @@ export class ShadowPipeline {
     mu.lightPos.value.copy(lightPos);
     mu.lightRadius.value = p.lightSize;
     mu.softness.value = p.softness;
-    mu.hard.value = halftone ? 1 : 0;
+    const exact = halftone && look.halftone.edges === 'Exact outline';
+    mu.hard.value = exact ? 1 : 0;
     mu.tanHalf.value = tanHalf;
     r.setClearColor(0x000000, 1);
     this.renderTo(maskTarget, this.receiverScene, this.receiverCam);
 
+    // 3. Two separable blur levels (medium at 1/4 res, wide at 1/8 res) for the depth-weighted
+    //    extra blur, bloom, ghosting and soft halftone edges. The exact-outline halftone skips them.
+    if (!exact) {
+      this.quad.material = blurMaterial;
+      const pass = (src: THREE.WebGLRenderTarget, dst: THREE.WebGLRenderTarget, dx: number, dy: number) => {
+        blurMaterial.uniforms.tInput.value = src.texture;
+        blurMaterial.uniforms.dir.value.set(dx / dst.width, dy / dst.height);
+        this.renderTo(dst, this.quadScene, this.quadCam);
+      };
+      pass(maskTarget, this.blurA, 1.6, 0);
+      pass(this.blurA, this.blurB, 0, 1.6);
+      pass(this.blurB, this.blurC, 2.2, 0);
+      pass(this.blurC, this.blurD, 0, 2.2);
+    }
+
     if (halftone) {
-      // Halftone studio: screen the raw mask, skipping every blur and scan stage.
       const h = look.halftone;
       const hu = halftoneMaterial.uniforms;
       hu.tMask.value = maskTarget.texture;
+      hu.tBlur.value = this.blurB.texture;
+      hu.tBlurWide.value = this.blurD.texture;
+      hu.soft.value = exact ? 0 : 1;
+      hu.edgeBlur.value = h.edgeBlur;
       hu.basePx.value.copy(this.basePx);
       hu.styleId.value = Math.max(0, HALFTONE_STYLES.indexOf(h.style));
       hu.cellSize.value = h.cellSize;
@@ -569,6 +635,9 @@ export class ShadowPipeline {
       hu.threshold.value = h.threshold;
       hu.contrast.value = h.contrast;
       hu.gammaV.value = h.gamma;
+      hu.ringBelow.value = h.ringBelow;
+      hu.dotScale.value = h.dotSize;
+      hu.minDotPx.value = h.minDot;
       hu.ink.value.set(...hexToVec(h.ink));
       hu.paper.value.set(...hexToVec(h.paper));
       hu.invert.value = h.invert ? 1 : 0;
@@ -579,19 +648,6 @@ export class ShadowPipeline {
       r.autoClear = prevAuto;
       return;
     }
-
-    // 3. Two separable blur levels (medium at 1/4 res, wide at 1/8 res) for the depth-weighted
-    //    extra blur, bloom and ghosting.
-    this.quad.material = blurMaterial;
-    const pass = (src: THREE.WebGLRenderTarget, dst: THREE.WebGLRenderTarget, dx: number, dy: number) => {
-      blurMaterial.uniforms.tInput.value = src.texture;
-      blurMaterial.uniforms.dir.value.set(dx / dst.width, dy / dst.height);
-      this.renderTo(dst, this.quadScene, this.quadCam);
-    };
-    pass(maskTarget, this.blurA, 1.6, 0);
-    pass(this.blurA, this.blurB, 0, 1.6);
-    pass(this.blurB, this.blurC, 2.2, 0);
-    pass(this.blurC, this.blurD, 0, 2.2);
 
     // 4. Colour + scan processing into the output.
     const u = processMaterial.uniforms;

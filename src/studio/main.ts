@@ -4,7 +4,7 @@ import { TransformControls } from 'three/examples/jsm/controls/TransformControls
 import GUI, { type Controller } from 'lil-gui';
 import { flowers } from '../flowers/registry';
 import { FlowerSet, renderThumbnails, type FlowerInstance, type SavedFlower } from './flowers';
-import { DEFAULT_HALFTONE, DEFAULT_PARAMS, HALFTONE_STYLES, PRESETS, randomPalette, type HalftoneParams, type StudioParams } from './params';
+import { DEFAULT_HALFTONE, DEFAULT_PARAMS, HALFTONE_EDGES, HALFTONE_STYLES, PRESETS, randomPalette, type HalftoneParams, type StudioParams } from './params';
 import { ShadowPipeline, createOutputMaterial, type Look, type StudioMode } from './pipeline';
 
 // Colours sampled from references/Ui Reference.
@@ -435,8 +435,18 @@ document.body.appendChild(panelStack);
 const gui = new GUI({ title: 'Shadow Studio', container: panelStack });
 const htGui = new GUI({ title: 'Halftone Studio', container: panelStack });
 htGui.close();
+// Scene, export/file and shortcuts live in their own stack on the left.
+const leftStack = document.createElement('div');
+leftStack.className = 'panel-stack left';
+document.body.appendChild(leftStack);
+const sceneGui = new GUI({ title: 'Scene', container: leftStack });
+const exportGui = new GUI({ title: 'Export & file', container: leftStack });
+const infoGui = new GUI({ title: 'Shortcuts', container: leftStack });
+exportGui.close();
+infoGui.close();
+const allGuis = [gui, htGui, sceneGui, exportGui, infoGui];
 function refreshGui() {
-  for (const g of [gui, htGui]) g.controllersRecursive().forEach((c) => c.updateDisplay());
+  for (const g of allGuis) g.controllersRecursive().forEach((c) => c.updateDisplay());
 }
 const actions = {
   randomize,
@@ -467,8 +477,9 @@ const actions = {
 
 gui.onFinishChange(() => commit());
 htGui.onFinishChange(() => commit());
-const sceneFolder = gui.addFolder('Scene');
-sceneFolder.close();
+sceneGui.onFinishChange(() => commit());
+exportGui.onFinishChange(() => commit());
+const sceneFolder = sceneGui;
 sceneFolder.add(actions, 'randomize').name('Randomize composition');
 sceneFolder.add({ selectAll }, 'selectAll').name('Select all flowers (⌘/Ctrl+A)');
 sceneFolder.add(state, 'sway').name('Slow sway');
@@ -538,8 +549,15 @@ const outputSwitch = {
   set on(v: boolean) { state.mode = v ? 'Halftone' : 'Photogram'; applyMode(); },
 };
 ht.add(outputSwitch, 'on').name('Output halftone');
-ht.add(halftone, 'style', [...HALFTONE_STYLES]).name('Style');
-ht.add(halftone, 'cellSize', 3, 40, 0.5).name('Cell size px');
+ht.add(halftone, 'edges', [...HALFTONE_EDGES]).name('Edges').onChange(() => applyMode());
+const edgeBlurCtrl = ht.add(halftone, 'edgeBlur', 0, 1, 0.01).name('Edge blur');
+ht.add(halftone, 'style', [...HALFTONE_STYLES]).name('Style').onChange(() => applyMode());
+const dotCtrls = [
+  ht.add(halftone, 'dotSize', 0.1, 3, 0.01).name('Dot size'),
+  ht.add(halftone, 'minDot', 0.5, 12, 0.5).name('Min dot px'),
+  ht.add(halftone, 'ringBelow', 0, 0.6, 0.01).name('Rings below tone'),
+];
+ht.add(halftone, 'cellSize', 3, 80, 0.5).name('Cell size px');
 ht.add(halftone, 'angle', 0, 90, 1).name('Screen angle °');
 ht.add(halftone, 'threshold', 0.05, 0.95, 0.01).name('Threshold');
 ht.add(halftone, 'contrast', 0.3, 4, 0.05).name('Contrast');
@@ -557,6 +575,8 @@ ht.add({ reset: () => {
 function applyMode() {
   const isHalftone = state.mode === 'Halftone';
   htGui.title(isHalftone ? 'Halftone Studio · on' : 'Halftone Studio');
+  edgeBlurCtrl.show(halftone.edges !== 'Exact outline');
+  for (const c of dotCtrls) c.show(halftone.style === 'Dots');
   for (const f of [color, eph, scan]) f.show(!isHalftone);
   for (const c of [presetCtrl, paletteCtrl, inverseCtrl, ...photoLight]) c.show(!isHalftone);
 }
@@ -614,7 +634,7 @@ function syncFlowerPanel() {
   flowerControllers.forEach((c) => c.updateDisplay());
 }
 
-const out = gui.addFolder('Export & file');
+const out = exportGui;
 out.add(actions, 'export1').name('Export PNG 1×');
 out.add(actions, 'export2').name('Export PNG 2×');
 out.add(actions, 'export4').name('Export PNG 4×');
@@ -625,7 +645,6 @@ out.add(actions, 'save').name('Save scene (browser)');
 out.add(actions, 'loadLocal').name('Load scene (browser)');
 out.add(actions, 'downloadJson').name('Download scene JSON');
 out.add(actions, 'openJson').name('Open scene JSON…');
-out.close();
 
 const isMac = /Mac|iPhone|iPad/.test(navigator.platform);
 const mod = isMac ? '⌘' : 'Ctrl';
@@ -649,12 +668,11 @@ const SHORTCUTS: [string, string][] = [
   ['Scroll', 'Zoom camera'],
   ['?', 'Open this list'],
 ];
-const info = gui.addFolder('Info: shortcuts');
+const info = infoGui;
 const list = document.createElement('dl');
 list.className = 'shortcuts';
 list.innerHTML = SHORTCUTS.map(([k, v]) => `<dt><kbd>${k}</kbd></dt><dd>${v}</dd>`).join('');
 info.$children.appendChild(list);
-info.close();
 function openInfo() {
   info.open();
   info.domElement.scrollIntoView({ block: 'nearest' });
